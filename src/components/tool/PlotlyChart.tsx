@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import Plotly from "plotly.js-basic-dist-min";
+import type * as PlotlyType from "plotly.js";
 
 interface Props {
-  data: Plotly.Data[];
-  layout?: Partial<Plotly.Layout>;
+  data: PlotlyType.Data[];
+  layout?: Partial<PlotlyType.Layout>;
   height?: number;
 }
 
@@ -14,7 +15,7 @@ export function PlotlyChart({ data, layout, height = 420 }: Props) {
   useEffect(() => {
     if (!ref.current) return;
     const isDark = document.documentElement.classList.contains("dark");
-    const themed: Partial<Plotly.Layout> = {
+    const themed: Partial<PlotlyType.Layout> = {
       autosize: true,
       height,
       margin: { l: 56, r: 24, t: 24, b: 48 },
