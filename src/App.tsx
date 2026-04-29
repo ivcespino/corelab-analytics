@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { StubPage } from "./pages/StubPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/tool" element={<StubPage title="Research Tool" subtitle="The interactive survey will live here." />} />
+          <Route path="/dashboard" element={<StubPage title="Live Dashboard" subtitle="Real-time visualizations of survey results." />} />
+          <Route path="/team" element={<StubPage title="Meet the Team" subtitle="ITMAWD12A — STI College Malolos." />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
