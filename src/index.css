@@ -1,105 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* CoreLab Analytics — design system. All colors HSL. */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 40% 96%;          /* #F1F5F9 */
+    --foreground: 222 47% 11%;          /* #0F172A */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 231 65% 30%;             /* #1A237E navy */
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 231 67% 94%;        /* #E8EAF6 */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 28% 90%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 28% 92%;
+    --muted-foreground: 215 19% 35%;    /* #475569 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 188 100% 42%;             /* #00B8D4 cyan */
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 188 100% 42% / 0.16;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 25% 80%;              /* #CBD5E1 */
+    --input: 215 25% 80%;
+    --ring: 231 65% 30%;
 
-    --radius: 0.5rem;
+    --section-odd: 210 40% 96%;
+    --section-even: 231 67% 94%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 1rem;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --shadow-soft: 0 18px 40px hsl(222 47% 11% / 0.08);
+    --shadow-strong: 0 24px 60px hsl(222 47% 11% / 0.18);
+    --gradient-hero: linear-gradient(135deg, hsl(231 65% 18% / 0.92), hsl(231 65% 30% / 0.88));
+    --gradient-accent: linear-gradient(135deg, hsl(188 100% 42%), hsl(231 65% 30%));
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 222 38% 10%;          /* #101622 */
+    --foreground: 210 17% 98%;          /* #F8F9FA */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 224 33% 16%;                /* #1A2035 */
+    --card-foreground: 210 17% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 224 33% 16%;
+    --popover-foreground: 210 17% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 188 100% 42%;            /* in dark, accent leads */
+    --primary-foreground: 222 38% 10%;
+    --primary-soft: 224 33% 20%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 224 33% 20%;
+    --secondary-foreground: 210 17% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 224 33% 18%;
+    --muted-foreground: 215 20% 65%;    /* #94A3B8 */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 188 100% 50%;
+    --accent-foreground: 222 38% 10%;
+    --accent-soft: 188 100% 50% / 0.18;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 217 26% 24%;              /* #2C3E50 */
+    --input: 217 26% 24%;
+    --ring: 188 100% 50%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --section-odd: 222 38% 10%;
+    --section-even: 224 33% 16%;
+
+    --shadow-soft: 0 18px 40px rgb(0 0 0 / 0.32);
+    --shadow-strong: 0 24px 60px rgb(0 0 0 / 0.55);
+    --gradient-hero: linear-gradient(135deg, hsl(222 38% 6% / 0.95), hsl(231 50% 18% / 0.85));
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer components {
+  /* Snap container */
+  .snap-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  .snap-container::-webkit-scrollbar { width: 0; }
+
+  .snap-section {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 6rem 1.5rem 3rem;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  .snap-section.bg-odd { background-color: hsl(var(--section-odd)); }
+  .snap-section.bg-even { background-color: hsl(var(--section-even)); }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent;
+  }
+
+  .glass-card {
+    @apply rounded-[var(--radius)] border bg-card/90 backdrop-blur-md;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .btn-hero-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-accent-foreground;
+    background: hsl(var(--accent));
+    transition: transform 0.25s var(--transition-smooth), box-shadow 0.25s var(--transition-smooth);
+    box-shadow: 0 12px 28px hsl(188 100% 42% / 0.35);
+  }
+  .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px hsl(188 100% 42% / 0.5); }
+
+  .btn-hero-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold;
+    border: 1px solid hsl(0 0% 100% / 0.4);
+    color: hsl(0 0% 100%);
+    transition: background 0.25s var(--transition-smooth);
+  }
+  .btn-hero-ghost:hover { background: hsl(0 0% 100% / 0.1); }
+
+  .stat-pill {
+    @apply rounded-2xl border bg-card/80 backdrop-blur p-5 text-center;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* TOC dropdown */
+  .toc-fab {
+    @apply fixed right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground;
+    bottom: 2rem;
+    background: hsl(var(--primary));
+    box-shadow: var(--shadow-strong);
+    transition: transform 0.2s var(--transition-smooth);
+  }
+  .toc-fab:hover { transform: scale(1.06); }
+  .dark .toc-fab { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  /* Animations */
+  .fade-up { animation: fadeUp 0.7s var(--transition-smooth) both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
