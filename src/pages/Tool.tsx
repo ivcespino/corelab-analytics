@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import type * as PlotlyType from "plotly.js";
 import { Upload, Play, FileSpreadsheet, Sparkles, AlertCircle } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
