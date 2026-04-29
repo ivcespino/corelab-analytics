@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "badge": "Practical Research • A.Y. 2025–2026",
+    "heading": "CoreLab Analytics",
+    "subheading": "Web-Based Research and Visualization Tool",
+    "description": "An interactive platform that integrates Automated Statistical Analysis to convert raw research data into immediate visual insights — replacing static papers with a dynamic, real-time research dashboard.",
+    "primaryCta": { "label": "Take the Survey", "href": "/tool" },
+    "secondaryCta": { "label": "View Dashboard", "href": "/dashboard" },
+    "stats": [
+      { "value": "145", "label": "Respondents (Slovin)" },
+      { "value": "501", "label": "Total Population" },
+      { "value": "2", "label": "Grading Periods Compared" }
+    ]
+  },
+  "sections": [
+    {
+      "id": "background",
+      "chapter": "Chapter 1",
+      "eyebrow": "Background",
+      "title": "Background of the Study",
+      "paragraphs": [
+        "At STI College Malolos, computer laboratories are central to IT training — the environment where lecture material translates into applied skills.",
+        "Local work shows that strong ICT integration is tied to better student outcomes, while international studies point to the way access to electronic facilities strengthens student competence."
+      ],
+      "highlights": [
+        { "icon": "computer", "title": "Lab as Classroom", "text": "Hands-on hours where theory becomes practice." },
+        { "icon": "trending_up", "title": "ICT → Outcomes", "text": "Integration correlates with academic gains." },
+        { "icon": "groups", "title": "STI Malolos Context", "text": "Grounded in local IT student experience." }
+      ]
+    },
+    {
+      "id": "problem",
+      "chapter": "Chapter 1",
+      "eyebrow": "Statement of the Problem",
+      "title": "The Central Question",
+      "centralQuestion": "Does computer laboratory usage — measured through attended lab hours per week and the percentage of hands-on activity — correspond to changes in academic performance between the Preliminary and Midterm grading periods?",
+      "subQuestions": [
+        "How many hours per week do students spend in the computer laboratory?",
+        "What percentage of lab time is dedicated to hands-on activity?",
+        "Is there a measurable change between Prelim and Midterm grades?",
+        "Does lab usage predict the direction of that change?"
+      ]
+    },
+    {
+      "id": "objectives",
+      "chapter": "Chapter 2",
+      "eyebrow": "Objectives",
+      "title": "Research Objectives",
+      "items": [
+        { "icon": "schedule", "title": "Measure Lab Exposure", "text": "Quantify weekly attended laboratory hours per student." },
+        { "icon": "build", "title": "Capture Hands-On Ratio", "text": "Determine percentage of active vs. passive lab time." },
+        { "icon": "insights", "title": "Compute Change Scores", "text": "Calculate Prelim → Midterm performance deltas." },
+        { "icon": "analytics", "title": "Model the Relationship", "text": "Use regression to test predictive strength." }
+      ]
+    },
+    {
+      "id": "hypotheses",
+      "chapter": "Chapter 2",
+      "eyebrow": "Hypotheses",
+      "title": "Working Hypotheses",
+      "items": [
+        { "label": "H₀", "type": "null", "text": "There is no significant relationship between computer laboratory usage and academic performance change between grading periods." },
+        { "label": "H₁", "type": "alt", "text": "Higher lab hours and a greater hands-on ratio are positively associated with improved performance from Prelim to Midterm." }
+      ]
+    }
+  ],
+  "finale": {
+    "eyebrow": "Continue",
+    "title": "Ready to explore the data?",
+    "description": "Step into the live tool to take the survey, or jump directly to the visualization dashboard.",
+    "links": [
+      { "label": "Open the Tool", "href": "/tool", "icon": "science" },
+      { "label": "View Dashboard", "href": "/dashboard", "icon": "monitoring" },
+      { "label": "Meet the Team", "href": "/team", "icon": "groups" }
+    ],
+    "footer": "© 2025 ITMAWD12A Research Team — STI College Malolos"
+  }
+}
