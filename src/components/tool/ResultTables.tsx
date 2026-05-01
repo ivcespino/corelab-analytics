@@ -66,10 +66,18 @@ export function CronbachTable({ result }: { result: CronbachResult }) {
           Reliability — Cronbach's α
         </h4>
       </div>
-      <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-5">
         <Cell label="Cronbach's α" value={fmt(result.alpha, 4)} accent />
         <Cell label="Items (k)" value={String(result.k)} />
         <Cell label="Respondents (N)" value={String(result.n)} />
+        <Cell
+          label={`${(result.confidence * 100).toFixed(0)}% CI`}
+          value={
+            Number.isFinite(result.ciLower)
+              ? `[${fmt(result.ciLower, 3)}, ${fmt(result.ciUpper, 3)}]`
+              : "—"
+          }
+        />
         <Cell label="Interpretation" value={interp} />
       </div>
     </div>
@@ -89,12 +97,20 @@ export function PearsonTable({ result, x, y }: { result: PearsonResult; x: strin
           Correlation — {x} × {y}
         </h4>
       </div>
-      <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-6">
         <Cell label="Pearson r" value={fmt(result.r, 4)} accent />
         <Cell label="t-stat" value={fmt(result.tStat, 3)} />
         <Cell label="df" value={String(result.df)} />
         <Cell label="p-value" value={fmtP(result.pValue)} />
-        <Cell label="Direction / Strength" value={`${direction} · ${strength}`} />
+        <Cell
+          label={`${(result.confidence * 100).toFixed(0)}% CI for r`}
+          value={
+            Number.isFinite(result.ciLower)
+              ? `[${fmt(result.ciLower, 3)}, ${fmt(result.ciUpper, 3)}]`
+              : "—"
+          }
+        />
+        <Cell label="Direction · Strength" value={`${direction} · ${strength}`} />
       </div>
     </div>
   );
@@ -129,10 +145,13 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
             <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
                 <th className="px-5 py-2.5 text-left">Term</th>
-                <th className="px-5 py-2.5 text-right">Coefficient B</th>
-                <th className="px-5 py-2.5 text-right">Std. Error</th>
-                <th className="px-5 py-2.5 text-right">t-stat</th>
-                <th className="px-5 py-2.5 text-right">p-value</th>
+                <th className="px-5 py-2.5 text-right">B</th>
+                <th className="px-5 py-2.5 text-right">SE</th>
+                <th className="px-5 py-2.5 text-right">t</th>
+                <th className="px-5 py-2.5 text-right">p</th>
+                <th className="px-5 py-2.5 text-right whitespace-nowrap">
+                  {(result.confidence * 100).toFixed(0)}% CI
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -143,12 +162,27 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
                   <td className="px-5 py-2.5 text-right tabular-nums">{fmt(c.se, 4)}</td>
                   <td className="px-5 py-2.5 text-right tabular-nums">{fmt(c.tStat, 3)}</td>
                   <td className="px-5 py-2.5 text-right tabular-nums">{fmtP(c.pValue)}</td>
+                  <td className="px-5 py-2.5 text-right tabular-nums whitespace-nowrap">
+                    [{fmt(c.ciLower, 3)}, {fmt(c.ciUpper, 3)}]
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {result.vif && Object.keys(result.vif).length > 0 && (
+        <div className="rounded-lg border border-border/60 bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
+          <span className="font-semibold text-foreground">Multicollinearity (VIF): </span>
+          {Object.entries(result.vif)
+            .map(([k, v]) => `${k} = ${fmt(v, 2)}${v > 5 ? " ⚠" : ""}`)
+            .join(" · ")}
+          {Object.values(result.vif).some((v) => v > 5) && (
+            <span className="ml-2 text-destructive">VIF &gt; 5 suggests predictors are highly correlated.</span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

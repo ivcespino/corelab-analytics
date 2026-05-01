@@ -9,8 +9,9 @@ interface Props {
 }
 
 /** Lightweight Plotly wrapper that respects the design system */
-export function PlotlyChart({ data, layout, height = 420 }: Props) {
+export function PlotlyChart({ data, layout, height: heightProp }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const height = heightProp ?? (typeof window !== "undefined" && window.innerWidth < 640 ? 300 : 420);
 
   useEffect(() => {
     if (!ref.current) return;
