@@ -52,6 +52,9 @@ import {
 } from "@/components/tool/ResultTables";
 import { PlotlyChart } from "@/components/tool/PlotlyChart";
 import { DocsSidebar } from "@/components/tool/DocsSidebar";
+import { SiteFooter } from "@/components/SiteFooter";
+import { StatTooltip } from "@/components/StatTooltip";
+import { validate, type SmartError } from "@/lib/validate";
 
 type Method = "cronbach" | "pearson" | "regression";
 
@@ -137,7 +140,7 @@ export default function Tool() {
   const [regResponse, setRegResponse] = useState("exam_score");
   const [regPredictors, setRegPredictors] = useState<string[]>(["study_hours", "sleep_hours", "prior_gpa"]);
   const [results, setResults] = useState<Results | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<SmartError | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -157,7 +160,7 @@ export default function Tool() {
         description: `${ds.rows.length} rows · ${ds.headers.length} columns (${ds.numericHeaders.length} numeric)`,
       });
     } catch (e: any) {
-      setError(e.message ?? "Failed to parse CSV");
+      setError({ message: e.message ?? "Failed to parse CSV", hint: "Check that your CSV has a header row and is comma-separated." });
     }
   };
 
@@ -199,7 +202,18 @@ export default function Tool() {
 
   const runAnalysis = () => {
     if (!dataset) {
-      setError("Please load data first");
+      setError({ message: "No data loaded.", hint: "Paste a CSV or upload a file in Step 1, then press Parse CSV." });
+      return;
+    }
+    const ctx =
+      method === "cronbach"
+        ? { method, selectedItems, dataset } as const
+        : method === "pearson"
+        ? { method, pearsonX, pearsonY, dataset } as const
+        : { method, regResponse, regPredictors, dataset } as const;
+    const v = validate(ctx);
+    if (v) {
+      setError(v);
       return;
     }
     setError(null);
@@ -209,7 +223,6 @@ export default function Tool() {
         warnings.push(`Small sample (n = ${dataset.rows.length}). Interpret cautiously.`);
 
       if (method === "cronbach") {
-        if (selectedItems.length < 2) throw new Error("Select at least 2 items");
         const cols = selectedItems.map((k) => dataset.columns[k]);
         const result = cronbachAlpha(cols, { confidence: conf });
         const plot: Results["plot"] = {
@@ -235,8 +248,6 @@ export default function Tool() {
           warnings,
         });
       } else if (method === "pearson") {
-        if (!pearsonX || !pearsonY || pearsonX === pearsonY)
-          throw new Error("Select two distinct variables");
         const xs = dataset.columns[pearsonX];
         const ys = dataset.columns[pearsonY];
         const result = pearson(xs, ys, { tail, confidence: conf });
@@ -273,10 +284,6 @@ export default function Tool() {
           warnings,
         });
       } else {
-        if (regPredictors.length === 0)
-          throw new Error("Select at least one predictor");
-        if (regPredictors.includes(regResponse))
-          throw new Error("Response cannot also be a predictor");
         const xCols = regPredictors.map((k) => dataset.columns[k]);
         const y = dataset.columns[regResponse];
         const result = linearRegression(xCols, y, regPredictors, regResponse, {
@@ -323,7 +330,7 @@ export default function Tool() {
         resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
       );
     } catch (e: any) {
-      setError(e.message ?? "Analysis failed");
+      setError({ message: e.message ?? "Analysis failed", hint: "Try a different method, or load a sample dataset to confirm the tool is working." });
     }
   };
 
@@ -444,7 +451,11 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
 
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div>
-                    <Label>Statistical method</Label>
+                    <Label>
+                      <StatTooltip termKey="cronbach">
+                        <span>Statistical method</span>
+                      </StatTooltip>
+                    </Label>
                     <Select
                       value={method}
                       onValueChange={(v) => {
@@ -476,7 +487,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                     <div>
-                      <Label className="text-xs">Confidence level</Label>
+                      <Label className="text-xs">
+                        <StatTooltip termKey="confidence"><span>Confidence level</span></StatTooltip>
+                      </Label>
                       <Select value={confidence} onValueChange={setConfidence}>
                         <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                         <SelectContent>
@@ -488,7 +501,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                     </div>
                     {method === "pearson" && (
                       <div>
-                        <Label className="text-xs">Tail</Label>
+                        <Label className="text-xs">
+                          <StatTooltip termKey="tail"><span>Tail</span></StatTooltip>
+                        </Label>
                         <Select value={tail} onValueChange={(v) => setTail(v as Tail)}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -505,7 +520,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                           checked={includeIntercept}
                           onCheckedChange={(c) => setIncludeIntercept(Boolean(c))}
                         />
-                        <span className="text-sm">Include intercept</span>
+                        <span className="text-sm">
+                          <StatTooltip termKey="intercept"><span>Include intercept</span></StatTooltip>
+                        </span>
                       </label>
                     )}
                     {method === "cronbach" && (
@@ -529,7 +546,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   {method === "pearson" && (
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <Label>Variable X</Label>
+                        <Label>
+                          <StatTooltip termKey="predictorX"><span>Variable X (predictor)</span></StatTooltip>
+                        </Label>
                         <Select value={pearsonX} onValueChange={setPearsonX}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -541,7 +560,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         {dataset && <VarPreview ds={dataset} name={pearsonX} />}
                       </div>
                       <div>
-                        <Label>Variable Y</Label>
+                        <Label>
+                          <StatTooltip termKey="responseY"><span>Variable Y (response)</span></StatTooltip>
+                        </Label>
                         <Select value={pearsonY} onValueChange={setPearsonY}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -557,7 +578,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   {method === "regression" && (
                     <div className="space-y-5">
                       <div>
-                        <Label>Response (Y)</Label>
+                        <Label>
+                          <StatTooltip termKey="responseY"><span>Response (Y)</span></StatTooltip>
+                        </Label>
                         <Select value={regResponse} onValueChange={setRegResponse}>
                           <SelectTrigger className="mt-1.5 sm:max-w-xs"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -570,6 +593,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                       </div>
                       <VariableChecklist
                         label="Predictors (X) — pick 1 for simple, 2+ for multiple"
+                        labelTooltipKey="predictorX"
                         headers={numericHeaders.filter((h) => h !== regResponse)}
                         selected={regPredictors}
                         onToggle={(k) => toggle(regPredictors, setRegPredictors, k)}
@@ -580,9 +604,16 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                 </div>
 
                 {error && (
-                  <div className="mt-5 flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  <div className="mt-5 flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
                     <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{error}</span>
+                    <div className="space-y-1">
+                      <p className="font-semibold">{error.message}</p>
+                      {error.hint && (
+                        <p className="text-destructive/85 text-[13px] leading-relaxed">
+                          <span className="font-semibold">How to fix:</span> {error.hint}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )}
               </section>
@@ -658,6 +689,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
           </div>
         </div>
       </main>
+      <SiteFooter />
     </>
   );
 }
@@ -665,10 +697,10 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
 // ───────── Reading the Result panel ─────────
 function ReadingTheResult({ i }: { i: Interpretation }) {
   const blocks = [
-    { icon: BookOpen, label: "What you ran", body: i.ran },
-    { icon: BarChart3, label: "What the chart shows", body: i.chart },
-    { icon: Eye, label: "What the numbers mean", body: i.numbers },
-    ...(i.implies ? [{ icon: Lightbulb, label: "What it implies", body: i.implies }] : []),
+    { icon: BookOpen, label: "What you ran", body: i.ran, key: "ran" },
+    { icon: BarChart3, label: "What the chart shows", body: i.chart, key: "chart" },
+    { icon: Eye, label: "What the numbers mean", body: i.numbers, key: "num" },
+    ...(i.implies ? [{ icon: Lightbulb, label: "What it implies", body: i.implies, key: "imp" }] : []),
   ];
   return (
     <div className="glass-card p-6">
@@ -682,16 +714,15 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
         Plain-language summary of your analysis
       </h4>
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        {blocks.map(({ icon: Icon, label, body }) => (
-          <div key={label} className="rounded-xl border border-border/60 bg-muted/20 p-4">
+        {blocks.map(({ icon: Icon, label, body, key }) => (
+          <div key={key} className="rounded-xl border border-border/60 bg-muted/20 p-4">
             <div className="mb-1.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
               <Icon className="h-3.5 w-3.5 text-accent" />
               {label}
             </div>
-            <p
-              className="text-sm leading-relaxed text-foreground/90"
-              dangerouslySetInnerHTML={{ __html: renderMd(body) }}
-            />
+            <p className="text-sm leading-relaxed text-foreground/90">
+              {renderRich(body)}
+            </p>
           </div>
         ))}
       </div>
@@ -703,14 +734,37 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
   );
 }
 
+/** Render text with **bold** and [[var:name]] variable chips. */
+function renderRich(s: string) {
+  // Split by either **bold** or [[var:...]]
+  const parts = s.split(/(\*\*[^*]+\*\*|\[\[var:[^\]]+\]\])/g);
+  return parts.map((part, i) => {
+    const bold = /^\*\*(.+)\*\*$/.exec(part);
+    if (bold) return <strong key={i} className="font-semibold text-foreground">{bold[1]}</strong>;
+    const v = /^\[\[var:(.+)\]\]$/.exec(part);
+    if (v) return <VarChip key={i} name={v[1]} />;
+    return <span key={i}>{part}</span>;
+  });
+}
+
+function VarChip({ name }: { name: string }) {
+  return (
+    <code className="mx-0.5 inline-flex items-center rounded-md border border-accent/40 bg-accent/10 px-1.5 py-0.5 font-mono text-[12px] font-semibold text-accent shadow-[0_1px_0_hsl(var(--accent)/0.25)]">
+      {name}
+    </code>
+  );
+}
+
 function VariableChecklist({
   label,
+  labelTooltipKey,
   headers,
   selected,
   onToggle,
   dataset,
 }: {
   label: string;
+  labelTooltipKey?: "predictorX" | "responseY" | "cronbach";
   headers: string[];
   selected: string[];
   onToggle: (k: string) => void;
@@ -718,7 +772,13 @@ function VariableChecklist({
 }) {
   return (
     <div>
-      <Label>{label}</Label>
+      <Label>
+        {labelTooltipKey ? (
+          <StatTooltip termKey={labelTooltipKey}><span>{label}</span></StatTooltip>
+        ) : (
+          label
+        )}
+      </Label>
       <div className="mt-2 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
         {headers.map((h) => {
           const stats = dataset
@@ -787,14 +847,9 @@ function trendLine(x: number[], y: number[]): { x: number[]; y: number[] } {
   return { x: [minX, maxX], y: [intercept + slope * minX, intercept + slope * maxX] };
 }
 
-/** Tiny markdown renderer — supports **bold** only. */
-function renderMd(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>');
-}
+/** Strip our mini-markup for HTML report export. */
 function stripMd(s: string) {
-  return s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  return s
+    .replace(/\[\[var:([^\]]+)\]\]/g, "<code style=\"background:#ECFEFF;border:1px solid #67E8F9;color:#0E7490;padding:1px 6px;border-radius:4px;font-family:ui-monospace,monospace;font-size:.92em\">$1</code>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 }

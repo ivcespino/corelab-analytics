@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Tool from "./pages/Tool.tsx";
+import Team from "./pages/Team.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import { StubPage } from "./pages/StubPage.tsx";
 
 const queryClient = new QueryClient();
@@ -19,8 +21,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tool" element={<Tool />} />
-          <Route path="/dashboard" element={<StubPage title="Live Dashboard" subtitle="Real-time visualizations of survey results." />} />
-          <Route path="/team" element={<StubPage title="Meet the Team" subtitle="ITMAWD12A — STI College Malolos." />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/team" element={<Team />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -8,6 +8,12 @@ import {
   ObjectivesSection,
   HypothesesSection,
 } from "@/components/sections/ContentSections";
+import {
+  QuoteHomeSection,
+  KpiSection,
+  TimelineHomeSection,
+  ScopeSection,
+} from "@/components/sections/ContentSectionsExtra";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
 interface Content {
@@ -82,7 +88,7 @@ const Index = () => {
         <HeroSection data={content.hero} />
         {content.sections.map((s, i) => {
           const variant = i % 2 === 0 ? "even" : "odd";
-          switch (s.id) {
+          switch (s.template ?? s.id) {
             case "background":
               return <BackgroundSection key={s.id} data={s} variant={variant} />;
             case "problem":
@@ -91,6 +97,14 @@ const Index = () => {
               return <ObjectivesSection key={s.id} data={s} variant={variant} />;
             case "hypotheses":
               return <HypothesesSection key={s.id} data={s} variant={variant} />;
+            case "quote":
+              return <QuoteHomeSection key={s.id} data={s} variant={variant} />;
+            case "kpi":
+              return <KpiSection key={s.id} data={s} variant={variant} />;
+            case "timeline":
+              return <TimelineHomeSection key={s.id} data={s} variant={variant} />;
+            case "scope":
+              return <ScopeSection key={s.id} data={s} variant={variant} />;
             default:
               return null;
           }
