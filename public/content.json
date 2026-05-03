@@ -62,6 +62,59 @@
         { "label": "H₀", "type": "null", "text": "There is no significant relationship between computer laboratory usage and academic performance change between grading periods." },
         { "label": "H₁", "type": "alt", "text": "Higher lab hours and a greater hands-on ratio are positively associated with improved performance from Prelim to Midterm." }
       ]
+    },
+    {
+      "id": "scope",
+      "template": "scope",
+      "chapter": "Chapter 1",
+      "eyebrow": "Scope & Delimitations",
+      "title": "What this study covers",
+      "inScope": [
+        "ITMAWD students enrolled at STI College Malolos (A.Y. 2025–2026)",
+        "Preliminary and Midterm grading periods only",
+        "Self-reported lab hours validated against registrar records"
+      ],
+      "outScope": [
+        "Non-IT programs and other STI campuses",
+        "Final and pre-final grading periods",
+        "Off-campus or remote laboratory equivalents"
+      ]
+    },
+    {
+      "id": "kpis",
+      "template": "kpi",
+      "chapter": "Chapter 2",
+      "eyebrow": "Study at a glance",
+      "title": "The numbers driving the work",
+      "intro": "A quick snapshot of the dataset before diving into methodology and findings.",
+      "kpis": [
+        { "value": "145", "label": "Respondents", "sublabel": "Slovin's formula, 95% CI" },
+        { "value": "501", "label": "Population",  "sublabel": "ITMAWD enrollment" },
+        { "value": "4",   "label": "Variables",   "sublabel": "Hours, ratio, prelim, midterm" },
+        { "value": "3",   "label": "Methods",     "sublabel": "Cronbach · Pearson · Regression" }
+      ]
+    },
+    {
+      "id": "timeline",
+      "template": "timeline",
+      "chapter": "Chapter 2",
+      "eyebrow": "Roadmap",
+      "title": "How the study unfolded",
+      "steps": [
+        { "phase": "Phase 1", "title": "Instrument design",  "text": "Drafted and pilot-tested the survey covering attendance, hands-on ratio, and perceived performance." },
+        { "phase": "Phase 2", "title": "Data collection",    "text": "Distributed the validated instrument to 145 respondents across ITMAWD sections." },
+        { "phase": "Phase 3", "title": "Statistical analysis","text": "Ran reliability, correlation, and regression tests through the CoreLab tool." },
+        { "phase": "Phase 4", "title": "Visualization",       "text": "Published findings on the live dashboard for ongoing inspection and replication." }
+      ]
+    },
+    {
+      "id": "voice",
+      "template": "quote",
+      "chapter": "Chapter 2",
+      "eyebrow": "In the researchers' words",
+      "title": "Why this matters",
+      "quote": "If laboratory time genuinely shapes how students perform, then how we schedule and structure those hours becomes a curriculum decision — not just an operational one.",
+      "attribution": "ITMAWD 12A research group"
     }
   ],
   "finale": {
