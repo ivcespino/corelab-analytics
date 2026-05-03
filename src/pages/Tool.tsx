@@ -847,14 +847,9 @@ function trendLine(x: number[], y: number[]): { x: number[]; y: number[] } {
   return { x: [minX, maxX], y: [intercept + slope * minX, intercept + slope * maxX] };
 }
 
-/** Tiny markdown renderer — supports **bold** only. */
-function renderMd(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>');
-}
+/** Strip our mini-markup for HTML report export. */
 function stripMd(s: string) {
-  return s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  return s
+    .replace(/\[\[var:([^\]]+)\]\]/g, "<code style=\"background:#ECFEFF;border:1px solid #67E8F9;color:#0E7490;padding:1px 6px;border-radius:4px;font-family:ui-monospace,monospace;font-size:.92em\">$1</code>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 }
