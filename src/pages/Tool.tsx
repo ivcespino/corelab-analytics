@@ -451,7 +451,11 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
 
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div>
-                    <Label>Statistical method</Label>
+                    <Label>
+                      <StatTooltip termKey="cronbach">
+                        <span>Statistical method</span>
+                      </StatTooltip>
+                    </Label>
                     <Select
                       value={method}
                       onValueChange={(v) => {
@@ -483,7 +487,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                     <div>
-                      <Label className="text-xs">Confidence level</Label>
+                      <Label className="text-xs">
+                        <StatTooltip termKey="confidence"><span>Confidence level</span></StatTooltip>
+                      </Label>
                       <Select value={confidence} onValueChange={setConfidence}>
                         <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                         <SelectContent>
@@ -495,7 +501,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                     </div>
                     {method === "pearson" && (
                       <div>
-                        <Label className="text-xs">Tail</Label>
+                        <Label className="text-xs">
+                          <StatTooltip termKey="tail"><span>Tail</span></StatTooltip>
+                        </Label>
                         <Select value={tail} onValueChange={(v) => setTail(v as Tail)}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -512,7 +520,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                           checked={includeIntercept}
                           onCheckedChange={(c) => setIncludeIntercept(Boolean(c))}
                         />
-                        <span className="text-sm">Include intercept</span>
+                        <span className="text-sm">
+                          <StatTooltip termKey="intercept"><span>Include intercept</span></StatTooltip>
+                        </span>
                       </label>
                     )}
                     {method === "cronbach" && (
@@ -536,7 +546,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   {method === "pearson" && (
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <Label>Variable X</Label>
+                        <Label>
+                          <StatTooltip termKey="predictorX"><span>Variable X (predictor)</span></StatTooltip>
+                        </Label>
                         <Select value={pearsonX} onValueChange={setPearsonX}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -548,7 +560,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         {dataset && <VarPreview ds={dataset} name={pearsonX} />}
                       </div>
                       <div>
-                        <Label>Variable Y</Label>
+                        <Label>
+                          <StatTooltip termKey="responseY"><span>Variable Y (response)</span></StatTooltip>
+                        </Label>
                         <Select value={pearsonY} onValueChange={setPearsonY}>
                           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -564,7 +578,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                   {method === "regression" && (
                     <div className="space-y-5">
                       <div>
-                        <Label>Response (Y)</Label>
+                        <Label>
+                          <StatTooltip termKey="responseY"><span>Response (Y)</span></StatTooltip>
+                        </Label>
                         <Select value={regResponse} onValueChange={setRegResponse}>
                           <SelectTrigger className="mt-1.5 sm:max-w-xs"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -577,6 +593,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                       </div>
                       <VariableChecklist
                         label="Predictors (X) — pick 1 for simple, 2+ for multiple"
+                        labelTooltipKey="predictorX"
                         headers={numericHeaders.filter((h) => h !== regResponse)}
                         selected={regPredictors}
                         onToggle={(k) => toggle(regPredictors, setRegPredictors, k)}
@@ -587,9 +604,16 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                 </div>
 
                 {error && (
-                  <div className="mt-5 flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  <div className="mt-5 flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
                     <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{error}</span>
+                    <div className="space-y-1">
+                      <p className="font-semibold">{error.message}</p>
+                      {error.hint && (
+                        <p className="text-destructive/85 text-[13px] leading-relaxed">
+                          <span className="font-semibold">How to fix:</span> {error.hint}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )}
               </section>
