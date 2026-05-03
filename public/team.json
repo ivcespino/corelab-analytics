@@ -1,0 +1,33 @@
+{
+  "intro": {
+    "eyebrow": "Meet the Research Team",
+    "title": "The minds behind CoreLab Analytics",
+    "description": "A research group from ITMAWD 12A at STI College Malolos exploring how computer-laboratory exposure shapes academic performance — and how to render that story in real-time, on the web."
+  },
+  "researchers": [
+    { "name": "Espino, Shae",          "initials": "ES", "role": "Project Manager & Lead Developer", "tag": "Research Leader", "email": "shaeshishsg12@gmail.com" },
+    { "name": "Bolacja, Mark Justine", "initials": "MB", "role": "Assistant Researcher",            "tag": null,              "email": "markbolacja@gmail.com" },
+    { "name": "Lopez, Raver Lee",      "initials": "LR", "role": "Assistant Researcher",            "tag": null,              "email": "raverlopez19@gmail.com" },
+    { "name": "Azada, Sean",           "initials": "AS", "role": "Researcher",                      "tag": null,              "email": "azadasean2006@gmail.com" },
+    { "name": "Diaz, Aaron Jhay",      "initials": "DA", "role": "Researcher",                      "tag": null,              "email": "sma.aaronjhaydiaz@gmail.com" },
+    { "name": "Reyes, John Mark",      "initials": "RJ", "role": "Researcher",                      "tag": null,              "email": "jmreyes751@gmail.com" },
+    { "name": "Velasco, Ma. Irish Pearl","initials": "VE","role": "Researcher",                     "tag": null,              "email": "velascoirish123@gmail.com" }
+  ],
+  "advisers": [
+    {
+      "name": "Prof. Katrina Faith Esguerra",
+      "title": "Practical Research Adviser",
+      "blurb": "Provided guidance on the research paper, including methodology, instrument validation, and statistical analysis standards."
+    },
+    {
+      "name": "Prof. Alexander Venus",
+      "title": "Computer Programming Adviser",
+      "blurb": "Provided technical guidance and ideas for the development of the web-based research and visualization tool."
+    }
+  ],
+  "contact": {
+    "title": "Interested in the data?",
+    "description": "For collaboration or access to the full dataset, please reach the research team.",
+    "email": "corelabanalytics@gmail.com"
+  }
+}
