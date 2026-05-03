@@ -4,6 +4,8 @@ import type {
   PearsonResult,
   RegressionResult,
 } from "@/lib/stats";
+import { StatTooltip } from "@/components/StatTooltip";
+import { GLOSSARY } from "@/lib/glossary";
 
 interface DescTableProps {
   variables: string[];
@@ -27,9 +29,9 @@ export function DescriptiveTable({ variables, columns }: DescTableProps) {
           <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
               <th className="px-5 py-2.5 text-left">Variable</th>
-              <th className="px-5 py-2.5 text-right">N</th>
+              <th className="px-5 py-2.5 text-right"><HdrTip k="n">N</HdrTip></th>
               <th className="px-5 py-2.5 text-right">Mean</th>
-              <th className="px-5 py-2.5 text-right">SD</th>
+              <th className="px-5 py-2.5 text-right"><HdrTip k="se" title="SD" body="Standard deviation — typical distance of values from the mean.">SD</HdrTip></th>
               <th className="px-5 py-2.5 text-right">Min</th>
               <th className="px-5 py-2.5 text-right">Max</th>
             </tr>
@@ -67,11 +69,11 @@ export function CronbachTable({ result }: { result: CronbachResult }) {
         </h4>
       </div>
       <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-5">
-        <Cell label="Cronbach's α" value={fmt(result.alpha, 4)} accent />
-        <Cell label="Items (k)" value={String(result.k)} />
-        <Cell label="Respondents (N)" value={String(result.n)} />
+        <Cell label={<HdrTip k="cronbach">Cronbach's α</HdrTip>} value={fmt(result.alpha, 4)} accent />
+        <Cell label={<HdrTip k="k">Items (k)</HdrTip>} value={String(result.k)} />
+        <Cell label={<HdrTip k="n">Respondents (N)</HdrTip>} value={String(result.n)} />
         <Cell
-          label={`${(result.confidence * 100).toFixed(0)}% CI`}
+          label={<HdrTip k="ci">{`${(result.confidence * 100).toFixed(0)}% CI`}</HdrTip>}
           value={
             Number.isFinite(result.ciLower)
               ? `[${fmt(result.ciLower, 3)}, ${fmt(result.ciUpper, 3)}]`
@@ -98,12 +100,12 @@ export function PearsonTable({ result, x, y }: { result: PearsonResult; x: strin
         </h4>
       </div>
       <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-6">
-        <Cell label="Pearson r" value={fmt(result.r, 4)} accent />
-        <Cell label="t-stat" value={fmt(result.tStat, 3)} />
-        <Cell label="df" value={String(result.df)} />
-        <Cell label="p-value" value={fmtP(result.pValue)} />
+        <Cell label={<HdrTip k="r">Pearson r</HdrTip>} value={fmt(result.r, 4)} accent />
+        <Cell label={<HdrTip k="tStat">t-stat</HdrTip>} value={fmt(result.tStat, 3)} />
+        <Cell label={<HdrTip k="df">df</HdrTip>} value={String(result.df)} />
+        <Cell label={<HdrTip k="pValue">p-value</HdrTip>} value={fmtP(result.pValue)} />
         <Cell
-          label={`${(result.confidence * 100).toFixed(0)}% CI for r`}
+          label={<HdrTip k="ci">{`${(result.confidence * 100).toFixed(0)}% CI for r`}</HdrTip>}
           value={
             Number.isFinite(result.ciLower)
               ? `[${fmt(result.ciLower, 3)}, ${fmt(result.ciUpper, 3)}]`
@@ -126,11 +128,11 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
           </h4>
         </div>
         <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-5">
-          <Cell label="R²" value={fmt(result.rSquared, 4)} accent />
-          <Cell label="Adj. R²" value={fmt(result.adjustedRSquared, 4)} />
-          <Cell label="F-statistic" value={fmt(result.fStatistic, 3)} />
-          <Cell label="Significance F" value={fmtP(result.fPValue)} />
-          <Cell label="N" value={String(result.n)} />
+          <Cell label={<HdrTip k="rSquared">R²</HdrTip>} value={fmt(result.rSquared, 4)} accent />
+          <Cell label={<HdrTip k="adjRSquared">Adj. R²</HdrTip>} value={fmt(result.adjustedRSquared, 4)} />
+          <Cell label={<HdrTip k="fStat">F-statistic</HdrTip>} value={fmt(result.fStatistic, 3)} />
+          <Cell label={<HdrTip k="pValue">Significance F</HdrTip>} value={fmtP(result.fPValue)} />
+          <Cell label={<HdrTip k="n">N</HdrTip>} value={String(result.n)} />
         </div>
       </div>
 
@@ -145,12 +147,12 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
             <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
                 <th className="px-5 py-2.5 text-left">Term</th>
-                <th className="px-5 py-2.5 text-right">B</th>
-                <th className="px-5 py-2.5 text-right">SE</th>
-                <th className="px-5 py-2.5 text-right">t</th>
-                <th className="px-5 py-2.5 text-right">p</th>
+                <th className="px-5 py-2.5 text-right"><HdrTip k="b">B</HdrTip></th>
+                <th className="px-5 py-2.5 text-right"><HdrTip k="se">SE</HdrTip></th>
+                <th className="px-5 py-2.5 text-right"><HdrTip k="tStat">t</HdrTip></th>
+                <th className="px-5 py-2.5 text-right"><HdrTip k="pValue">p</HdrTip></th>
                 <th className="px-5 py-2.5 text-right whitespace-nowrap">
-                  {(result.confidence * 100).toFixed(0)}% CI
+                  <HdrTip k="ci">{(result.confidence * 100).toFixed(0)}% CI</HdrTip>
                 </th>
               </tr>
             </thead>
@@ -174,7 +176,9 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
 
       {result.vif && Object.keys(result.vif).length > 0 && (
         <div className="rounded-lg border border-border/60 bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
-          <span className="font-semibold text-foreground">Multicollinearity (VIF): </span>
+          <span className="font-semibold text-foreground">
+            <HdrTip k="vif">Multicollinearity (VIF)</HdrTip>:{" "}
+          </span>
           {Object.entries(result.vif)
             .map(([k, v]) => `${k} = ${fmt(v, 2)}${v > 5 ? " ⚠" : ""}`)
             .join(" · ")}
@@ -187,7 +191,7 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
   );
 }
 
-function Cell({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+function Cell({ label, value, accent }: { label: React.ReactNode; value: string; accent?: boolean }) {
   return (
     <div className="bg-card px-5 py-4">
       <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -202,5 +206,23 @@ function Cell({ label, value, accent }: { label: string; value: string; accent?:
         {value}
       </div>
     </div>
+  );
+}
+
+function HdrTip({
+  k,
+  title,
+  body,
+  children,
+}: {
+  k: keyof typeof GLOSSARY;
+  title?: string;
+  body?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <StatTooltip termKey={k} title={title} body={body}>
+      <span>{children}</span>
+    </StatTooltip>
   );
 }
