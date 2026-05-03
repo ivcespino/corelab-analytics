@@ -689,6 +689,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
           </div>
         </div>
       </main>
+      <SiteFooter />
     </>
   );
 }
@@ -696,10 +697,10 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
 // ───────── Reading the Result panel ─────────
 function ReadingTheResult({ i }: { i: Interpretation }) {
   const blocks = [
-    { icon: BookOpen, label: "What you ran", body: i.ran },
-    { icon: BarChart3, label: "What the chart shows", body: i.chart },
-    { icon: Eye, label: "What the numbers mean", body: i.numbers },
-    ...(i.implies ? [{ icon: Lightbulb, label: "What it implies", body: i.implies }] : []),
+    { icon: BookOpen, label: "What you ran", body: i.ran, key: "ran" },
+    { icon: BarChart3, label: "What the chart shows", body: i.chart, key: "chart" },
+    { icon: Eye, label: "What the numbers mean", body: i.numbers, key: "num" },
+    ...(i.implies ? [{ icon: Lightbulb, label: "What it implies", body: i.implies, key: "imp" }] : []),
   ];
   return (
     <div className="glass-card p-6">
@@ -713,16 +714,15 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
         Plain-language summary of your analysis
       </h4>
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        {blocks.map(({ icon: Icon, label, body }) => (
-          <div key={label} className="rounded-xl border border-border/60 bg-muted/20 p-4">
+        {blocks.map(({ icon: Icon, label, body, key }) => (
+          <div key={key} className="rounded-xl border border-border/60 bg-muted/20 p-4">
             <div className="mb-1.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
               <Icon className="h-3.5 w-3.5 text-accent" />
               {label}
             </div>
-            <p
-              className="text-sm leading-relaxed text-foreground/90"
-              dangerouslySetInnerHTML={{ __html: renderMd(body) }}
-            />
+            <p className="text-sm leading-relaxed text-foreground/90">
+              {renderRich(body)}
+            </p>
           </div>
         ))}
       </div>
@@ -734,14 +734,37 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
   );
 }
 
+/** Render text with **bold** and [[var:name]] variable chips. */
+function renderRich(s: string) {
+  // Split by either **bold** or [[var:...]]
+  const parts = s.split(/(\*\*[^*]+\*\*|\[\[var:[^\]]+\]\])/g);
+  return parts.map((part, i) => {
+    const bold = /^\*\*(.+)\*\*$/.exec(part);
+    if (bold) return <strong key={i} className="font-semibold text-foreground">{bold[1]}</strong>;
+    const v = /^\[\[var:(.+)\]\]$/.exec(part);
+    if (v) return <VarChip key={i} name={v[1]} />;
+    return <span key={i}>{part}</span>;
+  });
+}
+
+function VarChip({ name }: { name: string }) {
+  return (
+    <code className="mx-0.5 inline-flex items-center rounded-md border border-accent/40 bg-accent/10 px-1.5 py-0.5 font-mono text-[12px] font-semibold text-accent shadow-[0_1px_0_hsl(var(--accent)/0.25)]">
+      {name}
+    </code>
+  );
+}
+
 function VariableChecklist({
   label,
+  labelTooltipKey,
   headers,
   selected,
   onToggle,
   dataset,
 }: {
   label: string;
+  labelTooltipKey?: "predictorX" | "responseY" | "cronbach";
   headers: string[];
   selected: string[];
   onToggle: (k: string) => void;
@@ -749,7 +772,13 @@ function VariableChecklist({
 }) {
   return (
     <div>
-      <Label>{label}</Label>
+      <Label>
+        {labelTooltipKey ? (
+          <StatTooltip termKey={labelTooltipKey}><span>{label}</span></StatTooltip>
+        ) : (
+          label
+        )}
+      </Label>
       <div className="mt-2 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
         {headers.map((h) => {
           const stats = dataset
