@@ -52,6 +52,9 @@ import {
 } from "@/components/tool/ResultTables";
 import { PlotlyChart } from "@/components/tool/PlotlyChart";
 import { DocsSidebar } from "@/components/tool/DocsSidebar";
+import { SiteFooter } from "@/components/SiteFooter";
+import { StatTooltip } from "@/components/StatTooltip";
+import { validate, type SmartError } from "@/lib/validate";
 
 type Method = "cronbach" | "pearson" | "regression";
 
@@ -137,7 +140,7 @@ export default function Tool() {
   const [regResponse, setRegResponse] = useState("exam_score");
   const [regPredictors, setRegPredictors] = useState<string[]>(["study_hours", "sleep_hours", "prior_gpa"]);
   const [results, setResults] = useState<Results | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<SmartError | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -157,7 +160,7 @@ export default function Tool() {
         description: `${ds.rows.length} rows · ${ds.headers.length} columns (${ds.numericHeaders.length} numeric)`,
       });
     } catch (e: any) {
-      setError(e.message ?? "Failed to parse CSV");
+      setError({ message: e.message ?? "Failed to parse CSV", hint: "Check that your CSV has a header row and is comma-separated." });
     }
   };
 
@@ -199,7 +202,18 @@ export default function Tool() {
 
   const runAnalysis = () => {
     if (!dataset) {
-      setError("Please load data first");
+      setError({ message: "No data loaded.", hint: "Paste a CSV or upload a file in Step 1, then press Parse CSV." });
+      return;
+    }
+    const ctx =
+      method === "cronbach"
+        ? { method, selectedItems, dataset } as const
+        : method === "pearson"
+        ? { method, pearsonX, pearsonY, dataset } as const
+        : { method, regResponse, regPredictors, dataset } as const;
+    const v = validate(ctx);
+    if (v) {
+      setError(v);
       return;
     }
     setError(null);
@@ -209,7 +223,6 @@ export default function Tool() {
         warnings.push(`Small sample (n = ${dataset.rows.length}). Interpret cautiously.`);
 
       if (method === "cronbach") {
-        if (selectedItems.length < 2) throw new Error("Select at least 2 items");
         const cols = selectedItems.map((k) => dataset.columns[k]);
         const result = cronbachAlpha(cols, { confidence: conf });
         const plot: Results["plot"] = {
@@ -235,8 +248,6 @@ export default function Tool() {
           warnings,
         });
       } else if (method === "pearson") {
-        if (!pearsonX || !pearsonY || pearsonX === pearsonY)
-          throw new Error("Select two distinct variables");
         const xs = dataset.columns[pearsonX];
         const ys = dataset.columns[pearsonY];
         const result = pearson(xs, ys, { tail, confidence: conf });
@@ -273,10 +284,6 @@ export default function Tool() {
           warnings,
         });
       } else {
-        if (regPredictors.length === 0)
-          throw new Error("Select at least one predictor");
-        if (regPredictors.includes(regResponse))
-          throw new Error("Response cannot also be a predictor");
         const xCols = regPredictors.map((k) => dataset.columns[k]);
         const y = dataset.columns[regResponse];
         const result = linearRegression(xCols, y, regPredictors, regResponse, {
@@ -323,7 +330,7 @@ export default function Tool() {
         resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
       );
     } catch (e: any) {
-      setError(e.message ?? "Analysis failed");
+      setError({ message: e.message ?? "Analysis failed", hint: "Try a different method, or load a sample dataset to confirm the tool is working." });
     }
   };
 
