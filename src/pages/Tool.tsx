@@ -376,12 +376,12 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
               <Sparkles className="h-3.5 w-3.5" /> Statistical Analysis Tool
             </span>
             <h1 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">
-              Run rigorous tests on your survey data — in seconds.
+              Test your survey data in seconds.
             </h1>
             <p className="mt-3 text-base text-muted-foreground sm:text-lg">
-              Paste a CSV or upload a file, choose a method and confidence level, and
-              CoreLab returns the same descriptive table, statistical grid, visualization,
-              and plain-language reading you'd find in a methodology section.
+              Paste a CSV, pick a method, and CoreLab returns the same descriptive
+              table, statistics, chart and plain-language reading you'd expect in a
+              methodology section — no spreadsheets required.
             </p>
           </div>
 
@@ -446,13 +446,16 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
               {/* Method + parameters + variable selection */}
               <section className="glass-card p-6 sm:p-7">
                 <h2 className="font-display text-xl font-bold">
-                  2. Choose method, parameters & variables
+                  2. Pick a method &amp; variables
                 </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Not sure which to choose? Hover the dotted labels for plain-language help.
+                </p>
 
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div>
                     <Label>
-                      <StatTooltip termKey="cronbach">
+                      <StatTooltip termKey="method">
                         <span>Statistical method</span>
                       </StatTooltip>
                     </Label>
@@ -467,11 +470,16 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cronbach">Cronbach's Alpha (Reliability)</SelectItem>
-                        <SelectItem value="pearson">Pearson R (Correlation)</SelectItem>
-                        <SelectItem value="regression">Linear Regression</SelectItem>
+                        <SelectItem value="cronbach">Cronbach's Alpha — survey reliability</SelectItem>
+                        <SelectItem value="pearson">Pearson R — relationship between two variables</SelectItem>
+                        <SelectItem value="regression">Linear Regression — predict an outcome</SelectItem>
                       </SelectContent>
                     </Select>
+                    <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
+                      {method === "cronbach" && "Use when several Likert/scale items are meant to measure one thing."}
+                      {method === "pearson" && "Use to see how strongly two numeric columns move together."}
+                      {method === "regression" && "Use to predict one numeric column (Y) from one or more others (X)."}
+                    </p>
                   </div>
                   <div className="flex items-end">
                     <Button onClick={runAnalysis} className="w-full" size="lg">
