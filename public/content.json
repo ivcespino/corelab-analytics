@@ -104,7 +104,7 @@
         { "phase": "Phase 1", "title": "Instrument design",  "text": "Drafted and pilot-tested the survey covering attendance, hands-on ratio, and perceived performance." },
         { "phase": "Phase 2", "title": "Data collection",    "text": "Distributed the validated instrument to 145 respondents across ITMAWD sections." },
         { "phase": "Phase 3", "title": "Statistical analysis","text": "Ran reliability, correlation, and regression tests through the CoreLab tool." },
-        { "phase": "Phase 4", "title": "Visualization",       "text": "Published findings on the live dashboard for ongoing inspection and replication." }
+        { "phase": "Phase 4", "title": "Visualization",       "text": "Published findings on the dashboard for ongoing inspection and replication." }
       ]
     },
     {
@@ -120,7 +120,7 @@
   "finale": {
     "eyebrow": "Continue",
     "title": "Ready to explore the data?",
-    "description": "Step into the live tool to take the survey, or jump directly to the visualization dashboard.",
+    "description": "Step into the tool to take the survey, or jump directly to the visualization dashboard.",
     "links": [
       { "label": "Open the Tool", "href": "/tool", "icon": "science" },
       { "label": "View Dashboard", "href": "/dashboard", "icon": "monitoring" },

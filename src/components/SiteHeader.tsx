@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { Menu, Moon, Sun, FlaskConical, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
+import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -18,11 +19,8 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <NavLink to="/" className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-            <FlaskConical className="h-4 w-4" />
-          </span>
-          <span className="font-display text-lg font-bold tracking-tight">CoreLab Analytics</span>
+        <NavLink to="/" className="flex items-center" aria-label="CoreLab Analytics — home">
+          <Logo className="h-8" />
         </NavLink>
 
         <nav className="hidden items-center gap-1 md:flex">
