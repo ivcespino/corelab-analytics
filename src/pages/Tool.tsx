@@ -535,7 +535,8 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                     )}
                     {method === "cronbach" && (
                       <p className="text-xs text-muted-foreground sm:col-span-2 md:col-span-2">
-                        Cronbach's α has no additional parameters. Confidence level drives a Feldt CI on α.
+                        Cronbach's α has no extra parameters. The confidence level above
+                        sets how wide the plausible-range bar around α will be.
                       </p>
                     )}
                   </div>
@@ -634,7 +635,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                       <div>
                         <span className="section-eyebrow">Standardized Report</span>
                         <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
-                          3. Results
+                          3. Your results
                         </h2>
                       </div>
                       <div className="flex flex-wrap gap-2">
