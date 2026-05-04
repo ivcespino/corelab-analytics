@@ -3,7 +3,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { TocDropdown, type TocItem } from "@/components/TocDropdown";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 import { PlotlyChart } from "@/components/tool/PlotlyChart";
-import { BarChart3, Activity, Quote as QuoteIcon, CheckCircle2 } from "lucide-react";
+import { BarChart3, Activity, Quote as QuoteIcon, CheckCircle2, ArrowDown } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 interface DashboardData {
   intro: { chapter: string; eyebrow: string; title: string; description: string };
@@ -60,7 +61,8 @@ export default function Dashboard() {
       <div ref={containerRef} className="snap-container">
         <IntroSection data={data.intro} />
         {data.sections.map((s, i) => {
-          const variant = i % 2 === 0 ? "even" : "odd";
+          // Intro is "even"; alternate from there so neighbors never repeat.
+          const variant = i % 2 === 0 ? "odd" : "even";
           switch (s.template) {
             case "stat":     return <StatSection key={s.id} data={s} variant={variant} />;
             case "split":    return <SplitSection key={s.id} data={s} variant={variant} />;
@@ -104,14 +106,14 @@ function ChapterChip({ chapter, eyebrow }: { chapter: string; eyebrow: string })
 }
 
 function IntroSection({ data }: { data: DashboardData["intro"] }) {
-  // Sample plot — placeholder until live tool data wires through.
+  // Sample plot — placeholder until tool data wires through.
   const plot = useMemo(() => {
     const x = Array.from({ length: 30 }, (_, i) => i + 1);
     const y = x.map((v) => 60 + v * 1.2 + (Math.random() - 0.5) * 8);
     return {
       data: [
         { type: "scatter", mode: "markers", x, y, name: "Observations",
-          marker: { color: "hsl(188, 100%, 42%)", size: 9 } },
+          marker: { color: "hsl(188, 100%, 42%)", size: 8 } },
         { type: "scatter", mode: "lines", x: [x[0], x[x.length - 1]],
           y: [60 + x[0] * 1.2, 60 + x[x.length - 1] * 1.2],
           line: { color: "hsl(231, 65%, 30%)", width: 2 }, name: "Trend" },
@@ -135,26 +137,43 @@ function IntroSection({ data }: { data: DashboardData["intro"] }) {
       id="intro"
       data-toc={data.eyebrow}
       data-chapter={data.chapter}
-      className="snap-section bg-even"
+      className="snap-section text-white"
+      style={{
+        backgroundImage: `var(--gradient-hero), url(${heroBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div className="mx-auto w-full max-w-6xl">
-        <ChapterChip chapter={data.chapter} eyebrow={data.eyebrow} />
-        <h2 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{data.title}</h2>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{data.description}</p>
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur">
+            {data.chapter}
+          </span>
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            {data.eyebrow}
+          </span>
+        </div>
+        <h2 className="font-display text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
+          {data.title}
+        </h2>
+        <p className="mt-4 max-w-2xl text-base text-white/80 sm:text-lg">{data.description}</p>
         <div className="mt-8 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
-          <div className="glass-card p-5">
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur sm:p-5">
+            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/70">
               <Activity className="h-3.5 w-3.5 text-accent" /> Regression preview
             </div>
-            <PlotlyChart data={plot.data} layout={plot.layout} height={320} />
+            <PlotlyChart data={plot.data} layout={plot.layout} height={280} />
           </div>
-          <div className="glass-card p-5">
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur sm:p-5">
+            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/70">
               <BarChart3 className="h-3.5 w-3.5 text-accent" /> Reliability preview
             </div>
-            <PlotlyChart data={bar.data} layout={bar.layout} height={320} />
+            <PlotlyChart data={bar.data} layout={bar.layout} height={280} />
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 text-[11px] font-medium tracking-widest text-white/60">
+        SCROLL <ArrowDown className="h-3 w-3" />
       </div>
     </section>
   );
