@@ -6,6 +6,12 @@ export interface GlossaryEntry {
 }
 
 export const GLOSSARY: Record<string, GlossaryEntry> = {
+  method: {
+    term: "Statistical method",
+    short: "The kind of test used to summarise or model your data.",
+    detail:
+      "Pick by what you want to learn: Cronbach's α checks whether several survey items measure one thing reliably; Pearson r measures how strongly two numeric variables move together; Linear Regression predicts an outcome (Y) from one or more inputs (X) and tells you how much each input matters.",
+  },
   cronbach: {
     term: "Cronbach's α (Alpha)",
     short: "Reliability score for multi-item scales (0–1).",
