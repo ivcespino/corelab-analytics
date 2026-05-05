@@ -1,6 +1,6 @@
 import { useTheme } from "@/hooks/useTheme";
-import logoLight from "@/assets/logo-light.svg";
-import logoDark from "@/assets/logo-dark.svg";
+import logoLight from "@/assets/logo-light.png";
+import logoDark from "@/assets/logo-dark.png";
 import { cn } from "@/lib/utils";
 
 interface Props {
