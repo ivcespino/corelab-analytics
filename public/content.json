@@ -3,118 +3,163 @@
     "badge": "Practical Research • A.Y. 2025–2026",
     "heading": "CoreLab Analytics",
     "subheading": "Web-Based Research and Visualization Tool",
-    "description": "An interactive platform that integrates Automated Statistical Analysis to convert raw research data into immediate visual insights — replacing static papers with a dynamic, real-time research dashboard.",
+    "description": "An interactive platform that converts raw research data into immediate visual insights — replacing static papers with a dynamic dashboard.",
     "primaryCta": { "label": "Take the Survey", "href": "/tool" },
     "secondaryCta": { "label": "View Dashboard", "href": "/dashboard" },
-    "stats": [
-      { "value": "145", "label": "Respondents (Slovin)" },
-      { "value": "501", "label": "Total Population" },
-      { "value": "2", "label": "Grading Periods Compared" }
-    ]
+    "descriptor": {
+      "label": "CoreLab Analytics is",
+      "body": "A quantitative correlational study on how computer laboratory usage predicts academic performance change among BSIT students — paired with a data visualization tool built to translate the findings into accessible evidence."
+    }
   },
   "sections": [
     {
       "id": "background",
+      "template": "background2",
       "chapter": "Chapter 1",
       "eyebrow": "Background",
       "title": "Background of the Study",
-      "paragraphs": [
-        "At STI College Malolos, computer laboratories are central to IT training — the environment where lecture material translates into applied skills.",
-        "Local work shows that strong ICT integration is tied to better student outcomes, while international studies point to the way access to electronic facilities strengthens student competence."
-      ],
-      "highlights": [
-        { "icon": "computer", "title": "Lab as Classroom", "text": "Hands-on hours where theory becomes practice." },
-        { "icon": "trending_up", "title": "ICT → Outcomes", "text": "Integration correlates with academic gains." },
-        { "icon": "groups", "title": "STI Malolos Context", "text": "Grounded in local IT student experience." }
+      "beats": [
+        {
+          "label": "Context",
+          "body": "IT education is fundamentally practical. Lecture material alone is insufficient — students in BSIT programs require the computer laboratory to run code, configure networks, and develop applied technical skills. Local and international studies confirm that ICT integration and guided laboratory access are tied to better student outcomes."
+        },
+        {
+          "label": "The Gap",
+          "body": "Existing research focuses on general, end-of-term results. What is critically underexamined is performance shift within a single academic term — specifically, whether laboratory engagement during the Preliminary period corresponds to measurable academic improvement by the Midterm period. This study addresses that gap at STI College Malolos."
+        }
       ]
     },
     {
-      "id": "problem",
+      "id": "variables",
+      "template": "variables",
       "chapter": "Chapter 1",
-      "eyebrow": "Statement of the Problem",
-      "title": "The Central Question",
-      "centralQuestion": "Does computer laboratory usage — measured through attended lab hours per week and the percentage of hands-on activity — correspond to changes in academic performance between the Preliminary and Midterm grading periods?",
-      "subQuestions": [
-        "How many hours per week do students spend in the computer laboratory?",
-        "What percentage of lab time is dedicated to hands-on activity?",
-        "Is there a measurable change between Prelim and Midterm grades?",
-        "Does lab usage predict the direction of that change?"
-      ]
-    },
-    {
-      "id": "objectives",
-      "chapter": "Chapter 2",
-      "eyebrow": "Objectives",
-      "title": "Research Objectives",
-      "items": [
-        { "icon": "schedule", "title": "Measure Lab Exposure", "text": "Quantify weekly attended laboratory hours per student." },
-        { "icon": "build", "title": "Capture Hands-On Ratio", "text": "Determine percentage of active vs. passive lab time." },
-        { "icon": "insights", "title": "Compute Change Scores", "text": "Calculate Prelim → Midterm performance deltas." },
-        { "icon": "analytics", "title": "Model the Relationship", "text": "Use regression to test predictive strength." }
-      ]
-    },
-    {
-      "id": "hypotheses",
-      "chapter": "Chapter 2",
-      "eyebrow": "Hypotheses",
-      "title": "Working Hypotheses",
-      "items": [
-        { "label": "H₀", "type": "null", "text": "There is no significant relationship between computer laboratory usage and academic performance change between grading periods." },
-        { "label": "H₁", "type": "alt", "text": "Higher lab hours and a greater hands-on ratio are positively associated with improved performance from Prelim to Midterm." }
-      ]
-    },
-    {
-      "id": "scope",
-      "template": "scope",
-      "chapter": "Chapter 1",
-      "eyebrow": "Scope & Delimitations",
-      "title": "What this study covers",
-      "inScope": [
-        "ITMAWD students enrolled at STI College Malolos (A.Y. 2025–2026)",
-        "Preliminary and Midterm grading periods only",
-        "Self-reported lab hours validated against registrar records"
+      "eyebrow": "Study Variables",
+      "title": "Study Variables",
+      "cards": [
+        {
+          "tag": "Independent Variable 1",
+          "title": "Frequency",
+          "kind": "iv",
+          "definition": "Weekly laboratory hours attended, including both scheduled class time and voluntary extra lab sessions.",
+          "measurement": "Self-reported numeric hours per week (ratio scale). Winsorized: one outlier capped at 10 hrs.",
+          "stats": { "mean": "4.31", "sd": "1.82", "min": "1", "max": "10" }
+        },
+        {
+          "tag": "Independent Variable 2",
+          "title": "Intensity",
+          "kind": "iv",
+          "definition": "Composite Behavioral Engagement Score — derived from five Likert-scale items measuring active technical behaviors (coding, configuration, debugging), with passive and non-technical behaviors reverse-coded.",
+          "measurement": "Aggregated score across Q8.1–Q8.5; Q8.2 and Q8.4 are reverse-coded. Scale: 5–25.",
+          "stats": { "mean": "16.23", "sd": "2.86", "min": "10", "max": "25" }
+        },
+        {
+          "tag": "Dependent Variable",
+          "title": "Performance Change Score",
+          "kind": "dv",
+          "definition": "The measurable shift in academic performance between grading periods — computed as Midterm Grade minus Preliminary Grade.",
+          "measurement": "Numerical grade difference per respondent. Positive = improvement.",
+          "stats": { "mean": "+1.30", "sd": "3.06", "min": "−13", "max": "+13" }
+        }
       ],
-      "outScope": [
-        "Non-IT programs and other STI campuses",
-        "Final and pre-final grading periods",
-        "Off-campus or remote laboratory equivalents"
+      "context": "86 BSIT students at STI College Malolos across five core subjects: Computer Programming 1 and 2, Event-Driven Programming, Systems Administration and Maintenance, and Introduction to Computing."
+    },
+    {
+      "id": "research-questions",
+      "template": "rq",
+      "chapter": "Chapter 1",
+      "eyebrow": "Research Questions",
+      "title": "Research Questions",
+      "central": "Does computer laboratory usage — measured through Frequency (weekly laboratory hours) and Intensity (composite behavioral engagement score) — correspond to changes in academic performance between the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos?",
+      "subs": [
+        "What is the relationship between laboratory usage and Preliminary academic performance?",
+        "What is the relationship between laboratory usage and Midterm academic performance?",
+        "Is increased laboratory usage associated with positive performance change between the Preliminary and Midterm grading periods?"
+      ],
+      "hypotheses": [
+        { "label": "H₁ (Alternative)", "type": "alt", "text": "Higher laboratory usage is associated with a positive change in academic performance between the Preliminary and Midterm grading periods." },
+        { "label": "H₀₁ (Null)", "type": "null", "text": "Laboratory usage is not associated with a significant change in academic performance between the Preliminary and Midterm grading periods." }
       ]
     },
     {
-      "id": "kpis",
-      "template": "kpi",
-      "chapter": "Chapter 2",
-      "eyebrow": "Study at a glance",
-      "title": "The numbers driving the work",
-      "intro": "A quick snapshot of the dataset before diving into methodology and findings.",
-      "kpis": [
-        { "value": "145", "label": "Respondents", "sublabel": "Slovin's formula, 95% CI" },
-        { "value": "501", "label": "Population",  "sublabel": "ITMAWD enrollment" },
-        { "value": "4",   "label": "Variables",   "sublabel": "Hours, ratio, prelim, midterm" },
-        { "value": "3",   "label": "Methods",     "sublabel": "Cronbach · Pearson · Regression" }
+      "id": "significance",
+      "template": "significance",
+      "chapter": "Chapter 1",
+      "eyebrow": "Significance",
+      "title": "Significance of the Study",
+      "generalObjective": "To examine the relationship between computer laboratory usage and changes in academic performance across the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos.",
+      "objectives": [
+        { "text": "Measure the Frequency and Intensity of computer laboratory usage among BSIT students.", "href": "#variables" },
+        { "text": "Determine the relationship between laboratory usage and Preliminary academic performance.", "href": "/dashboard#correlation" },
+        { "text": "Determine the relationship between laboratory usage and Midterm academic performance.", "href": "/dashboard#correlation" },
+        { "text": "Assess whether increased laboratory usage corresponds to positive performance change, using the computed Performance Change Score.", "href": "/dashboard#regression" },
+        { "text": "Develop a web-based tool for survey distribution, data visualization, and dissemination of findings.", "href": "/dashboard#dashboard-hero" }
       ]
     },
     {
-      "id": "timeline",
-      "template": "timeline",
-      "chapter": "Chapter 2",
-      "eyebrow": "Roadmap",
-      "title": "How the study unfolded",
-      "steps": [
-        { "phase": "Phase 1", "title": "Instrument design",  "text": "Drafted and pilot-tested the survey covering attendance, hands-on ratio, and perceived performance." },
-        { "phase": "Phase 2", "title": "Data collection",    "text": "Distributed the validated instrument to 145 respondents across ITMAWD sections." },
-        { "phase": "Phase 3", "title": "Statistical analysis","text": "Ran reliability, correlation, and regression tests through the CoreLab tool." },
-        { "phase": "Phase 4", "title": "Visualization",       "text": "Published findings on the dashboard for ongoing inspection and replication." }
+      "id": "beneficiaries",
+      "template": "beneficiaries",
+      "chapter": "Chapter 1",
+      "eyebrow": "Beneficiaries",
+      "title": "Who This Study Benefits",
+      "cards": [
+        { "title": "Students", "body": "Understanding how laboratory time translates to measurable academic progress, enabling more intentional use of available hours within the term." },
+        { "title": "Faculty and Instructors", "body": "Insight into when and how laboratory activities contribute most to performance, informing the design and pacing of laboratory exercises across the term." },
+        { "title": "Administrators and Policymakers", "body": "Empirical basis for scheduling decisions, laboratory access equity policies, and resource allocation at the institutional level." },
+        { "title": "Future Researchers", "body": "A methodological foundation for examining intra-term performance shifts in technical education contexts, with identified variables and gaps for extension." }
       ]
     },
     {
-      "id": "voice",
-      "template": "quote",
+      "id": "literature",
+      "template": "literature",
       "chapter": "Chapter 2",
-      "eyebrow": "In the researchers' words",
-      "title": "Why this matters",
-      "quote": "If laboratory time genuinely shapes how students perform, then how we schedule and structure those hours becomes a curriculum decision — not just an operational one.",
-      "attribution": "ITMAWD 12A research group"
+      "eyebrow": "Related Literature",
+      "title": "Review of Related Literature",
+      "panels": [
+        {
+          "heading": "Synthesis of Literature",
+          "body": "Three converging themes emerge from the reviewed literature: structured technology use improves student focus and engagement; equitable access to ICT resources determines whether students can convert instruction into applicable skills; and sustained laboratory practice builds technical competency over time. Together, these studies confirm that laboratory-based learning supports academic outcomes — but none directly examines how Frequency and Intensity of usage correlate with intra-term performance change. This study addresses that gap."
+        },
+        {
+          "heading": "Theme 1 — Structured Technology Use and Academic Performance",
+          "body": "Guided, purposeful use of technology in the laboratory improves student focus and performance outcomes. Limniou (2021) found that students using devices under structured academic intent outperformed those with unrestricted access. Canoy et al. (2023) demonstrated beneficial effects of supervised lab sessions while identifying practical barriers: inadequate equipment, scheduling conflicts, and insufficient instructor preparation. The consistent finding: structure is as important as access.",
+          "gap": "Limited evidence exists on how structured lab use affects short-term, intra-term academic performance specifically in BSIT programs."
+        },
+        {
+          "heading": "Theme 2 — Access to ICT Resources and Learning Outcomes",
+          "body": "Access to ICT resources is a prerequisite for skill development. Mohamed (2025) found that availability significantly impacts performance and recommended extending ICT access beyond laboratories. Siega (2025) confirmed a positive relationship between computer technology use and academic outcomes. Escubido et al. (2025) found that effective ICT integration in instruction improves performance, while persistent resource limitations continue to constrain student progress.",
+          "gap": "These studies measure access as a binary condition. None examines duration and behavioral depth of usage as a predictor of performance change across grading periods."
+        },
+        {
+          "heading": "Theme 3 — Digital Skills Development Through Laboratory Practice",
+          "body": "Repeated hands-on laboratory engagement is the mechanism through which BSIT students develop technical competency. Vahid et al. (2023) found that students who consistently engaged in coding activities achieved higher grades, with consistent engagement being the operative variable. Cadiz-Gabejan and Takenaka (2021) found that initial computer literacy amplifies the benefit students derive from lab work.",
+          "gap": "Neither study quantifies behavioral intensity or separates it from time-based frequency as a distinct predictor."
+        }
+      ]
+    },
+    {
+      "id": "framework",
+      "template": "framework",
+      "chapter": "Chapter 2",
+      "eyebrow": "Theoretical Framework",
+      "title": "Theoretical Framework",
+      "panels": [
+        {
+          "heading": "Theoretical Framework",
+          "body": "Three theories collectively explain how laboratory usage may influence academic performance. Cognitive Load Theory accounts for how structured access reduces mental inefficiency. Constructivist Learning Theory explains how active engagement builds knowledge. Experiential Learning Theory connects repeated practice to measurable skill development. Together, they predict that consistent and intentional laboratory usage — high in both Frequency and Intensity — creates the conditions for a positive Performance Change Score."
+        },
+        {
+          "heading": "Cognitive Load Theory — Sweller (1988)",
+          "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load — the effort spent on logistical friction — and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
+        },
+        {
+          "heading": "Constructivist Learning Theory — Piaget (1972) & Vygotsky (1978)",
+          "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement — active coding, troubleshooting, and configuration — is the mechanism through which that construction occurs."
+        },
+        {
+          "heading": "Experiential Learning Theory — Kolb (1984)",
+          "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
+        }
+      ]
     }
   ],
   "finale": {
@@ -126,6 +171,6 @@
       { "label": "View Dashboard", "href": "/dashboard", "icon": "monitoring" },
       { "label": "Meet the Team", "href": "/team", "icon": "groups" }
     ],
-    "footer": "© 2025 ITMAWD12A Research Team — STI College Malolos"
+    "footer": "© 2025 CoreLab Analytics — ITMAWD 12A research group · STI College Malolos"
   }
 }
