@@ -1,7 +1,7 @@
 import { SectionShell } from "./SectionShell";
 import { SwipeCarousel } from "@/components/SwipeCarousel";
 import { scrollToHash } from "@/lib/scrollToHash";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Users, GraduationCap, Building2, FlaskConical, ArrowRight } from "lucide-react";
 
 /* ─────────────── H-2 Background ─────────────── */
