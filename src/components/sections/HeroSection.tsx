@@ -9,7 +9,8 @@ interface HeroData {
   description: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
-  stats: { value: string; label: string }[];
+  descriptor?: { label: string; body: string };
+  stats?: { value: string; label: string }[];
 }
 
 export function HeroSection({ data }: { data: HeroData }) {
@@ -50,18 +51,25 @@ export function HeroSection({ data }: { data: HeroData }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 fade-up sm:gap-4">
-          {data.stats.map((s) => (
-            <div key={s.label} className="stat-pill text-foreground">
-              <p className="font-display text-3xl font-bold text-primary sm:text-4xl">
-                {s.value}
-              </p>
-              <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground sm:text-xs">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </div>
+        {data.descriptor ? (
+          <div className="fade-up rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              {data.descriptor.label}
+            </p>
+            <p className="mt-4 font-display text-xl leading-snug text-white sm:text-2xl">
+              {data.descriptor.body}
+            </p>
+          </div>
+        ) : data.stats ? (
+          <div className="grid grid-cols-3 gap-3 fade-up sm:gap-4">
+            {data.stats.map((s) => (
+              <div key={s.label} className="stat-pill text-foreground">
+                <p className="font-display text-3xl font-bold text-primary sm:text-4xl">{s.value}</p>
+                <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground sm:text-xs">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium tracking-widest text-white/60">
