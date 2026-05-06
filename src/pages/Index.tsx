@@ -3,17 +3,14 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { TocDropdown, type TocItem } from "@/components/TocDropdown";
 import { HeroSection } from "@/components/sections/HeroSection";
 import {
-  BackgroundSection,
-  ProblemSection,
-  ObjectivesSection,
-  HypothesesSection,
-} from "@/components/sections/ContentSections";
-import {
-  QuoteHomeSection,
-  KpiSection,
-  TimelineHomeSection,
-  ScopeSection,
-} from "@/components/sections/ContentSectionsExtra";
+  BackgroundTwoBeatSection,
+  VariablesSection,
+  ResearchQuestionsSection,
+  SignificanceSection,
+  BeneficiariesSection,
+  LiteratureSection,
+  FrameworkSection,
+} from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
 interface Content {
@@ -28,49 +25,36 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch("/content.json")
-      .then((r) => r.json())
-      .then(setContent)
-      .catch((e) => console.error("Failed to load content.json", e));
+    fetch("/content.json").then((r) => r.json()).then(setContent).catch(console.error);
   }, []);
 
-  // Build TOC from rendered DOM (after content mount)
   const tocItems: TocItem[] = useMemo(() => {
     if (!content) return [];
-    const items: TocItem[] = [
+    return [
       { id: "hero", label: "Overview", chapter: "Chapter 1" },
-      ...content.sections.map((s) => ({
-        id: s.id,
-        label: s.eyebrow,
-        chapter: s.chapter,
-      })),
+      ...content.sections.map((s) => ({ id: s.id, label: s.eyebrow, chapter: s.chapter })),
       { id: "finale", label: "Continue", chapter: "Continue" },
     ];
-    return items;
   }, [content]);
 
-  // Observe sections for active TOC highlighting
   useEffect(() => {
     if (!content || !containerRef.current) return;
     const root = containerRef.current;
     const sections = root.querySelectorAll<HTMLElement>(".snap-section");
-
     const obs = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
+        const visible = entries.filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible?.target.id) setActiveId(visible.target.id);
       },
-      { root, threshold: [0.4, 0.6, 0.8] }
+      { root, threshold: [0.4, 0.6, 0.8] },
     );
     sections.forEach((s) => obs.observe(s));
     return () => obs.disconnect();
   }, [content]);
 
   const jumpTo = (id: string) => {
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   if (!content) {
@@ -87,26 +71,16 @@ const Index = () => {
       <div ref={containerRef} className="snap-container">
         <HeroSection data={content.hero} />
         {content.sections.map((s, i) => {
-          const variant = i % 2 === 0 ? "even" : "odd";
-          switch (s.template ?? s.id) {
-            case "background":
-              return <BackgroundSection key={s.id} data={s} variant={variant} />;
-            case "problem":
-              return <ProblemSection key={s.id} data={s} variant={variant} />;
-            case "objectives":
-              return <ObjectivesSection key={s.id} data={s} variant={variant} />;
-            case "hypotheses":
-              return <HypothesesSection key={s.id} data={s} variant={variant} />;
-            case "quote":
-              return <QuoteHomeSection key={s.id} data={s} variant={variant} />;
-            case "kpi":
-              return <KpiSection key={s.id} data={s} variant={variant} />;
-            case "timeline":
-              return <TimelineHomeSection key={s.id} data={s} variant={variant} />;
-            case "scope":
-              return <ScopeSection key={s.id} data={s} variant={variant} />;
-            default:
-              return null;
+          const variant: "odd" | "even" = i % 2 === 0 ? "even" : "odd";
+          switch (s.template) {
+            case "background2":   return <BackgroundTwoBeatSection key={s.id} data={s} variant={variant} />;
+            case "variables":     return <VariablesSection key={s.id} data={s} variant={variant} />;
+            case "rq":            return <ResearchQuestionsSection key={s.id} data={s} variant={variant} />;
+            case "significance":  return <SignificanceSection key={s.id} data={s} variant={variant} />;
+            case "beneficiaries": return <BeneficiariesSection key={s.id} data={s} variant={variant} />;
+            case "literature":    return <LiteratureSection key={s.id} data={s} variant={variant} />;
+            case "framework":     return <FrameworkSection key={s.id} data={s} variant={variant} />;
+            default:              return null;
           }
         })}
         <FinaleSection data={content.finale} onBackToTop={() => jumpTo("hero")} />
