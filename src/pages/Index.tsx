@@ -10,6 +10,8 @@ import {
   BeneficiariesSection,
   LiteratureSection,
   FrameworkSection,
+  MethodsSection,
+  MethodsTwoColSection,
 } from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
