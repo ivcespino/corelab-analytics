@@ -19,17 +19,17 @@ export default function Dashboard() {
 
   const tocItems: TocItem[] = [
     { id: "dashboard-hero", label: "Overview", chapter: "Dashboard" },
-    { id: "respondents",    label: "Respondents", chapter: "Findings" },
-    { id: "descriptive",    label: "Descriptive Stats", chapter: "Findings" },
-    { id: "reliability",    label: "Reliability", chapter: "Findings" },
-    { id: "correlation",    label: "Correlation", chapter: "Findings" },
-    { id: "regression",     label: "Regression", chapter: "Findings" },
-    { id: "summary",        label: "Summary", chapter: "Discussion" },
-    { id: "usage-grades",   label: "Usage vs Grades", chapter: "Discussion" },
-    { id: "predictors",     label: "Predictors", chapter: "Discussion" },
-    { id: "divergence",     label: "Divergence", chapter: "Discussion" },
-    { id: "synthesis",      label: "Synthesis", chapter: "Discussion" },
-    { id: "recommendations",label: "Recommendations", chapter: "Discussion" },
+    { id: "respondents",    label: "Respondents", chapter: "Chapter 3 · Results" },
+    { id: "descriptive",    label: "Descriptive Stats", chapter: "Chapter 3 · Results" },
+    { id: "reliability",    label: "Reliability", chapter: "Chapter 3 · Results" },
+    { id: "correlation",    label: "Correlation", chapter: "Chapter 3 · Results" },
+    { id: "regression",     label: "Regression", chapter: "Chapter 3 · Results" },
+    { id: "summary",        label: "Summary", chapter: "Chapter 4 · Discussion" },
+    { id: "usage-grades",   label: "Usage vs Grades", chapter: "Chapter 4 · Discussion" },
+    { id: "predictors",     label: "Predictors", chapter: "Chapter 4 · Discussion" },
+    { id: "divergence",     label: "Divergence", chapter: "Chapter 4 · Discussion" },
+    { id: "synthesis",      label: "Synthesis", chapter: "Chapter 4 · Discussion" },
+    { id: "recommendations",label: "Recommendations", chapter: "Chapter 4 · Discussion" },
     { id: "finale",         label: "Continue", chapter: "Continue" },
   ];
 
@@ -291,7 +291,7 @@ function Respondents({ responses, variant }: { responses: Response[]; variant: "
   }, [responses]);
 
   return (
-    <SectionWrap id="respondents" chapter="Findings" eyebrow="Profile" title="Profile of the Respondents" variant={variant}>
+    <SectionWrap id="respondents" chapter="Chapter 3 · Results" eyebrow="Profile" title="Profile of the Respondents" variant={variant}>
       <div className="mb-6 grid gap-2 sm:grid-cols-4">
         {[
           { k: "N", v: String(responses.length) },
@@ -360,7 +360,7 @@ function Descriptive({ responses, variant }: { responses: Response[]; variant: "
   }, [responses]);
 
   return (
-    <SectionWrap id="descriptive" chapter="Findings" eyebrow="Descriptive Statistics" title="Descriptive Statistics" variant={variant}>
+    <SectionWrap id="descriptive" chapter="Chapter 3 · Results" eyebrow="Descriptive Statistics" title="Descriptive Statistics" variant={variant}>
       <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
         <div className="overflow-x-auto rounded-xl border bg-card">
           <table className={tableBase}>
@@ -415,7 +415,7 @@ function Reliability({ responses, variant }: { responses: Response[]; variant: "
   const compositeSd = useMemo(() => sd(responses.map((r) => r.intensity)).toFixed(2), [responses]);
 
   return (
-    <SectionWrap id="reliability" chapter="Findings" eyebrow="Reliability" title="Reliability Analysis — Composite Behavioral Score (Intensity)" variant={variant}>
+    <SectionWrap id="reliability" chapter="Chapter 3 · Results" eyebrow="Reliability" title="Reliability Analysis — Composite Behavioral Score (Intensity)" variant={variant}>
       <div className="overflow-x-auto rounded-xl border bg-card">
         <table className={tableBase}>
           <thead><tr><th className={th}>Item</th><th className={`${th} text-right`}>SD</th></tr></thead>
@@ -476,7 +476,7 @@ function Correlation({ responses, variant }: { responses: Response[]; variant: "
   }, [responses]);
 
   return (
-    <SectionWrap id="correlation" chapter="Findings" eyebrow="Correlation" title="Correlation Analysis (Pearson r)" variant={variant}>
+    <SectionWrap id="correlation" chapter="Chapter 3 · Results" eyebrow="Correlation" title="Correlation Analysis (Pearson r)" variant={variant}>
       <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <div className="overflow-x-auto rounded-xl border bg-card">
           <table className={tableBase}>
@@ -631,7 +631,7 @@ function Regression({ responses, variant }: { responses: Response[]; variant: "o
   );
 
   return (
-    <SectionWrap id="regression" chapter="Findings" eyebrow="Regression" title="Regression Analysis" variant={variant}>
+    <SectionWrap id="regression" chapter="Chapter 3 · Results" eyebrow="Regression" title="Regression Analysis" variant={variant}>
       <SwipeCarousel ariaLabel="Regression analysis" panels={[
         <div key="0">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-accent">Model Summary</p>
@@ -654,7 +654,7 @@ function SummaryFindings({ variant }: { variant: "odd" | "even" }) {
     { k: "03", text: "The combined regression model is significant (p = 0.0424). H₀₁ is rejected. Laboratory usage is associated with measurable academic progress." },
   ];
   return (
-    <SectionWrap id="summary" chapter="Discussion" eyebrow="Summary" title="Summary of Findings" variant={variant}>
+    <SectionWrap id="summary" chapter="Chapter 4 · Discussion" eyebrow="Summary" title="Summary of Findings" variant={variant}>
       <ol className="grid gap-4 md:grid-cols-3">
         {items.map((it) => (
           <li key={it.k} className="rounded-2xl border bg-card p-6 shadow-soft">
@@ -684,7 +684,7 @@ function UsageGrades({ variant }: { variant: "odd" | "even" }) {
     </div>
   );
   return (
-    <SectionWrap id="usage-grades" chapter="Discussion" eyebrow="Usage & Grades" title="Usage Metrics and Absolute Grades" variant={variant}>
+    <SectionWrap id="usage-grades" chapter="Chapter 4 · Discussion" eyebrow="Usage & Grades" title="Usage Metrics and Absolute Grades" variant={variant}>
       <div className="grid gap-4 md:grid-cols-2">
         <Col title="Preliminary Period"
           items={[
@@ -718,7 +718,7 @@ function Predictors({ variant }: { variant: "odd" | "even" }) {
     { k: "Intensity", v: "Not significant", sub: "p = 0.8238 (combined)" },
   ];
   return (
-    <SectionWrap id="predictors" chapter="Discussion" eyebrow="Predictors" title="Predictors of Performance Change" variant={variant}>
+    <SectionWrap id="predictors" chapter="Chapter 4 · Discussion" eyebrow="Predictors" title="Predictors of Performance Change" variant={variant}>
       <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-5">
         {stats.map((s) => (
           <div key={s.k} className={`rounded-xl border p-4 ${s.hl ? "border-accent bg-accent/5" : "bg-card"}`}>
@@ -747,7 +747,7 @@ function Divergence({ variant }: { variant: "odd" | "even" }) {
     </div>
   );
   return (
-    <SectionWrap id="divergence" chapter="Discussion" eyebrow="Divergence" title="A Discovery: Intensity vs Frequency" variant={variant}>
+    <SectionWrap id="divergence" chapter="Chapter 4 · Discussion" eyebrow="Divergence" title="A Discovery: Intensity vs Frequency" variant={variant}>
       <SwipeCarousel ariaLabel="Divergent findings" panels={[
         <div key="0">
           <p className="mb-4 text-base italic leading-relaxed text-muted-foreground sm:text-lg">
@@ -794,7 +794,7 @@ function Synthesis({ variant }: { variant: "odd" | "even" }) {
     },
   ];
   return (
-    <SectionWrap id="synthesis" chapter="Discussion" eyebrow="Synthesis" title="Synthesis with Theory and Literature" variant={variant}>
+    <SectionWrap id="synthesis" chapter="Chapter 4 · Discussion" eyebrow="Synthesis" title="Synthesis with Theory and Literature" variant={variant}>
       <SwipeCarousel ariaLabel="Synthesis" panels={panels.map((p, i) => (
         <div key={i} className="rounded-2xl border bg-card p-6 shadow-soft sm:p-8">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{p.tag}</p>
@@ -820,7 +820,7 @@ function Recommendations({ variant }: { variant: "odd" | "even" }) {
     { who: "Future Researchers", what: "Examine additional predictors of performance change such as prior knowledge, study habits, and instructional quality. Extend scope to 4th-year students. Test whether the Frequency–Intensity divergence pattern holds in other academic disciplines." },
   ];
   return (
-    <SectionWrap id="recommendations" chapter="Discussion" eyebrow="Recommendations" title="Implications and Recommendations" variant={variant}>
+    <SectionWrap id="recommendations" chapter="Chapter 4 · Discussion" eyebrow="Recommendations" title="Implications and Recommendations" variant={variant}>
       <SwipeCarousel ariaLabel="Recommendations" panels={[
         <div key="0">
           <ol className="grid gap-3 md:grid-cols-3">

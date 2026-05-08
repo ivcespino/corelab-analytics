@@ -124,7 +124,10 @@
     justify-content: center;
     position: relative;
     padding: 6rem 1.5rem 3rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
+  .snap-section::-webkit-scrollbar { width: 0; }
 
   .snap-section.bg-odd { background-color: hsl(var(--section-odd)); }
   .snap-section.bg-even { background-color: hsl(var(--section-even)); }
