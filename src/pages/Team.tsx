@@ -101,8 +101,8 @@ export default function Team() {
 
         {/* Contact */}
         <section className="mx-auto max-w-6xl px-6 py-20">
-          <div className="glass-card relative overflow-hidden bg-gradient-to-br from-primary to-primary/85 p-10 text-white sm:p-14">
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
+          <div className="glass-card relative overflow-hidden bg-gradient-to-br from-primary to-primary/85 p-10 text-white dark:from-card dark:via-card dark:to-[hsl(224_33%_12%)] dark:text-foreground sm:p-14">
+            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/30 blur-3xl dark:bg-accent/15" />
             <div className="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
               <div>
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Get in touch</span>
