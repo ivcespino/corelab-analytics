@@ -244,3 +244,68 @@ export function FrameworkSection({ data, variant }: { data: FrameworkData; varia
     </SectionShell>
   );
 }
+
+/* ─────────────── Methods (multi-block card grid) ─────────────── */
+interface MethodsData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead: string;
+  blocks: { heading: string; body: string }[];
+}
+export function MethodsSection({ data, variant }: { data: MethodsData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>
+      <div className={`mt-6 grid gap-4 ${data.blocks.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+        {data.blocks.map((b, i) => (
+          <div key={i} className="rounded-2xl border bg-card p-5 shadow-soft">
+            <div className="flex items-baseline gap-3">
+              <span className="font-display text-2xl font-bold text-muted-foreground/30">{String(i + 1).padStart(2, "0")}</span>
+              <p className="font-display text-lg font-semibold">{b.heading}</p>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/85">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </SectionShell>
+  );
+}
+
+/* ─────────────── Methods Two-Column (in/out, criteria) ─────────────── */
+interface MethodsTwoColData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead: string;
+  leftLabel: string; leftItems: string[];
+  rightLabel: string; rightItems: string[];
+}
+export function MethodsTwoColSection({ data, variant }: { data: MethodsTwoColData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {[
+          { label: data.leftLabel, items: data.leftItems, accent: false },
+          { label: data.rightLabel, items: data.rightItems, accent: true },
+        ].map((col) => (
+          <div
+            key={col.label}
+            className={`rounded-2xl border-2 p-6 shadow-soft ${
+              col.accent ? "border-accent/60 bg-accent/5" : "border-border bg-card"
+            }`}
+          >
+            <p className={`text-xs font-bold uppercase tracking-[0.18em] ${col.accent ? "text-accent" : "text-muted-foreground"}`}>
+              {col.label}
+            </p>
+            <ul className="mt-3 space-y-2.5">
+              {col.items.map((it, i) => (
+                <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                  <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${col.accent ? "bg-accent" : "bg-primary dark:bg-accent"}`} />
+                  <span>{it}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </SectionShell>
+  );
+}

@@ -116,18 +116,17 @@
   .snap-container::-webkit-scrollbar { width: 0; }
 
   .snap-section {
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 640px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
-    padding: 6rem 1.5rem 3rem;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    padding: 5.5rem 1.5rem 2.5rem;
+    overflow: hidden;
   }
-  .snap-section::-webkit-scrollbar { width: 0; }
 
   .snap-section.bg-odd { background-color: hsl(var(--section-odd)); }
   .snap-section.bg-even { background-color: hsl(var(--section-even)); }

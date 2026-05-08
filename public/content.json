@@ -111,7 +111,7 @@
     {
       "id": "literature",
       "template": "literature",
-      "chapter": "Chapter 2",
+      "chapter": "Chapter 1",
       "eyebrow": "Related Literature",
       "title": "Review of Related Literature",
       "panels": [
@@ -139,7 +139,7 @@
     {
       "id": "framework",
       "template": "framework",
-      "chapter": "Chapter 2",
+      "chapter": "Chapter 1",
       "eyebrow": "Theoretical Framework",
       "title": "Theoretical Framework",
       "panels": [
@@ -159,6 +159,93 @@
           "heading": "Experiential Learning Theory — Kolb (1984)",
           "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
         }
+      ]
+    },
+    {
+      "id": "scope",
+      "template": "methodsTwoCol",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Scope & Delimitation",
+      "title": "Scope and Delimitation",
+      "lead": "What the study covers — and the boundaries that keep the findings interpretable.",
+      "leftLabel": "In Scope",
+      "leftItems": [
+        "BSIT students at STI College Malolos with paired Preliminary + Midterm grades",
+        "Selected core IT subjects requiring computer laboratory use",
+        "Laboratory usage measured as Frequency (weekly hours) and Intensity (composite behavioral score)",
+        "Performance Change Score computed as Midterm − Preliminary"
+      ],
+      "rightLabel": "Out of Scope",
+      "rightItems": [
+        "4th-year BSIT students (excluded; revised population = 406)",
+        "General education and elective subjects",
+        "Objective attendance logs / registrar grade records (study uses self-report)",
+        "External factors: tutoring, home internet, study habits, attendance in non-lab classes"
+      ]
+    },
+    {
+      "id": "research-design",
+      "template": "methods",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Research Design",
+      "title": "Quantitative Correlational Design",
+      "lead": "The study examined naturally occurring data — no variables were manipulated. Correlation answered the relationship questions; regression tested whether usage metrics predict performance change.",
+      "blocks": [
+        { "heading": "Why Correlational", "body": "The aim was to determine the nature, degree, and direction of the statistical relationship between laboratory usage and academic performance — not to establish cause." },
+        { "heading": "Pearson r", "body": "Used to test the strength and direction of association between Frequency / Intensity and grades at each grading period." },
+        { "heading": "Linear Regression", "body": "Used to test whether the usage metrics significantly predict the Performance Change Score between Preliminary and Midterm." },
+        { "heading": "Limitation", "body": "Correlational design cannot establish causation — only that the variables move together within the sample." }
+      ]
+    },
+    {
+      "id": "participants",
+      "template": "methodsTwoCol",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Participants & Sampling",
+      "title": "Participants and Sampling",
+      "lead": "Population: 406 BSIT students (after excluding 4th-year). Slovin's formula at 90% confidence / 10% margin → minimum 81. Final N = 86 valid responses retained.",
+      "leftLabel": "Sampling Funnel",
+      "leftItems": [
+        "Initial population: BSIT students at STI College Malolos",
+        "Excluded 95 fourth-year students → revised population: 406",
+        "Slovin (90% CI, 10% MoE): minimum 81 respondents",
+        "Collected: 86 valid, complete responses (purposive sampling)"
+      ],
+      "rightLabel": "Inclusion Criteria",
+      "rightItems": [
+        "Enrolled BSIT student at STI College Malolos",
+        "Enrolled in / completed selected core IT subjects with lab component",
+        "Able to report attended laboratory hours per week",
+        "Able to self-evaluate technical engagement using the survey indicators",
+        "Has complete paired Preliminary + Midterm grades for the subject"
+      ]
+    },
+    {
+      "id": "collection",
+      "template": "methods",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Collection Plan",
+      "title": "Data Collection Plan",
+      "lead": "A digitally distributed structured survey with informed consent, anonymous response handling, and a verification step for self-reported grades.",
+      "blocks": [
+        { "heading": "Approval & Instrument", "body": "Institutional approval secured first; structured survey reviewed for clarity before distribution. Items covered weekly lab hours, behavioral engagement, subject, and Prelim + Midterm grades." },
+        { "heading": "Distribution", "body": "Survey link distributed digitally — class group chats, text messages, and QR codes — to reach BSIT students efficiently and organize responses for analysis." },
+        { "heading": "Ethics", "body": "Informed consent before participation; voluntary with right to withdraw; anonymous; data analyzed in aggregate only; access restricted to the research team." },
+        { "heading": "Data Preparation", "body": "Performance Change Score = Midterm − Preliminary. Frequency: one outlier of 20 hrs winsorized to 10. Intensity: 5 Likert items, passive items reverse-coded, then summed into the Composite Behavioral Score." }
+      ]
+    },
+    {
+      "id": "analysis-plan",
+      "template": "methods",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Analysis Plan",
+      "title": "Data Analysis Plan",
+      "lead": "Analysis ran in Google Sheets with the XL Miner Analysis ToolPak. α = 0.05 throughout.",
+      "blocks": [
+        { "heading": "Descriptive Statistics", "body": "Mean, SD, min, max for weekly lab hours, Composite Behavioral Score, Preliminary Grade, Midterm Grade, and Performance Change Score." },
+        { "heading": "Reliability — Cronbach's α", "body": "Computed across the 5 Likert items of the Intensity metric to confirm internal consistency before using the composite score in inferential analysis." },
+        { "heading": "Pearson r — 4 Pairings", "body": "Frequency × Prelim, Intensity × Prelim, Frequency × Midterm, Intensity × Midterm — separating the two usage dimensions across both grading periods." },
+        { "heading": "Linear Regression", "body": "Simple regression for each metric, plus multiple regression with both predictors, to test whether Frequency and / or Intensity significantly predict the Performance Change Score." }
       ]
     }
   ],

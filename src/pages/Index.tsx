@@ -10,6 +10,8 @@ import {
   BeneficiariesSection,
   LiteratureSection,
   FrameworkSection,
+  MethodsSection,
+  MethodsTwoColSection,
 } from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
@@ -80,6 +82,8 @@ const Index = () => {
             case "beneficiaries": return <BeneficiariesSection key={s.id} data={s} variant={variant} />;
             case "literature":    return <LiteratureSection key={s.id} data={s} variant={variant} />;
             case "framework":     return <FrameworkSection key={s.id} data={s} variant={variant} />;
+            case "methods":       return <MethodsSection key={s.id} data={s} variant={variant} />;
+            case "methodsTwoCol": return <MethodsTwoColSection key={s.id} data={s} variant={variant} />;
             default:              return null;
           }
         })}
