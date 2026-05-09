@@ -2,7 +2,7 @@ import { SectionShell } from "./SectionShell";
 import { SwipeCarousel } from "@/components/SwipeCarousel";
 import { scrollToHash } from "@/lib/scrollToHash";
 import { useNavigate } from "react-router-dom";
-import { Users, GraduationCap, Building2, FlaskConical, ArrowRight } from "lucide-react";
+import { Users, GraduationCap, Building2, FlaskConical, ArrowRight, BookOpen, FlaskRound } from "lucide-react";
 
 /* ─────────────── H-2 Background ─────────────── */
 interface BackgroundTwoBeatData {
