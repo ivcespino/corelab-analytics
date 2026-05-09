@@ -12,6 +12,11 @@ import {
   FrameworkSection,
   MethodsSection,
   MethodsTwoColSection,
+  ChapterDividerSection,
+  SinglePanelSection,
+  LikertTableSection,
+  TableSlideSection,
+  SamplingFunnelSection,
 } from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
@@ -75,15 +80,20 @@ const Index = () => {
         {content.sections.map((s, i) => {
           const variant: "odd" | "even" = i % 2 === 0 ? "even" : "odd";
           switch (s.template) {
+            case "chapterDivider":return <ChapterDividerSection key={s.id} data={s} variant={variant} />;
             case "background2":   return <BackgroundTwoBeatSection key={s.id} data={s} variant={variant} />;
             case "variables":     return <VariablesSection key={s.id} data={s} variant={variant} />;
+            case "likert":        return <LikertTableSection key={s.id} data={s} variant={variant} />;
             case "rq":            return <ResearchQuestionsSection key={s.id} data={s} variant={variant} />;
             case "significance":  return <SignificanceSection key={s.id} data={s} variant={variant} />;
             case "beneficiaries": return <BeneficiariesSection key={s.id} data={s} variant={variant} />;
+            case "panel":         return <SinglePanelSection key={s.id} data={s} variant={variant} />;
             case "literature":    return <LiteratureSection key={s.id} data={s} variant={variant} />;
             case "framework":     return <FrameworkSection key={s.id} data={s} variant={variant} />;
             case "methods":       return <MethodsSection key={s.id} data={s} variant={variant} />;
             case "methodsTwoCol": return <MethodsTwoColSection key={s.id} data={s} variant={variant} />;
+            case "table":         return <TableSlideSection key={s.id} data={s} variant={variant} />;
+            case "sampling":      return <SamplingFunnelSection key={s.id} data={s} variant={variant} />;
             default:              return null;
           }
         })}

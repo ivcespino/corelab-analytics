@@ -2,7 +2,7 @@ import { SectionShell } from "./SectionShell";
 import { SwipeCarousel } from "@/components/SwipeCarousel";
 import { scrollToHash } from "@/lib/scrollToHash";
 import { useNavigate } from "react-router-dom";
-import { Users, GraduationCap, Building2, FlaskConical, ArrowRight } from "lucide-react";
+import { Users, GraduationCap, Building2, FlaskConical, ArrowRight, BookOpen, FlaskRound } from "lucide-react";
 
 /* ─────────────── H-2 Background ─────────────── */
 interface BackgroundTwoBeatData {
@@ -305,6 +305,212 @@ export function MethodsTwoColSection({ data, variant }: { data: MethodsTwoColDat
             </ul>
           </div>
         ))}
+      </div>
+    </SectionShell>
+  );
+}
+
+/* ─────────────── Chapter Divider (full-bleed) ─────────────── */
+interface ChapterDividerData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  number: string; lead?: string;
+  toc?: { label: string; href?: string }[];
+}
+export function ChapterDividerSection({ data, variant }: { data: ChapterDividerData; variant: "odd" | "even" }) {
+  return (
+    <section
+      id={data.id}
+      data-toc={data.eyebrow}
+      data-chapter={data.chapter}
+      className={`snap-section ${variant === "odd" ? "bg-odd" : "bg-even"}`}
+    >
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="relative overflow-hidden rounded-3xl border-2 border-accent/30 bg-gradient-to-br from-primary/10 via-card to-accent/10 p-10 sm:p-14 shadow-soft">
+          <span className="absolute -right-10 -top-12 font-display text-[18rem] font-bold leading-none text-accent/10 select-none">
+            {data.number}
+          </span>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">{data.chapter}</p>
+          <h2 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-6xl lg:text-7xl">{data.title}</h2>
+          {data.lead && <p className="mt-6 max-w-3xl text-base leading-relaxed text-foreground/80 sm:text-lg">{data.lead}</p>}
+          {data.toc && (
+            <ol className="mt-8 grid gap-2 sm:grid-cols-2">
+              {data.toc.map((t, i) => (
+                <li key={i} className="flex items-center gap-3 rounded-xl border bg-card/60 px-4 py-2.5 backdrop-blur">
+                  <span className="font-mono text-xs font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-sm font-medium">{t.label}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────── Single Literature/Theory Panel ─────────────── */
+interface SinglePanelData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  subtitle?: string;
+  body: string;
+  citation?: string;
+  gap?: string;
+  kind?: "literature" | "theory";
+}
+export function SinglePanelSection({ data, variant }: { data: SinglePanelData; variant: "odd" | "even" }) {
+  const Icon = data.kind === "theory" ? FlaskRound : BookOpen;
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      <div className="grid gap-6 lg:grid-cols-[auto_1fr]">
+        <div className="hidden lg:block">
+          <span className="grid h-16 w-16 place-items-center rounded-2xl bg-accent/15 text-accent">
+            <Icon className="h-8 w-8" />
+          </span>
+        </div>
+        <div className="rounded-2xl border bg-card p-7 shadow-soft sm:p-9">
+          {data.subtitle && (
+            <p className="font-display text-xl font-semibold text-accent sm:text-2xl">{data.subtitle}</p>
+          )}
+          {data.citation && (
+            <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{data.citation}</p>
+          )}
+          <p className="mt-5 text-base leading-relaxed text-foreground/90 sm:text-lg">{data.body}</p>
+          {data.gap && (
+            <div className="mt-5 rounded-xl border-l-4 border-l-accent bg-accent/5 p-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent">Identified Gap</p>
+              <p className="mt-1 text-sm leading-relaxed">{data.gap}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
+/* ─────────────── Likert Items Table (for Intensity) ─────────────── */
+interface LikertTableData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead?: string;
+  items: { code: string; text: string; reverse: boolean }[];
+  scale?: string;
+}
+export function LikertTableSection({ data, variant }: { data: LikertTableData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      {data.lead && <p className="mb-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>}
+      <div className="overflow-x-auto rounded-2xl border bg-card shadow-soft">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="bg-muted/50">
+              <th className="border-b border-border px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Item</th>
+              <th className="border-b border-border px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Behavioral Indicator</th>
+              <th className="border-b border-border px-4 py-3 text-center text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Coding</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.items.map((it) => (
+              <tr key={it.code}>
+                <td className="border-b border-border/50 px-4 py-3 font-mono text-xs">{it.code}</td>
+                <td className="border-b border-border/50 px-4 py-3">{it.text}</td>
+                <td className="border-b border-border/50 px-4 py-3 text-center">
+                  {it.reverse ? (
+                    <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-bold text-accent">Reverse-coded</span>
+                  ) : (
+                    <span className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-bold text-muted-foreground">Direct</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {data.scale && (
+        <p className="mt-3 text-xs italic text-muted-foreground">{data.scale}</p>
+      )}
+    </SectionShell>
+  );
+}
+
+/* ─────────────── Generic Table Slide (Chapter 2 tables) ─────────────── */
+interface TableSlideData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead?: string;
+  headers: string[];
+  rows: (string | { v: string; em?: boolean })[][];
+  note?: string;
+}
+export function TableSlideSection({ data, variant }: { data: TableSlideData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      {data.lead && <p className="mb-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>}
+      <div className="overflow-x-auto rounded-2xl border bg-card shadow-soft">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="bg-muted/50">
+              {data.headers.map((h, i) => (
+                <th key={i} className="border-b border-border px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.rows.map((row, ri) => (
+              <tr key={ri} className={ri % 2 === 1 ? "bg-muted/20" : ""}>
+                {row.map((cell, ci) => {
+                  const v = typeof cell === "string" ? cell : cell.v;
+                  const em = typeof cell === "object" && cell.em;
+                  return (
+                    <td key={ci} className={`border-b border-border/40 px-4 py-3 align-top ${em ? "font-semibold text-accent" : ""}`}>
+                      {v}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {data.note && <p className="mt-3 text-xs italic text-muted-foreground">{data.note}</p>}
+    </SectionShell>
+  );
+}
+
+/* ─────────────── Sampling Funnel (Slovin) ─────────────── */
+interface SamplingData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead?: string;
+  steps: { label: string; value: string; note?: string }[];
+  formula?: { expr: string; caption: string };
+}
+export function SamplingFunnelSection({ data, variant }: { data: SamplingData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      {data.lead && <p className="mb-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>}
+      <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
+        <ol className="space-y-3">
+          {data.steps.map((s, i) => (
+            <li key={i} className="flex items-stretch gap-3">
+              <div className="grid w-12 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground font-display text-lg font-bold dark:bg-accent dark:text-accent-foreground">
+                {i + 1}
+              </div>
+              <div className="flex-1 rounded-xl border bg-card p-4 shadow-soft">
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="font-display text-base font-semibold">{s.label}</p>
+                  <p className="font-mono text-lg font-bold text-accent">{s.value}</p>
+                </div>
+                {s.note && <p className="mt-1 text-xs text-muted-foreground">{s.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+        {data.formula && (
+          <div className="rounded-2xl border-2 border-accent/40 bg-accent/5 p-6 shadow-soft">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent">Slovin's Formula</p>
+            <p className="mt-4 break-words text-center font-mono text-2xl font-bold text-primary dark:text-accent">
+              {data.formula.expr}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{data.formula.caption}</p>
+          </div>
+        )}
       </div>
     </SectionShell>
   );
