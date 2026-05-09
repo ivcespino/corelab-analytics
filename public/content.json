@@ -13,10 +13,27 @@
   },
   "sections": [
     {
-      "id": "background",
-      "template": "background2",
+      "id": "ch1-divider",
+      "template": "chapterDivider",
       "chapter": "Chapter 1",
-      "eyebrow": "Background",
+      "eyebrow": "Introduction",
+      "title": "Introduction",
+      "number": "1",
+      "lead": "The problem, the variables, the questions, and the conceptual ground the study is built on.",
+      "toc": [
+        { "label": "Background of the Study" },
+        { "label": "The Variables" },
+        { "label": "The Research Questions" },
+        { "label": "Significance of the Study" },
+        { "label": "Review of Related Literature" },
+        { "label": "Theoretical Framework" }
+      ]
+    },
+    {
+      "id": "background-context",
+      "template": "background2",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Background of the Study",
       "title": "Background of the Study",
       "beats": [
         {
@@ -32,9 +49,9 @@
     {
       "id": "variables",
       "template": "variables",
-      "chapter": "Chapter 1",
-      "eyebrow": "Study Variables",
-      "title": "Study Variables",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "The Variables",
+      "title": "The Variables",
       "cards": [
         {
           "tag": "Independent Variable 1",
@@ -48,7 +65,7 @@
           "tag": "Independent Variable 2",
           "title": "Intensity",
           "kind": "iv",
-          "definition": "Composite Behavioral Engagement Score — derived from five Likert-scale items measuring active technical behaviors (coding, configuration, debugging), with passive and non-technical behaviors reverse-coded.",
+          "definition": "Composite Behavioral Engagement Score derived from five Likert-scale items measuring active technical behaviors (coding, configuration, debugging), with passive items reverse-coded.",
           "measurement": "Aggregated score across Q8.1–Q8.5; Q8.2 and Q8.4 are reverse-coded. Scale: 5–25.",
           "stats": { "mean": "16.23", "sd": "2.86", "min": "10", "max": "25" }
         },
@@ -64,11 +81,27 @@
       "context": "86 BSIT students at STI College Malolos across five core subjects: Computer Programming 1 and 2, Event-Driven Programming, Systems Administration and Maintenance, and Introduction to Computing."
     },
     {
+      "id": "intensity-items",
+      "template": "likert",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Intensity Construct",
+      "title": "Behavioral Indicators of Intensity",
+      "lead": "The Composite Behavioral Score is built from five Likert-scaled items (1 = Strongly Disagree, 5 = Strongly Agree). Passive or non-technical behaviors are reverse-coded so that higher composite values consistently represent deeper technical engagement.",
+      "items": [
+        { "code": "Q8.1", "text": "I actively wrote or modified code during my laboratory sessions.", "reverse": false },
+        { "code": "Q8.2", "text": "Most of my lab time was spent reviewing theoretical concepts rather than doing hands-on tasks.", "reverse": true },
+        { "code": "Q8.3", "text": "I executed technical configurations (networks, systems, environments) on lab machines.", "reverse": false },
+        { "code": "Q8.4", "text": "I often used lab time for non-academic activities (browsing, chatting, gaming).", "reverse": true },
+        { "code": "Q8.5", "text": "I spent time debugging or troubleshooting technical problems during the session.", "reverse": false }
+      ],
+      "scale": "Composite range = 5–25. Internal consistency: Cronbach's α = 0.70 (acceptable)."
+    },
+    {
       "id": "research-questions",
       "template": "rq",
-      "chapter": "Chapter 1",
-      "eyebrow": "Research Questions",
-      "title": "Research Questions",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "The Research Questions",
+      "title": "The Research Questions",
       "central": "Does computer laboratory usage — measured through Frequency (weekly laboratory hours) and Intensity (composite behavioral engagement score) — correspond to changes in academic performance between the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos?",
       "subs": [
         "What is the relationship between laboratory usage and Preliminary academic performance?",
@@ -83,8 +116,8 @@
     {
       "id": "significance",
       "template": "significance",
-      "chapter": "Chapter 1",
-      "eyebrow": "Significance",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Significance of the Study",
       "title": "Significance of the Study",
       "generalObjective": "To examine the relationship between computer laboratory usage and changes in academic performance across the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos.",
       "objectives": [
@@ -98,7 +131,7 @@
     {
       "id": "beneficiaries",
       "template": "beneficiaries",
-      "chapter": "Chapter 1",
+      "chapter": "Chapter 1 · Introduction",
       "eyebrow": "Beneficiaries",
       "title": "Who This Study Benefits",
       "cards": [
@@ -109,63 +142,116 @@
       ]
     },
     {
-      "id": "literature",
-      "template": "literature",
-      "chapter": "Chapter 1",
-      "eyebrow": "Related Literature",
-      "title": "Review of Related Literature",
-      "panels": [
-        {
-          "heading": "Synthesis of Literature",
-          "body": "Three converging themes emerge from the reviewed literature: structured technology use improves student focus and engagement; equitable access to ICT resources determines whether students can convert instruction into applicable skills; and sustained laboratory practice builds technical competency over time. Together, these studies confirm that laboratory-based learning supports academic outcomes — but none directly examines how Frequency and Intensity of usage correlate with intra-term performance change. This study addresses that gap."
-        },
-        {
-          "heading": "Theme 1 — Structured Technology Use and Academic Performance",
-          "body": "Guided, purposeful use of technology in the laboratory improves student focus and performance outcomes. Limniou (2021) found that students using devices under structured academic intent outperformed those with unrestricted access. Canoy et al. (2023) demonstrated beneficial effects of supervised lab sessions while identifying practical barriers: inadequate equipment, scheduling conflicts, and insufficient instructor preparation. The consistent finding: structure is as important as access.",
-          "gap": "Limited evidence exists on how structured lab use affects short-term, intra-term academic performance specifically in BSIT programs."
-        },
-        {
-          "heading": "Theme 2 — Access to ICT Resources and Learning Outcomes",
-          "body": "Access to ICT resources is a prerequisite for skill development. Mohamed (2025) found that availability significantly impacts performance and recommended extending ICT access beyond laboratories. Siega (2025) confirmed a positive relationship between computer technology use and academic outcomes. Escubido et al. (2025) found that effective ICT integration in instruction improves performance, while persistent resource limitations continue to constrain student progress.",
-          "gap": "These studies measure access as a binary condition. None examines duration and behavioral depth of usage as a predictor of performance change across grading periods."
-        },
-        {
-          "heading": "Theme 3 — Digital Skills Development Through Laboratory Practice",
-          "body": "Repeated hands-on laboratory engagement is the mechanism through which BSIT students develop technical competency. Vahid et al. (2023) found that students who consistently engaged in coding activities achieved higher grades, with consistent engagement being the operative variable. Cadiz-Gabejan and Takenaka (2021) found that initial computer literacy amplifies the benefit students derive from lab work.",
-          "gap": "Neither study quantifies behavioral intensity or separates it from time-based frequency as a distinct predictor."
-        }
-      ]
+      "id": "rrl-synthesis",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Review of Related Literature",
+      "title": "Synthesis of the Literature",
+      "kind": "literature",
+      "subtitle": "Three converging themes from the reviewed studies",
+      "body": "Three converging themes emerge from the reviewed literature: structured technology use improves student focus and engagement; equitable access to ICT resources determines whether students can convert instruction into applicable skills; and sustained laboratory practice builds technical competency over time. Together, these studies confirm that laboratory-based learning supports academic outcomes — but none directly examines how Frequency and Intensity of usage correlate with intra-term performance change. This study addresses that gap."
     },
     {
-      "id": "framework",
-      "template": "framework",
-      "chapter": "Chapter 1",
+      "id": "rrl-theme-1",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "RRL · Theme 1",
+      "title": "Structured Technology Use and Academic Performance",
+      "kind": "literature",
+      "subtitle": "Limniou (2021); Canoy et al. (2023)",
+      "citation": "Theme 1",
+      "body": "Guided, purposeful use of technology in the laboratory improves student focus and performance outcomes. Limniou (2021) found that students using devices under structured academic intent outperformed those with unrestricted access. Canoy et al. (2023) demonstrated beneficial effects of supervised lab sessions while identifying practical barriers: inadequate equipment, scheduling conflicts, and insufficient instructor preparation. The consistent finding: structure is as important as access.",
+      "gap": "Limited evidence exists on how structured lab use affects short-term, intra-term academic performance specifically in BSIT programs."
+    },
+    {
+      "id": "rrl-theme-2",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "RRL · Theme 2",
+      "title": "Access to ICT Resources and Learning Outcomes",
+      "kind": "literature",
+      "subtitle": "Mohamed (2025); Siega (2025); Escubido et al. (2025)",
+      "citation": "Theme 2",
+      "body": "Access to ICT resources is a prerequisite for skill development. Mohamed (2025) found that availability significantly impacts performance and recommended extending ICT access beyond laboratories. Siega (2025) confirmed a positive relationship between computer technology use and academic outcomes. Escubido et al. (2025) found that effective ICT integration in instruction improves performance, while persistent resource limitations continue to constrain student progress.",
+      "gap": "These studies measure access as a binary condition. None examines duration and behavioral depth of usage as a predictor of performance change across grading periods."
+    },
+    {
+      "id": "rrl-theme-3",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "RRL · Theme 3",
+      "title": "Digital Skills Development Through Laboratory Practice",
+      "kind": "literature",
+      "subtitle": "Vahid et al. (2023); Cadiz-Gabejan & Takenaka (2021)",
+      "citation": "Theme 3",
+      "body": "Repeated hands-on laboratory engagement is the mechanism through which BSIT students develop technical competency. Vahid et al. (2023) found that students who consistently engaged in coding activities achieved higher grades, with consistent engagement being the operative variable. Cadiz-Gabejan and Takenaka (2021) found that initial computer literacy amplifies the benefit students derive from lab work.",
+      "gap": "Neither study quantifies behavioral intensity or separates it from time-based frequency as a distinct predictor."
+    },
+    {
+      "id": "framework-synthesis",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
       "eyebrow": "Theoretical Framework",
-      "title": "Theoretical Framework",
-      "panels": [
-        {
-          "heading": "Theoretical Framework",
-          "body": "Three theories collectively explain how laboratory usage may influence academic performance. Cognitive Load Theory accounts for how structured access reduces mental inefficiency. Constructivist Learning Theory explains how active engagement builds knowledge. Experiential Learning Theory connects repeated practice to measurable skill development. Together, they predict that consistent and intentional laboratory usage — high in both Frequency and Intensity — creates the conditions for a positive Performance Change Score."
-        },
-        {
-          "heading": "Cognitive Load Theory — Sweller (1988)",
-          "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load — the effort spent on logistical friction — and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
-        },
-        {
-          "heading": "Constructivist Learning Theory — Piaget (1972) & Vygotsky (1978)",
-          "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement — active coding, troubleshooting, and configuration — is the mechanism through which that construction occurs."
-        },
-        {
-          "heading": "Experiential Learning Theory — Kolb (1984)",
-          "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
-        }
+      "title": "Theoretical Framework Overview",
+      "kind": "theory",
+      "subtitle": "Three theories converge to predict the study's outcomes",
+      "body": "Three theories collectively explain how laboratory usage may influence academic performance. Cognitive Load Theory accounts for how structured access reduces mental inefficiency. Constructivist Learning Theory explains how active engagement builds knowledge. Experiential Learning Theory connects repeated practice to measurable skill development. Together, they predict that consistent and intentional laboratory usage — high in both Frequency and Intensity — creates the conditions for a positive Performance Change Score."
+    },
+    {
+      "id": "framework-cognitive",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Framework · Theory 1",
+      "title": "Cognitive Load Theory",
+      "kind": "theory",
+      "subtitle": "Sweller (1988)",
+      "citation": "Theory 1 of 3",
+      "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load — the effort spent on logistical friction — and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
+    },
+    {
+      "id": "framework-constructivist",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Framework · Theory 2",
+      "title": "Constructivist Learning Theory",
+      "kind": "theory",
+      "subtitle": "Piaget (1972) & Vygotsky (1978)",
+      "citation": "Theory 2 of 3",
+      "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement — active coding, troubleshooting, and configuration — is the mechanism through which that construction occurs."
+    },
+    {
+      "id": "framework-experiential",
+      "template": "panel",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Framework · Theory 3",
+      "title": "Experiential Learning Theory",
+      "kind": "theory",
+      "subtitle": "Kolb (1984)",
+      "citation": "Theory 3 of 3",
+      "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
+    },
+
+    {
+      "id": "ch2-divider",
+      "template": "chapterDivider",
+      "chapter": "Chapter 2",
+      "eyebrow": "Methods",
+      "title": "Methods",
+      "number": "2",
+      "lead": "How the study was scoped, designed, sampled, collected, and analyzed.",
+      "toc": [
+        { "label": "Scope and Delimitation" },
+        { "label": "Research Design" },
+        { "label": "Participants and Sampling" },
+        { "label": "Data Collection Plan" },
+        { "label": "Data Analysis Plan" }
       ]
     },
     {
       "id": "scope",
       "template": "methodsTwoCol",
       "chapter": "Chapter 2 · Methods",
-      "eyebrow": "Scope & Delimitation",
+      "eyebrow": "Scope and Delimitation",
       "title": "Scope and Delimitation",
       "lead": "What the study covers — and the boundaries that keep the findings interpretable.",
       "leftLabel": "In Scope",
@@ -198,40 +284,100 @@
       ]
     },
     {
-      "id": "participants",
-      "template": "methodsTwoCol",
+      "id": "design-methods-table",
+      "template": "table",
       "chapter": "Chapter 2 · Methods",
-      "eyebrow": "Participants & Sampling",
-      "title": "Participants and Sampling",
-      "lead": "Population: 406 BSIT students (after excluding 4th-year). Slovin's formula at 90% confidence / 10% margin → minimum 81. Final N = 86 valid responses retained.",
-      "leftLabel": "Sampling Funnel",
-      "leftItems": [
-        "Initial population: BSIT students at STI College Malolos",
-        "Excluded 95 fourth-year students → revised population: 406",
-        "Slovin (90% CI, 10% MoE): minimum 81 respondents",
-        "Collected: 86 valid, complete responses (purposive sampling)"
+      "eyebrow": "Research Design",
+      "title": "Statistical Methods Mapped to Research Questions",
+      "lead": "Each research question is answered by a specific statistical procedure executed on the cleaned dataset (N = 86, α = 0.05).",
+      "headers": ["Research Question", "Variables Involved", "Statistical Method", "Output Examined"],
+      "rows": [
+        ["RQ1 · Lab usage ↔ Preliminary grades", "Frequency, Intensity → Prelim Grade", "Pearson r", "r, p-value, direction"],
+        ["RQ2 · Lab usage ↔ Midterm grades", "Frequency, Intensity → Midterm Grade", "Pearson r", "r, p-value, direction"],
+        ["RQ3 · Lab usage → Performance Change", "Frequency, Intensity → Change Score", { "v": "Linear Regression (simple + multiple)", "em": true }, "R², F, β, p-value"],
+        ["Internal consistency of Intensity", "Q8.1 – Q8.5 Likert items", "Cronbach's α", "α coefficient"]
       ],
-      "rightLabel": "Inclusion Criteria",
-      "rightItems": [
-        "Enrolled BSIT student at STI College Malolos",
-        "Enrolled in / completed selected core IT subjects with lab component",
-        "Able to report attended laboratory hours per week",
-        "Able to self-evaluate technical engagement using the survey indicators",
-        "Has complete paired Preliminary + Midterm grades for the subject"
+      "note": "All tests executed in Google Sheets via the XL Miner Analysis ToolPak."
+    },
+    {
+      "id": "participants",
+      "template": "sampling",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Participants and Sampling",
+      "title": "Participants and Sampling",
+      "lead": "Population of BSIT students was filtered, then sized using Slovin's formula at a 90% confidence level and 10% margin of error.",
+      "steps": [
+        { "label": "Initial population", "value": "501", "note": "Total BSIT enrollees at STI College Malolos" },
+        { "label": "Excluded — 4th-year students", "value": "−95", "note": "Out of scope (different curricular load)" },
+        { "label": "Revised population (N)", "value": "406", "note": "Used in Slovin's formula" },
+        { "label": "Slovin minimum sample (90% CI, 10% MoE)", "value": "81", "note": "Computed minimum n" },
+        { "label": "Final valid responses retained", "value": "86", "note": "Purposive sampling, complete data only" }
+      ],
+      "formula": {
+        "expr": "n = N / (1 + N·e²)",
+        "caption": "n = 406 / (1 + 406 × 0.10²) = 406 / 5.06 ≈ 80.24, rounded up to 81. The team collected 86 valid responses, exceeding the minimum."
+      }
+    },
+    {
+      "id": "inclusion-criteria",
+      "template": "table",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Participants and Sampling",
+      "title": "Inclusion Criteria",
+      "lead": "A respondent's data was retained only when all five conditions were satisfied. Otherwise the response was dropped from analysis.",
+      "headers": ["#", "Criterion", "Why It Matters"],
+      "rows": [
+        ["1", "Enrolled BSIT student at STI College Malolos", "Defines the target population of the study"],
+        ["2", "Enrolled in / completed a selected core IT subject with a lab component", "Aligns the response with the variables under study"],
+        ["3", "Able to report attended laboratory hours per week", "Required for the Frequency variable"],
+        ["4", "Able to self-evaluate technical engagement using the survey indicators", "Required to compute the Intensity composite"],
+        ["5", "Has complete paired Preliminary + Midterm grades for the subject", "Required to compute the Performance Change Score"]
       ]
     },
     {
-      "id": "collection",
+      "id": "collection-instrument",
       "template": "methods",
       "chapter": "Chapter 2 · Methods",
       "eyebrow": "Data Collection Plan",
-      "title": "Data Collection Plan",
-      "lead": "A digitally distributed structured survey with informed consent, anonymous response handling, and a verification step for self-reported grades.",
+      "title": "Instrument and Distribution",
+      "lead": "A digitally distributed structured survey gathered all data points for the analysis.",
       "blocks": [
-        { "heading": "Approval & Instrument", "body": "Institutional approval secured first; structured survey reviewed for clarity before distribution. Items covered weekly lab hours, behavioral engagement, subject, and Prelim + Midterm grades." },
-        { "heading": "Distribution", "body": "Survey link distributed digitally — class group chats, text messages, and QR codes — to reach BSIT students efficiently and organize responses for analysis." },
-        { "heading": "Ethics", "body": "Informed consent before participation; voluntary with right to withdraw; anonymous; data analyzed in aggregate only; access restricted to the research team." },
-        { "heading": "Data Preparation", "body": "Performance Change Score = Midterm − Preliminary. Frequency: one outlier of 20 hrs winsorized to 10. Intensity: 5 Likert items, passive items reverse-coded, then summed into the Composite Behavioral Score." }
+        { "heading": "Instrument Design", "body": "Structured survey covering: subject enrolled, weekly laboratory hours (Frequency), five Likert items (Intensity), and paired Preliminary + Midterm grades. Items were reviewed for clarity prior to release." },
+        { "heading": "Approval", "body": "Institutional approval secured before any distribution. Survey items vetted by faculty advisers." },
+        { "heading": "Distribution Channels", "body": "Class group chats, direct text messages, and printed QR codes — chosen to reach BSIT students efficiently while keeping responses organized in a single online sheet." },
+        { "heading": "Window", "body": "Open for one collection cycle until the Slovin minimum was met; closed at 86 valid, complete responses." }
+      ]
+    },
+    {
+      "id": "collection-ethics",
+      "template": "table",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Collection Plan",
+      "title": "Ethical Safeguards",
+      "lead": "Each participant's involvement was protected by four explicit safeguards stated on the survey's first page.",
+      "headers": ["Safeguard", "Implementation"],
+      "rows": [
+        ["Informed Consent", "Participants read the study's purpose, scope, and use of responses before consenting to proceed."],
+        ["Voluntary Participation", "Right to skip items or withdraw at any point with no academic consequence."],
+        ["Anonymity", "No personally identifying information collected; responses linked only to subject and grades."],
+        ["Restricted Access", "Raw responses accessible only to the research team; results analyzed and reported in aggregate."]
+      ]
+    },
+    {
+      "id": "data-prep",
+      "template": "table",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Collection Plan",
+      "title": "Data Preparation Steps",
+      "lead": "Before analysis, the raw responses passed through a sequence of cleaning and computation steps applied uniformly across the dataset.",
+      "headers": ["Step", "Operation", "Result"],
+      "rows": [
+        ["1", "Drop incomplete responses (missing grades or Likert items)", "Final N = 86"],
+        ["2", "Compute Performance Change Score = Midterm − Preliminary", "New variable per respondent"],
+        ["3", "Winsorize Frequency outlier (one report of 20 hrs → 10 hrs)", "Prevents leverage distortion in regression"],
+        ["4", "Reverse-code Q8.2 and Q8.4 (passive items)", "Higher score = deeper engagement"],
+        ["5", "Sum Q8.1–Q8.5 → Composite Behavioral Score (Intensity)", "Range: 5 – 25"],
+        ["6", "Verify Cronbach's α on the Intensity composite", { "v": "α = 0.70 (acceptable)", "em": true }]
       ]
     },
     {
@@ -240,13 +386,29 @@
       "chapter": "Chapter 2 · Methods",
       "eyebrow": "Data Analysis Plan",
       "title": "Data Analysis Plan",
-      "lead": "Analysis ran in Google Sheets with the XL Miner Analysis ToolPak. α = 0.05 throughout.",
+      "lead": "Analysis ran in Google Sheets with the XL Miner Analysis ToolPak. Significance threshold α = 0.05 throughout.",
       "blocks": [
         { "heading": "Descriptive Statistics", "body": "Mean, SD, min, max for weekly lab hours, Composite Behavioral Score, Preliminary Grade, Midterm Grade, and Performance Change Score." },
         { "heading": "Reliability — Cronbach's α", "body": "Computed across the 5 Likert items of the Intensity metric to confirm internal consistency before using the composite score in inferential analysis." },
         { "heading": "Pearson r — 4 Pairings", "body": "Frequency × Prelim, Intensity × Prelim, Frequency × Midterm, Intensity × Midterm — separating the two usage dimensions across both grading periods." },
         { "heading": "Linear Regression", "body": "Simple regression for each metric, plus multiple regression with both predictors, to test whether Frequency and / or Intensity significantly predict the Performance Change Score." }
       ]
+    },
+    {
+      "id": "analysis-table",
+      "template": "table",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Analysis Plan",
+      "title": "Statistical Tests Plan",
+      "lead": "The four planned tests, the variables they consume, and the decision rule applied to each.",
+      "headers": ["Test", "Variables", "Purpose", "Decision Rule (α = 0.05)"],
+      "rows": [
+        ["Descriptive Statistics", "All five study variables", "Characterize the sample distribution", "Reported as mean, SD, min, max"],
+        ["Cronbach's α", "Q8.1 – Q8.5 (Intensity items)", "Confirm internal consistency of the composite", { "v": "Retain composite if α ≥ 0.70", "em": true }],
+        ["Pearson r (4 pairings)", "Frequency / Intensity × Prelim / Midterm", "Test direction & strength of association", "Reject H₀ if p < 0.05"],
+        ["Linear Regression (Models A, B, C)", "Frequency, Intensity → Performance Change", "Test predictive power of usage on change", "Reject H₀₁ if combined p < 0.05"]
+      ],
+      "note": "Models: A = Frequency only · B = Intensity only · C = Both predictors combined."
     }
   ],
   "finale": {
