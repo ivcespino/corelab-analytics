@@ -18,19 +18,24 @@ export default function Dashboard() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const tocItems: TocItem[] = [
-    { id: "dashboard-hero", label: "Overview", chapter: "Dashboard" },
-    { id: "respondents",    label: "Respondents", chapter: "Chapter 3 · Results" },
-    { id: "descriptive",    label: "Descriptive Stats", chapter: "Chapter 3 · Results" },
-    { id: "reliability",    label: "Reliability", chapter: "Chapter 3 · Results" },
-    { id: "correlation",    label: "Correlation", chapter: "Chapter 3 · Results" },
-    { id: "regression",     label: "Regression", chapter: "Chapter 3 · Results" },
-    { id: "summary",        label: "Summary", chapter: "Chapter 4 · Discussion" },
-    { id: "usage-grades",   label: "Usage vs Grades", chapter: "Chapter 4 · Discussion" },
-    { id: "predictors",     label: "Predictors", chapter: "Chapter 4 · Discussion" },
-    { id: "divergence",     label: "Divergence", chapter: "Chapter 4 · Discussion" },
-    { id: "synthesis",      label: "Synthesis", chapter: "Chapter 4 · Discussion" },
-    { id: "recommendations",label: "Recommendations", chapter: "Chapter 4 · Discussion" },
-    { id: "finale",         label: "Continue", chapter: "Continue" },
+    { id: "dashboard-hero",   label: "Overview", chapter: "Dashboard" },
+    { id: "respondents",      label: "Profile of the Respondents", chapter: "Chapter 3 · Results" },
+    { id: "descriptive",      label: "Descriptive Statistics", chapter: "Chapter 3 · Results" },
+    { id: "reliability",      label: "Reliability Analysis", chapter: "Chapter 3 · Results" },
+    { id: "correlation",      label: "Correlation Analysis", chapter: "Chapter 3 · Results" },
+    { id: "regression",       label: "Regression — Model Summary", chapter: "Chapter 3 · Results" },
+    { id: "regression-coef",  label: "Regression — Coefficients", chapter: "Chapter 3 · Results" },
+    { id: "summary",          label: "Summary of Findings", chapter: "Chapter 3 · Results" },
+    { id: "usage-grades",     label: "Usage Metrics & Grades", chapter: "Chapter 4 · Discussion" },
+    { id: "predictors",       label: "Predictors of Change", chapter: "Chapter 4 · Discussion" },
+    { id: "divergence",       label: "Intensity vs Frequency", chapter: "Chapter 4 · Discussion" },
+    { id: "divergence-ctx",   label: "Contextual Considerations", chapter: "Chapter 4 · Discussion" },
+    { id: "synthesis",        label: "Synthesis with Theory", chapter: "Chapter 4 · Discussion" },
+    { id: "convergence",      label: "Convergence with Literature", chapter: "Chapter 4 · Discussion" },
+    { id: "extension",        label: "Extension of Prior Work", chapter: "Chapter 4 · Discussion" },
+    { id: "implications",     label: "Implications", chapter: "Chapter 4 · Discussion" },
+    { id: "recommendations",  label: "Recommendations", chapter: "Chapter 4 · Discussion" },
+    { id: "finale",           label: "Continue", chapter: "Continue" },
   ];
 
   useEffect(() => {
