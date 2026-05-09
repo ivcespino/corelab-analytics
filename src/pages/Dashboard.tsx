@@ -74,13 +74,18 @@ export default function Dashboard() {
         <Descriptive responses={responses} variant="even" />
         <Reliability responses={responses} variant="odd" />
         <Correlation responses={responses} variant="even" />
-        <Regression responses={responses} variant="odd" />
-        <SummaryFindings variant="even" />
-        <UsageGrades variant="odd" />
-        <Predictors variant="even" />
-        <Divergence variant="odd" />
-        <Synthesis variant="even" />
-        <Recommendations variant="odd" />
+        <RegressionSummary responses={responses} variant="odd" />
+        <RegressionCoefficients variant="even" />
+        <SummaryFindings variant="odd" />
+        <UsageGrades variant="even" />
+        <Predictors variant="odd" />
+        <DivergenceMain variant="even" />
+        <DivergenceContext variant="odd" />
+        <SynthesisTheory variant="even" />
+        <ConvergenceLit variant="odd" />
+        <ExtensionWork variant="even" />
+        <ImplicationsSummary variant="odd" />
+        <RecommendationsByAudience variant="even" />
         <FinaleSection
           data={{
             eyebrow: "Continue",
