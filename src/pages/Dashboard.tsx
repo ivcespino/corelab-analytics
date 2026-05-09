@@ -537,8 +537,8 @@ function Correlation({ responses, variant }: { responses: Response[]; variant: "
   );
 }
 
-/* ─────────────── D-6 Regression (carousel) ─────────────── */
-function Regression({ responses, variant }: { responses: Response[]; variant: "odd" | "even" }) {
+/* ─────────────── D-6a Regression — Model Summary ─────────────── */
+function RegressionSummary({ responses, variant }: { responses: Response[]; variant: "odd" | "even" }) {
   const trend = useMemo(() => {
     const xs = responses.map((r) => r.hours);
     const ys = responses.map((r) => r.change);
@@ -556,8 +556,8 @@ function Regression({ responses, variant }: { responses: Response[]; variant: "o
     };
   }, [responses]);
 
-  const summary = (
-    <>
+  return (
+    <SectionWrap id="regression" chapter="Chapter 3 · Results" eyebrow="Regression Analysis" title="Regression — Model Summary" variant={variant}>
       <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
         <div className="overflow-x-auto rounded-xl border bg-card">
           <table className={tableBase}>
@@ -599,11 +599,14 @@ function Regression({ responses, variant }: { responses: Response[]; variant: "o
           <strong> H₀₁ is rejected:</strong> laboratory usage significantly predicts academic performance change.
         </p>
       </div>
-    </>
+    </SectionWrap>
   );
+}
 
-  const coefficients = (
-    <>
+/* ─────────────── D-6b Regression — Coefficients ─────────────── */
+function RegressionCoefficients({ variant }: { variant: "odd" | "even" }) {
+  return (
+    <SectionWrap id="regression-coef" chapter="Chapter 3 · Results" eyebrow="Regression Analysis" title="Regression — Coefficients" variant={variant}>
       <div className="overflow-x-auto rounded-xl border bg-card">
         <table className={tableBase}>
           <thead><tr>
@@ -637,21 +640,6 @@ function Regression({ responses, variant }: { responses: Response[]; variant: "o
         </p>
         <p className="mt-2">Every additional weekly lab hour predicts <strong>+0.43</strong> points of improvement between grading periods.</p>
       </div>
-    </>
-  );
-
-  return (
-    <SectionWrap id="regression" chapter="Chapter 3 · Results" eyebrow="Regression" title="Regression Analysis" variant={variant}>
-      <SwipeCarousel ariaLabel="Regression analysis" panels={[
-        <div key="0">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-accent">Model Summary</p>
-          {summary}
-        </div>,
-        <div key="1">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-accent">Coefficients</p>
-          {coefficients}
-        </div>,
-      ]} />
     </SectionWrap>
   );
 }
@@ -664,7 +652,7 @@ function SummaryFindings({ variant }: { variant: "odd" | "even" }) {
     { k: "03", text: "The combined regression model is significant (p = 0.0424). H₀₁ is rejected. Laboratory usage is associated with measurable academic progress." },
   ];
   return (
-    <SectionWrap id="summary" chapter="Chapter 4 · Discussion" eyebrow="Summary" title="Summary of Findings" variant={variant}>
+    <SectionWrap id="summary" chapter="Chapter 3 · Results" eyebrow="Summary of Findings" title="Summary of Findings" variant={variant}>
       <ol className="grid gap-4 md:grid-cols-3">
         {items.map((it) => (
           <li key={it.k} className="rounded-2xl border bg-card p-6 shadow-soft">
@@ -694,7 +682,7 @@ function UsageGrades({ variant }: { variant: "odd" | "even" }) {
     </div>
   );
   return (
-    <SectionWrap id="usage-grades" chapter="Chapter 4 · Discussion" eyebrow="Usage & Grades" title="Usage Metrics and Absolute Grades" variant={variant}>
+    <SectionWrap id="usage-grades" chapter="Chapter 4 · Discussion" eyebrow="Relationship Between Usage Metrics and Absolute Grades" title="Usage Metrics and Absolute Grades" variant={variant}>
       <div className="grid gap-4 md:grid-cols-2">
         <Col title="Preliminary Period"
           items={[
@@ -728,7 +716,7 @@ function Predictors({ variant }: { variant: "odd" | "even" }) {
     { k: "Intensity", v: "Not significant", sub: "p = 0.8238 (combined)" },
   ];
   return (
-    <SectionWrap id="predictors" chapter="Chapter 4 · Discussion" eyebrow="Predictors" title="Predictors of Performance Change" variant={variant}>
+    <SectionWrap id="predictors" chapter="Chapter 4 · Discussion" eyebrow="Predictors of Academic Performance Change" title="Predictors of Performance Change" variant={variant}>
       <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-5">
         {stats.map((s) => (
           <div key={s.k} className={`rounded-xl border p-4 ${s.hl ? "border-accent bg-accent/5" : "bg-card"}`}>
@@ -747,8 +735,8 @@ function Predictors({ variant }: { variant: "odd" | "even" }) {
   );
 }
 
-/* ─────────────── D-10 Divergence (carousel) ─────────────── */
-function Divergence({ variant }: { variant: "odd" | "even" }) {
+/* ─────────────── D-10a Divergence — main ─────────────── */
+function DivergenceMain({ variant }: { variant: "odd" | "even" }) {
   const Pair = ({ title, role, body }: { title: string; role: string; body: string }) => (
     <div className="rounded-2xl border bg-card p-6 shadow-soft">
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{title}</p>
@@ -757,72 +745,140 @@ function Divergence({ variant }: { variant: "odd" | "even" }) {
     </div>
   );
   return (
-    <SectionWrap id="divergence" chapter="Chapter 4 · Discussion" eyebrow="Divergence" title="A Discovery: Intensity vs Frequency" variant={variant}>
-      <SwipeCarousel ariaLabel="Divergent findings" panels={[
-        <div key="0">
-          <p className="mb-4 text-base italic leading-relaxed text-muted-foreground sm:text-lg">
-            The study set out expecting both dimensions of laboratory usage to contribute to performance improvement. The data revealed otherwise.
-          </p>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Pair title="Intensity" role="Strongest correlate of absolute grade level"
-              body="Associated with students who already perform well — likely reflects existing skill or engagement habits rather than growth. Students with high prior ability maintain high scores across both periods, limiting Intensity's predictive effect on change (ceiling effect)." />
-            <Pair title="Frequency" role="Sole significant predictor of performance change"
-              body="Consistent attendance creates repeated contact with course material across all skill levels. The accumulation of hours provides the environment where learning cycles can occur — improvement becomes measurable regardless of the student's prior ability or engagement style." />
-          </div>
-        </div>,
-        <div key="1" className="rounded-2xl border bg-card p-6 shadow-soft sm:p-8">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Contextual Considerations</p>
-          <p className="mt-4 text-base leading-relaxed">
+    <SectionWrap id="divergence" chapter="Chapter 4 · Discussion" eyebrow="Interpretation of Divergent Findings" title="A Discovery: Intensity vs Frequency" variant={variant}>
+      <p className="mb-5 max-w-3xl text-base italic leading-relaxed text-muted-foreground sm:text-lg">
+        The study set out expecting both dimensions of laboratory usage to contribute to performance improvement. The data revealed otherwise.
+      </p>
+      <div className="grid gap-4 md:grid-cols-2">
+        <Pair title="Intensity" role="Strongest correlate of absolute grade level"
+          body="Associated with students who already perform well — likely reflects existing skill or engagement habits rather than growth. Students with high prior ability maintain high scores across both periods, limiting Intensity's predictive effect on change (ceiling effect)." />
+        <Pair title="Frequency" role="Sole significant predictor of performance change"
+          body="Consistent attendance creates repeated contact with course material across all skill levels. The accumulation of hours provides the environment where learning cycles can occur — improvement becomes measurable regardless of the student's prior ability or engagement style." />
+      </div>
+    </SectionWrap>
+  );
+}
+
+/* ─────────────── D-10b Divergence — context ─────────────── */
+function DivergenceContext({ variant }: { variant: "odd" | "even" }) {
+  return (
+    <SectionWrap id="divergence-ctx" chapter="Chapter 4 · Discussion" eyebrow="Interpretation of Divergent Findings" title="Contextual Considerations" variant={variant}>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border bg-card p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Sampling Span</p>
+          <p className="mt-3 text-sm leading-relaxed">
             Respondent data spans Year 1 through Year 3 subjects across multiple previous semesters. The mixed distribution means the predictive strength of Frequency reflects a general trend across the BSIT curriculum rather than a finding from one academic level. Both foundational subjects (Computer Programming 1 and 2) and more advanced subjects (Event-Driven Programming) are represented.
           </p>
-          <p className="mt-4 rounded-xl bg-muted/40 p-4 text-sm leading-relaxed">
-            <strong>Data preparation note:</strong> One outlier in the Frequency metric (20 reported weekly hours) was Winsorized to 10 hours — the nearest non-outlier value — prior to regression to prevent distortion of the predictive model.
-          </p>
-        </div>,
-      ]} />
-    </SectionWrap>
-  );
-}
-
-/* ─────────────── D-11 Synthesis (carousel) ─────────────── */
-function Synthesis({ variant }: { variant: "odd" | "even" }) {
-  const panels = [
-    {
-      tag: "Synthesis",
-      heading: "Synthesis",
-      body: "The findings align with all three theoretical frameworks. Experiential Learning Theory (Kolb, 1984) accounts for Frequency as the predictor of change: repeated laboratory attendance provides the iterative experience cycle through which skills are built. Cognitive Load Theory (Sweller, 1988) explains why consistent access matters: regular attendance reduces logistical friction and reallocates cognitive effort toward learning. Constructivist Learning Theory (Vygotsky, 1978; Piaget, 1972) explains why Intensity correlates with absolute grade standing: active technical engagement is the mechanism of knowledge construction. Frequency is the condition for improvement. Intensity is the condition for high performance.",
-    },
-    {
-      tag: "Convergence",
-      heading: "Convergence with Literature",
-      body: "The finding that consistent laboratory exposure predicts performance change aligns with Vahid et al. (2023), who found that regular coding practice produces measurably better outcomes. The role of Intensity in correlating with absolute grades echoes Canoy et al. (2023) and Cadiz-Gabejan and Takenaka (2021), who found that structured, active engagement supports stronger academic standing.",
-    },
-    {
-      tag: "Divergence",
-      heading: "Where This Study Extends Prior Work",
-      body: "Prior studies treat laboratory usage as a single construct. This study separates Frequency from Intensity and demonstrates that they serve different functions in academic outcomes. No reviewed study directly examines intra-term performance shift — the change between Preliminary and Midterm grades — as the dependent variable. The identification of Frequency as the predictor of that change, and Intensity as the correlate of grade level, is a contribution that prior literature did not anticipate or test.",
-    },
-  ];
-  return (
-    <SectionWrap id="synthesis" chapter="Chapter 4 · Discussion" eyebrow="Synthesis" title="Synthesis with Theory and Literature" variant={variant}>
-      <SwipeCarousel ariaLabel="Synthesis" panels={panels.map((p, i) => (
-        <div key={i} className="rounded-2xl border bg-card p-6 shadow-soft sm:p-8">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{p.tag}</p>
-          <h3 className="mt-2 font-display text-2xl font-bold sm:text-3xl">{p.heading}</h3>
-          <p className="mt-4 text-base leading-relaxed text-foreground/90">{p.body}</p>
         </div>
-      ))} />
+        <div className="rounded-2xl border bg-card p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Data Preparation Note</p>
+          <p className="mt-3 text-sm leading-relaxed">
+            One outlier in the Frequency metric (20 reported weekly hours) was Winsorized to 10 hours — the nearest non-outlier value — prior to regression to prevent distortion of the predictive model.
+          </p>
+          <p className="mt-3 rounded-xl bg-muted/40 p-3 font-mono text-xs">
+            Frequency<sub>i</sub> ← min(Frequency<sub>i</sub>, 10)
+          </p>
+        </div>
+      </div>
     </SectionWrap>
   );
 }
 
-/* ─────────────── D-12 Recommendations (carousel) ─────────────── */
-function Recommendations({ variant }: { variant: "odd" | "even" }) {
+/* ─────────────── D-11a Synthesis with Theory ─────────────── */
+function SynthesisTheory({ variant }: { variant: "odd" | "even" }) {
+  return (
+    <SectionWrap id="synthesis" chapter="Chapter 4 · Discussion" eyebrow="Synthesis with Theoretical Framework" title="Synthesis with Theoretical Framework" variant={variant}>
+      <div className="grid gap-4 md:grid-cols-3">
+        {[
+          { name: "Experiential Learning Theory", who: "Kolb (1984)", body: "Accounts for Frequency as the predictor of change — repeated laboratory attendance provides the iterative experience cycle through which skills are built." },
+          { name: "Cognitive Load Theory", who: "Sweller (1988)", body: "Explains why consistent access matters — regular attendance reduces logistical friction and reallocates cognitive effort toward learning." },
+          { name: "Constructivist Learning", who: "Piaget (1972) · Vygotsky (1978)", body: "Explains why Intensity correlates with absolute grade standing — active technical engagement is the mechanism of knowledge construction." },
+        ].map((t) => (
+          <div key={t.name} className="rounded-2xl border bg-card p-6 shadow-soft">
+            <p className="font-display text-lg font-bold">{t.name}</p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{t.who}</p>
+            <p className="mt-3 text-sm leading-relaxed text-foreground/85">{t.body}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 rounded-xl border-l-4 border-l-accent bg-accent/5 p-4">
+        <p className="text-sm leading-relaxed">
+          <strong>Frequency is the condition for improvement. Intensity is the condition for high performance.</strong> The findings align with all three frameworks.
+        </p>
+      </div>
+    </SectionWrap>
+  );
+}
+
+/* ─────────────── D-11b Convergence with Literature ─────────────── */
+function ConvergenceLit({ variant }: { variant: "odd" | "even" }) {
+  return (
+    <SectionWrap id="convergence" chapter="Chapter 4 · Discussion" eyebrow="Synthesis with Related Literature" title="Convergence with Related Literature" variant={variant}>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border bg-card p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Frequency → Performance Change</p>
+          <p className="mt-3 text-sm font-semibold">Vahid et al. (2023)</p>
+          <p className="mt-2 text-sm leading-relaxed">
+            Found that students who consistently engaged in coding activities achieved higher grades. Our finding that consistent laboratory exposure predicts performance change directly aligns.
+          </p>
+        </div>
+        <div className="rounded-2xl border bg-card p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Intensity → Grade Standing</p>
+          <p className="mt-3 text-sm font-semibold">Canoy et al. (2023) · Cadiz-Gabejan & Takenaka (2021)</p>
+          <p className="mt-2 text-sm leading-relaxed">
+            Found that structured, active engagement and existing computer literacy support stronger academic standing — echoing our finding that Intensity correlates most strongly with absolute grades.
+          </p>
+        </div>
+      </div>
+    </SectionWrap>
+  );
+}
+
+/* ─────────────── D-11c Extension of prior work ─────────────── */
+function ExtensionWork({ variant }: { variant: "odd" | "even" }) {
+  return (
+    <SectionWrap id="extension" chapter="Chapter 4 · Discussion" eyebrow="Synthesis with Related Literature" title="Where This Study Extends Prior Work" variant={variant}>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border-2 border-accent/40 bg-accent/5 p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Two-Dimensional Construct</p>
+          <p className="mt-3 text-sm leading-relaxed">
+            Prior studies treat laboratory usage as a single construct. This study separates Frequency (time) from Intensity (depth of engagement) and shows they serve <strong>different functions</strong> in academic outcomes.
+          </p>
+        </div>
+        <div className="rounded-2xl border-2 border-accent/40 bg-accent/5 p-6 shadow-soft">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Intra-Term Performance Shift</p>
+          <p className="mt-3 text-sm leading-relaxed">
+            No reviewed study examines the change between Preliminary and Midterm grades as the dependent variable. Identifying Frequency as that change-predictor is a <strong>new contribution</strong>.
+          </p>
+        </div>
+      </div>
+    </SectionWrap>
+  );
+}
+
+/* ─────────────── D-12a Implications ─────────────── */
+function ImplicationsSummary({ variant }: { variant: "odd" | "even" }) {
   const summary = [
     "Consistent laboratory attendance is the primary institutional lever for improving student academic performance across a term.",
     "High engagement quality (Intensity) is associated with high grade achievement but does not drive improvement on its own.",
     "Policies focused solely on enhancing engagement quality without ensuring access frequency will not fully address performance development.",
   ];
+  return (
+    <SectionWrap id="implications" chapter="Chapter 4 · Discussion" eyebrow="Implications and Significance" title="Implications and Significance" variant={variant}>
+      <ol className="grid gap-4 md:grid-cols-3">
+        {summary.map((s, i) => (
+          <li key={i} className="rounded-2xl border bg-card p-6 shadow-soft">
+            <span className="font-display text-5xl font-bold text-muted-foreground/30">{String(i + 1).padStart(2, "0")}</span>
+            <p className="mt-3 text-sm leading-relaxed">{s}</p>
+          </li>
+        ))}
+      </ol>
+    </SectionWrap>
+  );
+}
+
+/* ─────────────── D-12b Recommendations by audience ─────────────── */
+function RecommendationsByAudience({ variant }: { variant: "odd" | "even" }) {
   const recs = [
     { who: "Institution (STI College Malolos)", what: "Ensure consistent scheduling and availability of computer laboratory sessions, particularly for foundational subjects. Review laboratory allocation systems to minimize access barriers across the academic term." },
     { who: "Instructors", what: "Design laboratory activities that build progressively across the term. Prioritize consistent attendance expectations alongside the quality of engagement during sessions." },
@@ -830,27 +886,15 @@ function Recommendations({ variant }: { variant: "odd" | "even" }) {
     { who: "Future Researchers", what: "Examine additional predictors of performance change such as prior knowledge, study habits, and instructional quality. Extend scope to 4th-year students. Test whether the Frequency–Intensity divergence pattern holds in other academic disciplines." },
   ];
   return (
-    <SectionWrap id="recommendations" chapter="Chapter 4 · Discussion" eyebrow="Recommendations" title="Implications and Recommendations" variant={variant}>
-      <SwipeCarousel ariaLabel="Recommendations" panels={[
-        <div key="0">
-          <ol className="grid gap-3 md:grid-cols-3">
-            {summary.map((s, i) => (
-              <li key={i} className="rounded-2xl border bg-card p-5 shadow-soft">
-                <span className="font-display text-3xl font-bold text-muted-foreground/30">{String(i + 1).padStart(2, "0")}</span>
-                <p className="mt-2 text-sm leading-relaxed">{s}</p>
-              </li>
-            ))}
-          </ol>
-        </div>,
-        <div key="1" className="grid gap-4 md:grid-cols-2">
-          {recs.map((r) => (
-            <div key={r.who} className="rounded-2xl border bg-card p-5 shadow-soft">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{r.who}</p>
-              <p className="mt-2 text-sm leading-relaxed">{r.what}</p>
-            </div>
-          ))}
-        </div>,
-      ]} />
+    <SectionWrap id="recommendations" chapter="Chapter 4 · Discussion" eyebrow="Recommendations" title="Recommendations" variant={variant}>
+      <div className="grid gap-4 md:grid-cols-2">
+        {recs.map((r) => (
+          <div key={r.who} className="rounded-2xl border bg-card p-6 shadow-soft">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{r.who}</p>
+            <p className="mt-2 text-sm leading-relaxed">{r.what}</p>
+          </div>
+        ))}
+      </div>
     </SectionWrap>
   );
 }
