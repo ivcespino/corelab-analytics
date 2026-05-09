@@ -12,6 +12,11 @@ import {
   FrameworkSection,
   MethodsSection,
   MethodsTwoColSection,
+  ChapterDividerSection,
+  SinglePanelSection,
+  LikertTableSection,
+  TableSlideSection,
+  SamplingFunnelSection,
 } from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
