@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { TocDropdown, type TocItem } from "@/components/TocDropdown";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 import { PlotlyChart } from "@/components/tool/PlotlyChart";
-import { SwipeCarousel } from "@/components/SwipeCarousel";
+
 import { useResponses, type Response } from "@/lib/useResponses";
 import {
   ArrowDown, BarChart3, Activity, ScatterChart, TrendingUp,
