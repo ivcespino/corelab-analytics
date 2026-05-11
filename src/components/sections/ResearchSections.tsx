@@ -567,26 +567,28 @@ export function ReferencesSection({ data, variant }: { data: ReferencesData; var
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
       {data.lead && <p className="mb-3 max-w-3xl text-xs leading-relaxed text-muted-foreground sm:text-sm">{data.lead}</p>}
-      <ol className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
+      <ol className="gap-x-6 columns-1 md:columns-2 lg:columns-3 [column-fill:balance]">
         {data.items.map((it, i) => (
           <li
             key={i}
-            className="flex items-start gap-2.5 border-b border-border/40 py-1.5 text-[12px] leading-snug last:border-0"
+            className="break-inside-avoid border-b border-border/40 py-1.5 last:border-0"
           >
-            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
-              {i + 1}
-            </span>
-            <span className="flex-1">
-              <a
-                href={it.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-foreground underline-offset-2 hover:text-accent hover:underline"
-              >
-                {it.author} ({it.year})
-              </a>
-              <span className="text-foreground/80">. {it.title}</span>
-            </span>
+            <a
+              href={it.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-2.5 rounded-md px-1 py-0.5 text-[12px] leading-snug transition-colors hover:bg-accent/5"
+            >
+              <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
+                {i + 1}
+              </span>
+              <span className="flex-1">
+                <span className="font-semibold text-foreground underline-offset-2 group-hover:text-accent group-hover:underline">
+                  {it.author} ({it.year})
+                </span>
+                <span className="text-foreground/80">. {it.title}</span>
+              </span>
+            </a>
           </li>
         ))}
       </ol>
