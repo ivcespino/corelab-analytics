@@ -97,12 +97,12 @@ export default function Dashboard() {
             number: "3",
             lead: "What the data revealed— profile, descriptive statistics, reliability, correlation, and regression— culminating in the summary of findings.",
             toc: [
-              { label: "Profile of the Respondents" },
-              { label: "Descriptive Statistics" },
-              { label: "Reliability Analysis" },
-              { label: "Correlation Analysis" },
-              { label: "Regression Analysis" },
-              { label: "Summary of Findings" },
+              { label: "Profile of the Respondents", id: "respondents" },
+              { label: "Descriptive Statistics", id: "descriptive" },
+              { label: "Reliability Analysis", id: "reliability" },
+              { label: "Correlation Analysis", id: "correlation" },
+              { label: "Regression Analysis", id: "regression" },
+              { label: "Summary of Findings", id: "summary" },
             ],
           }}
         />
@@ -190,11 +190,11 @@ export default function Dashboard() {
             number: "4",
             lead: "Reading the numbers— what the divergent results mean, how they fit theory and prior research, and what should change because of them.",
             toc: [
-              { label: "Usage Metrics & Grades" },
-              { label: "Predictors of Performance Change" },
-              { label: "Interpretation of Divergent Findings" },
-              { label: "Synthesis with Framework & Literature" },
-              { label: "Implications and Recommendations" },
+              { label: "Usage Metrics & Grades", id: "usage-grades" },
+              { label: "Predictors of Performance Change", id: "predictors" },
+              { label: "Interpretation of Divergent Findings", id: "divergence" },
+              { label: "Synthesis with Framework & Literature", id: "synthesis" },
+              { label: "Implications and Recommendations", id: "implications" },
             ],
           }}
         />
@@ -679,10 +679,14 @@ function PearsonDeepDive({
     return {
       data: [
         { type: "scatter", mode: "markers", x: xs, y: ys, name: "Students",
-          marker: { color: sig ? "hsl(188, 100%, 42%)" : "hsl(0, 0%, 55%)", size: 8, opacity: 0.75 } },
+          marker: { color: "hsl(188, 100%, 42%)", size: 8, opacity: 0.8 } },
         { type: "scatter", mode: "lines", x: [minX, maxX],
           y: [intercept + slope * minX, intercept + slope * maxX],
-          line: { color: "hsl(231, 65%, 30%)", width: 2.5 }, name: "Trend" },
+          line: {
+            color: sig ? "hsl(231, 65%, 30%)" : "hsl(0, 0%, 50%)",
+            width: 2.5,
+            dash: sig ? "solid" : "dash",
+          }, name: "Trend" },
       ] as Plotly.Data[],
       layout: { showlegend: false, xaxis: { title: xLabel }, yaxis: { title: yLabel } },
     };
@@ -698,8 +702,17 @@ function PearsonDeepDive({
     <SectionWrap id={id} chapter="Chapter 3 · Results" eyebrow={`Correlation · ${code}`} title={title} variant={variant}>
       <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
         <div className="rounded-xl border bg-card p-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{xLabel} vs {yLabel}</p>
-          <PlotlyChart data={chart.data} layout={chart.layout as any} height={280} />
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{xLabel} vs {yLabel}</p>
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${sig ? "bg-accent/15 text-accent" : "bg-muted text-muted-foreground"}`}>
+              {sig ? "Significant · α = 0.05" : "Not significant · α = 0.05"}
+            </span>
+          </div>
+          <PlotlyChart data={chart.data} layout={chart.layout as any} height={260} />
+          <p className="mt-2 text-[11px] text-muted-foreground">
+            <span className="mr-3"><span className="mr-1 inline-block h-2 w-2 rounded-full align-middle" style={{ background: "hsl(188 100% 42%)" }} />Respondents</span>
+            <span><span className="mr-1 inline-block h-[2px] w-3 align-middle" style={{ background: sig ? "hsl(231 65% 30%)" : "hsl(0 0% 50%)", borderTop: sig ? "none" : "1px dashed currentColor" }} />Trend ({sig ? "solid = significant" : "dashed = not significant"})</span>
+          </p>
         </div>
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-3 gap-2">
@@ -810,13 +823,18 @@ function RegressionDeepDive({
     }
     const { slope, intercept } = linreg(xs, ys);
     const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const sigLocal = p < 0.05;
     return {
       data: [
         { type: "scatter", mode: "markers", x: xs, y: ys,
-          marker: { color: p < 0.05 ? "hsl(188, 100%, 42%)" : "hsl(0, 0%, 55%)", size: 8, opacity: 0.75 } },
+          marker: { color: "hsl(188, 100%, 42%)", size: 8, opacity: 0.8 } },
         { type: "scatter", mode: "lines", x: [minX, maxX],
           y: [intercept + slope * minX, intercept + slope * maxX],
-          line: { color: "hsl(231, 65%, 30%)", width: 2.5 } },
+          line: {
+            color: sigLocal ? "hsl(231, 65%, 30%)" : "hsl(0, 0%, 50%)",
+            width: 2.5,
+            dash: sigLocal ? "solid" : "dash",
+          } },
       ] as Plotly.Data[],
       layout: { showlegend: false, xaxis: { title: xLabel }, yaxis: { title: yLabel } },
     };
@@ -828,8 +846,13 @@ function RegressionDeepDive({
     <SectionWrap id={id} chapter="Chapter 3 · Results" eyebrow={`Regression · Model ${model}`} title={title} variant={variant}>
       <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
         <div className="rounded-xl border bg-card p-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{xLabel} vs {yLabel}</p>
-          <PlotlyChart data={chart.data} layout={chart.layout as any} height={280} />
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{xLabel} vs {yLabel}</p>
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${sig ? "bg-accent/15 text-accent" : "bg-muted text-muted-foreground"}`}>
+              {sig ? "Significant · α = 0.05" : "Not significant · α = 0.05"}
+            </span>
+          </div>
+          <PlotlyChart data={chart.data} layout={chart.layout as any} height={260} />
         </div>
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-4 gap-2">
@@ -893,23 +916,26 @@ function RegressionCoefficients({ variant }: { variant: "odd" | "even" }) {
   );
 }
 
-/* ─────────────── D-7 Summary (6 findings, per Revision 10) ─────────────── */
+/* ─────────────── D-7 Summary (9 findings) ─────────────── */
 function SummaryFindings({ variant }: { variant: "odd" | "even" }) {
   const items = [
     { k: "01", text: "Intensity (Composite Behavioral Score) is the strongest correlate of absolute academic performance at both grading periods (r = 0.36 at Preliminary, r = 0.41 at Midterm)." },
     { k: "02", text: "Frequency (Weekly Lab Hours) is not significantly correlated with Preliminary grades (p = 0.161) but becomes significant by Midterm (p = 0.004)— an exposure-effect pattern." },
-    { k: "03", text: "Cronbach's α = 0.70 confirms acceptable internal consistency of the five-item Intensity composite, supporting its use in inferential analysis." },
-    { k: "04", text: "Frequency is the sole significant predictor of Performance Change in the combined regression model (β = 0.4339, p = 0.0251)." },
-    { k: "05", text: "Intensity loses its predictive power for change once Frequency is controlled (β = 0.0271, p = 0.8238)— a ceiling effect on already-engaged students." },
-    { k: "06", text: "The combined model is significant (R² = 0.0733, F = 3.28, p = 0.0424). H₀₁ is rejected: laboratory usage is associated with measurable academic progress." },
+    { k: "03", text: "PR-1 (Frequency × Preliminary) is not significant: early-term standing depends on engagement quality, not raw exposure." },
+    { k: "04", text: "PR-2 through PR-4 are all statistically significant, confirming that both usage dimensions correlate with absolute grades by Midterm." },
+    { k: "05", text: "Cronbach's α = 0.70 confirms acceptable internal consistency of the five-item Intensity composite, supporting its use in inferential analysis." },
+    { k: "06", text: "Model A (Frequency only) significantly predicts Performance Change (β = 0.4499, p = 0.012)— each weekly lab hour ≈ +0.45 grade points of improvement." },
+    { k: "07", text: "Model B (Intensity only) is not significant for predicting change (R² = 0.0153, p = 0.2573)— Intensity predicts level, not movement." },
+    { k: "08", text: "Model C (Combined) is significant (R² = 0.0733, F = 3.28, p = 0.0424); Frequency remains significant (p = 0.0251) while Intensity loses significance (p = 0.8238) once Frequency is controlled— evidence of a ceiling effect on already-engaged students." },
+    { k: "09", text: "H₀₁ is rejected: laboratory usage is associated with measurable academic progress between the Preliminary and Midterm grading periods." },
   ];
   return (
     <SectionWrap id="summary" chapter="Chapter 3 · Results" eyebrow="Summary of Findings" title="Summary of Findings" variant={variant}>
-      <ol className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+      <ol className="grid gap-2.5 md:grid-cols-2 lg:grid-cols-3">
         {items.map((it) => (
-          <li key={it.k} className="rounded-2xl border bg-card p-4 shadow-soft">
-            <span className="font-display text-3xl font-bold text-muted-foreground/30">{it.k}</span>
-            <p className="mt-1 text-[13px] leading-relaxed">{it.text}</p>
+          <li key={it.k} className="rounded-xl border bg-card p-3.5 shadow-soft">
+            <span className="font-display text-2xl font-bold text-muted-foreground/30">{it.k}</span>
+            <p className="mt-1 text-[12px] leading-snug">{it.text}</p>
           </li>
         ))}
       </ol>

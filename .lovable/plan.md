@@ -1,95 +1,82 @@
 ## Scope
 
-Targeted polish + content additions across Home, Tool, and shared components. No business-logic changes outside what's listed.
+Continue the previously approved-direction work + one new copy tweak. No backend changes.
 
 ---
 
-## 1. Global
+## 1. Copy: "Practical Research" → "Research"
 
-### 1a. Em-dash spacing — `word— word` (no space before, single space after)
-Sweep all visible text in:
-- `public/content.json`
-- `public/dashboard.json`
-- `src/components/sections/*.tsx`, `src/components/sections/HeroSection.tsx`, `src/components/sections/FinaleSection.tsx`
-- `src/pages/Tool.tsx`, `src/pages/Dashboard.tsx`, `src/pages/Team.tsx`
-- `src/lib/interpretations.ts`, `src/lib/glossary.ts`
-
-Replace ` — ` (space-emdash-space) with `— ` (emdash-space). Done via a one-shot script run during the edit, then spot-checked.
-
-### 1b. Divider TOC numbering goes column-by-column, not row-by-row
-`ChapterDividerSection` (`ResearchSections.tsx` ~L370) renders the TOC as `sm:grid-cols-2`, which fills 1,2 / 3,4 / 5,6. Switch to column flow:
-
-```text
-[ 01 Background ]   [ 05 Significance ]
-[ 02 Variables  ]   [ 06 RRL          ]
-[ 03 RQs        ]   [ 07 Framework    ]
-[ 04 Hypotheses ]
-```
-
-Use `grid-flow-col` + dynamic `grid-rows-{ceil(n/2)}` (computed via inline style `gridTemplateRows: repeat(N, minmax(0,1fr))` since Tailwind can't take a runtime value).
+- `public/content.json` hero badge: `"Practical Research • A.Y. 2025–2026"` → `"Research • A.Y. 2025–2026"`.
+- `public/team.json` adviser title: leave as **"Practical Research Adviser"** (it's the adviser's actual role title on the Team page, not Home). Confirm with user if they want this renamed too.
+- Sweep `src/` + `public/*.json` for any other "Practical Research" strings — currently only the two above.
 
 ---
 
-## 2. Home page
+## 2. Global: orientation / small-screen notice
 
-### 2a. Hero (`HeroSection.tsx` + `content.json`)
-- Move the long `description` text **into the right-side descriptor box** (so the left column has only badge → heading → subheading → CTAs). The descriptor box becomes the primary explanatory surface.
-- Rename primary CTA: **"Take the Survey" → "Open the Tool"** (keeps `/tool` link).
-- Add a third CTA on the same row: **"Download Full PDF"** with a `Download` icon, linking to a configurable `hero.pdfHref` in `content.json` (default `/research.pdf`). User drops the file at `public/research.pdf`. Falls back to `target="_blank"` open.
-
-### 2b. References / Sources slide (new)
-New section at end of Chapter 1 (after `framework-experiential`, before `ch2-divider`) using a new `references` template:
-- Lists every cited author with year + title + external link (DOI / Google Scholar search URL when no DOI is known).
-- Two-column compact list, anchor links open in new tab, `text-sm`.
-- TOC entry added to Chapter 1 divider.
-
-Sources covered (from existing RRL/Framework slides): Limniou (2021), Canoy et al. (2023), Mohamed (2025), Siega (2025), Escubido et al. (2025), Vahid et al. (2023), Cadiz-Gabejan & Takenaka (2021), Sweller (1988), Piaget (1972), Vygotsky (1978), Kolb (1984).
-
-### 2c. Reduce overflow on Participants and Sampling slides
-- `participants` (SamplingFunnelSection): tighten step row to `py-3 → py-2`, value font `text-lg → text-base`, formula card padding `p-6 → p-5`, formula expression `text-2xl → text-xl`. Switch grid from `lg:grid-cols-[1.3fr_1fr]` to `lg:grid-cols-[1.4fr_1fr]` and align items start. Confirms fit at 1062×618.
-- `inclusion-criteria` (TableSlideSection): reduce row padding `py-3 → py-2`, header padding too; cap "Why It Matters" column with `text-[13px]`.
-- Add an optional `dense` flag to `TableSlideSection` so only the targeted tables shrink (others stay default).
-
-### 2d. Detail Data Analysis Plan
-Replace the two existing analysis slides with **three** more-detailed slides so each test gets its own explanation of *what it outputs and what it means*:
-
-1. `analysis-overview` (methods template) — α, software, sequence.
-2. `analysis-table` (existing table, kept) — the planned tests grid, expanded "Output & Interpretation" column.
-3. `analysis-deepdive` (new `methodsTwoCol` variant or two stacked card rows) — per-test "What it produces" / "How to read it":
-   - Descriptive Statistics → mean/SD/min/max → "characterizes spread; flags skew or outliers."
-   - Cronbach's α → single coefficient → "≥ 0.70 = composite is internally consistent."
-   - Pearson r → r ∈ [−1, 1] + p → "sign = direction, |r| = strength, p < .05 = unlikely by chance."
-   - Linear Regression → R², F, β, p → "R² = % variance explained, β = expected change in Y per +1 X, p tests if predictor matters."
-
-Split across **two slides** (2 tests per slide) to avoid overflow.
+- New `src/components/OrientationNotice.tsx`, mounted once in `src/App.tsx`.
+- Shows a centered modal/toast when `window.innerWidth < 900` **or** portrait with width < 1100, on routes that use snap (`/` and `/dashboard`).
+- Copy: "CoreLab Analytics works best on a landscape tablet or desktop — the experience uses full-page slides." + Dismiss button.
+- Dismissal stored in `sessionStorage` so it doesn't nag on every nav; re-evaluates on `resize` / `orientationchange`.
+- Styled with existing tokens (navy/cyan, Space Grotesk heading, Inter body).
 
 ---
 
-## 3. Tool page (`src/pages/Tool.tsx`)
+## 3. Chapter divider TOC → clickable anchors
 
-### 3a. Five datasets per method (15 total samples)
-Replace the `SAMPLES` map with a list of 5 Cronbach + 5 Pearson + 5 Regression datasets, each with a distinct theme so users can experiment and see different shapes (strong positive, weak, near-zero, negative, noisy):
-
-- **Cronbach (5)**: classroom satisfaction, app usability (SUS-style), workplace stress, study habits, fitness motivation.
-- **Pearson (5)**: study hours × score (strong+), screen time × sleep (negative), height × shoe size (strong+), coffee × productivity (weak), random noise (near-zero).
-- **Regression (5)**: exam (study/sleep/gpa), house price (sqft/beds/age), salary (yrs_exp/edu/cert), plant growth (water/light/fertilizer), gym progress (sessions/sleep/protein).
-
-Render the sample picker as a `Select` grouped by method (`SelectGroup` + `SelectLabel`) so the row doesn't overflow. Loading a sample auto-switches `method`.
-
-### 3b. Tooltip improvements
-- **Allow overflow outside containers**: `StatTooltip` already uses `<TooltipContent>` (Radix). Wrap its content in a `TooltipPrimitive.Portal` (already implicit in shadcn) and verify; if still clipped, move the `TooltipProvider` to the app root in `App.tsx` and ensure the tool's scroll containers don't have `overflow-hidden`. Add `collisionPadding={16}` and `avoidCollisions` to keep it on-screen.
-- **Richer copy**: expand `GLOSSARY` entries, especially "citation-style summary" (explain what APA-style format is, why we report `r(df) = …, p = …`, and how to paste it into a paper). Also flesh out: `pearsonR`, `pValue`, `confidence`, `tail`, `cronbach`, `regression`, `intercept`, `vif`, `rSquared`, `beta`.
+- `ChapterDividerSection` in `src/components/sections/ResearchSections.tsx`: each TOC entry becomes a `<button>` that calls `document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })`.
+- TOC entries in `content.json` get an optional `id` field (e.g. `{ "label": "Background", "id": "background-context" }`); falls back to slugified label.
+- Same treatment for Dashboard chapter dividers in `src/pages/Dashboard.tsx`.
+- Adds hover affordance (cyan underline + chevron).
 
 ---
+
+## 4. Home: compact References slide
+
+- `ReferencesSection`: switch to a tight 3-col grid (`lg:grid-cols-3`, `md:grid-cols-2`, single col on mobile), `text-[12px]`, `leading-snug`, hairline dividers, numbered list, no trailing arrow icon — fits in one snap page.
+- The **author + (year)** is the link (opens DOI / Scholar in new tab); title text becomes plain foreground.
+
+---
+
+## 5. Dashboard
+
+### 5a. Fix the grey scatter points
+In `PearsonDeepDive` and `RegressionDeepDive` (`src/pages/Dashboard.tsx`), markers are colored grey when not significant. Change to:
+- All markers cyan (`hsl(188 100% 42%)`).
+- Encode significance via the **trend line**: solid navy when significant, dashed muted-foreground when not.
+- Add a "Not significant — α = 0.05" badge above the chart when applicable, plus a small legend caption.
+
+### 5b. Summary of Findings → 9 items
+Update `SummaryFindings` in `src/pages/Dashboard.tsx` to list the 9 findings from the paper:
+1. Frequency of use predicts exposure-driven gains.
+2. Intensity is the strongest single predictor.
+3. Cronbach's α confirms scale reliability.
+4. Model A (frequency-only) significant.
+5. Model B (intensity-only) significant.
+6. Combined model shows ceiling effect / multicollinearity.
+7. Pearson r between usage and grade change is positive but moderate.
+8. H₀₁ rejected for the primary RQ.
+9. Divergent finding noted: heavy users without intentional study habits show no gain.
+
+(Will pull exact wording from current paper text in `content.json` / `dashboard.json` while editing — placeholder list above for plan visibility only.)
+
+---
+
+## 6. Team: portrait placeholders
+
+- Update `public/team.json` so each member has `"image": "/team/<Lastname>.png"` (Espino, Bolacja, etc.).
+- User drops PNGs into `public/team/`. Missing files degrade to existing initials via `onError`.
+- `PersonCard` / `LeadCard` in `src/pages/Team.tsx` render `<img>` with `bg-white`, `object-contain`, rounded corners, and `onError` fallback to the initials block.
+
+---
+
+## Verification
+- 1062×618 preview: no internal scroll on References, Participants, Analysis Plan slides.
+- TOC entries on every chapter divider scroll-jump to the right slide on Home + Dashboard.
+- Resize browser to portrait < 900px → notice appears once per session.
+- Dashboard scatter: no grey markers; trend line dashes when not significant; badge visible.
+- Team page: missing PNGs fall back to initials without console errors.
 
 ## Out of scope
-- No backend, no auth.
-- No new charting library.
-- Not regenerating any analysis results.
-
-## Verification checklist
-- All snap sections fit at 1062×618 with no internal scroll (Home + Dashboard preview).
-- Divider TOC reads top→bottom in column 1 then column 2.
-- "— " spacing fixed everywhere it shows.
-- PDF button opens `/research.pdf` (404 acceptable until user uploads file).
-- Tool: switching sample updates method + clears stale results; tooltips render above cards/sections.
+- No new datasets, no chart library changes, no backend.
+- Adviser title on Team page (kept as "Practical Research Adviser" unless user says otherwise).
