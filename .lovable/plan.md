@@ -1,119 +1,95 @@
 ## Scope
 
-Three areas: **Home**, **Tool**, **Dashboard**. All changes keep existing design language (navy + cyan, Space Grotesk + Inter, snap-section layout, semantic tokens).
+Targeted polish + content additions across Home, Tool, and shared components. No business-logic changes outside what's listed.
 
 ---
 
-## 1. Home page (`public/content.json`, `src/components/sections/ResearchSections.tsx`, `src/pages/Index.tsx`)
+## 1. Global
 
-### 1a. Split Research Questions slide → isolate Hypotheses
-- Current `research-questions` slide carries Central RQ, 3 sub-RQs, **and** H₁/H₀₁ — too dense.
-- Split into two snap sections:
-  - `research-questions` (template `rq`) — keeps Central + Sub-RQs only.
-  - `hypotheses` (new template `hypotheses`) — full slide for H₁ and H₀₁ with bigger typographic treatment, alt vs null contrast, and a one-line explainer of the α = 0.05 decision rule.
-- Update the `rq` component to drop the hypotheses block; add a new `HypothesesSection` component.
-- Add the new entry to the Chapter 1 TOC.
+### 1a. Em-dash spacing — `word— word` (no space before, single space after)
+Sweep all visible text in:
+- `public/content.json`
+- `public/dashboard.json`
+- `src/components/sections/*.tsx`, `src/components/sections/HeroSection.tsx`, `src/components/sections/FinaleSection.tsx`
+- `src/pages/Tool.tsx`, `src/pages/Dashboard.tsx`, `src/pages/Team.tsx`
+- `src/lib/interpretations.ts`, `src/lib/glossary.ts`
 
-### 1b. Redesign "Significance of the Study" so it fits one screen
-- Current `significance` slide stacks: chapter chip + title + General Objective callout + 5 specific objective cards. On 1062×618 (current viewport) this scrolls.
-- Redesign to a balanced two-column layout:
-  - **Left**: the General Objective in a single emphasized card (large display type, no body wall).
-  - **Right**: 5 specific objectives as a compact numbered list (small icon + one-line text, not full cards). Tighter line-height, `text-sm`, no per-item card chrome.
-- Drop the `text-base` body padding inside cards, reduce card padding from `p-6` → `p-4`, and switch the objectives container from grid-of-cards to a single bordered list with subtle separators.
-- Verify at 1062×618 and at smaller viewports — content should fit without internal scroll.
+Replace ` — ` (space-emdash-space) with `— ` (emdash-space). Done via a one-shot script run during the edit, then spot-checked.
 
----
+### 1b. Divider TOC numbering goes column-by-column, not row-by-row
+`ChapterDividerSection` (`ResearchSections.tsx` ~L370) renders the TOC as `sm:grid-cols-2`, which fills 1,2 / 3,4 / 5,6. Switch to column flow:
 
-## 2. Tool page (`src/pages/Tool.tsx`)
+```text
+[ 01 Background ]   [ 05 Significance ]
+[ 02 Variables  ]   [ 06 RRL          ]
+[ 03 RQs        ]   [ 07 Framework    ]
+[ 04 Hypotheses ]
+```
 
-### Clear predictors when Response (Y) changes
-- Current behavior: changing `regResponse` keeps `regPredictors` intact, which can leave a stale predictor selected (and is hidden from the list, since we filter `h !== regResponse`).
-- Fix: replace the inline `setRegResponse` with a wrapper that also resets `setRegPredictors([])`. Apply on the regression `<Select onValueChange>` only — Pearson Y is unaffected.
+Use `grid-flow-col` + dynamic `grid-rows-{ceil(n/2)}` (computed via inline style `gridTemplateRows: repeat(N, minmax(0,1fr))` since Tailwind can't take a runtime value).
 
 ---
 
-## 3. Dashboard page (`src/pages/Dashboard.tsx`, possibly `public/dashboard.json`)
+## 2. Home page
 
-### 3a. Fix "Respondents by Subject" chart
-- Dataset has 5 subjects; the hero tile uses a horizontal Plotly bar at 170px height with `margin: { l: 160 }` and y-labels truncated to 22 chars. At small heights the categorical y-axis collapses, which is why it visually reads as "one subject".
-- Replace with a clean vertical bar chart (short labels: "CP1", "CP2", "EDP", "SAM", "ITC") and a tooltip carrying the full subject name. Keep cyan accent. Apply the same fix to the Respondents slide so it has its own per-subject chart next to the table.
+### 2a. Hero (`HeroSection.tsx` + `content.json`)
+- Move the long `description` text **into the right-side descriptor box** (so the left column has only badge → heading → subheading → CTAs). The descriptor box becomes the primary explanatory surface.
+- Rename primary CTA: **"Take the Survey" → "Open the Tool"** (keeps `/tool` link).
+- Add a third CTA on the same row: **"Download Full PDF"** with a `Download` icon, linking to a configurable `hero.pdfHref` in `content.json` (default `/research.pdf`). User drops the file at `public/research.pdf`. Falls back to `target="_blank"` open.
 
-### 3b. Add Chapter 3 / Chapter 4 divider slides
-- Mirror the home page `ChapterDividerSection` — full-bleed intro slide with chapter number, title, lead, mini-TOC.
-- Two new slides:
-  - `ch3-divider` — "Chapter 3 · Results" before Respondents.
-  - `ch4-divider` — "Chapter 4 · Discussion" before Usage & Grades.
-- Either import the existing `ChapterDividerSection` from `src/components/sections/ResearchSections.tsx`, or extract it to a shared file. Prefer importing to keep one source of truth.
-- Add both to the dashboard TOC, scoped to their respective chapter group.
+### 2b. References / Sources slide (new)
+New section at end of Chapter 1 (after `framework-experiential`, before `ch2-divider`) using a new `references` template:
+- Lists every cited author with year + title + external link (DOI / Google Scholar search URL when no DOI is known).
+- Two-column compact list, anchor links open in new tab, `text-sm`.
+- TOC entry added to Chapter 1 divider.
 
-### 3c. Deep-dive slides per statistical analysis
+Sources covered (from existing RRL/Framework slides): Limniou (2021), Canoy et al. (2023), Mohamed (2025), Siega (2025), Escubido et al. (2025), Vahid et al. (2023), Cadiz-Gabejan & Takenaka (2021), Sweller (1988), Piaget (1972), Vygotsky (1978), Kolb (1984).
 
-**Correlation (currently one slide with table + 1 scatter)**
-Restructure into:
-- `correlation` — keep the full r/p table as the **summary** slide (no chart, full-width readable table + 2 short interpretation callouts).
-- `correlation-pr1` — Frequency × Preliminary (scatter + r, p, sig badge + plain-English read).
-- `correlation-pr2` — Intensity × Preliminary.
-- `correlation-pr3` — Frequency × Midterm.
-- `correlation-pr4` — Intensity × Midterm.
-- Build one reusable `<PearsonDeepDive>` component (props: title, x/y arrays, x/y labels, r, p, sig, narrative) so all four are uniform.
+### 2c. Reduce overflow on Participants and Sampling slides
+- `participants` (SamplingFunnelSection): tighten step row to `py-3 → py-2`, value font `text-lg → text-base`, formula card padding `p-6 → p-5`, formula expression `text-2xl → text-xl`. Switch grid from `lg:grid-cols-[1.3fr_1fr]` to `lg:grid-cols-[1.4fr_1fr]` and align items start. Confirms fit at 1062×618.
+- `inclusion-criteria` (TableSlideSection): reduce row padding `py-3 → py-2`, header padding too; cap "Why It Matters" column with `text-[13px]`.
+- Add an optional `dense` flag to `TableSlideSection` so only the targeted tables shrink (others stay default).
 
-**Regression (currently 2 slides: model summary + coefficients)**
-Restructure into:
-- `regression` — keep table of Models A/B/C as the **summary** slide (no chart).
-- `regression-model-a` — Frequency-only: scatter of Hours vs Performance Δ + trend line, R²/F/p tile, β/SE/t/p tile, plain-English interpretation.
-- `regression-model-b` — Intensity-only: scatter of Intensity vs Performance Δ + trend line, same tiles.
-- `regression-model-c` — Combined: residuals or observed-vs-predicted plot + per-coefficient bars showing significance, predictive formula, plain-English read.
-- `regression-coef` — keep the existing coefficients table slide, retitled to act as the consolidated reference.
-- Build one reusable `<RegressionDeepDive>` component.
+### 2d. Detail Data Analysis Plan
+Replace the two existing analysis slides with **three** more-detailed slides so each test gets its own explanation of *what it outputs and what it means*:
 
-### 3d. Summary of Findings — match Revision 10
-- Current slide shows 3 items. Revision 10 (already encoded throughout the dashboard) supports a fuller list. Expand to **6 findings**:
-  1. Intensity is the strongest correlate of absolute grade level at both Preliminary and Midterm.
-  2. Frequency is not significant at Preliminary but becomes significant by Midterm — exposure-effect pattern.
-  3. Cronbach's α = 0.70 confirms acceptable internal consistency of the Intensity composite.
-  4. Frequency is the **sole** significant predictor of Performance Change in the combined regression (β = 0.4339, p = 0.0251).
-  5. Intensity loses predictive power for *change* once Frequency is controlled (ceiling effect on already-engaged students).
-  6. The combined model is significant (R² = 0.0733, F = 3.28, p = 0.0424) → H₀₁ is rejected; lab usage predicts measurable academic progress.
-- Switch grid from `md:grid-cols-3` to a denser `md:grid-cols-2 lg:grid-cols-3` with smaller cards so all six fit one screen.
+1. `analysis-overview` (methods template) — α, software, sequence.
+2. `analysis-table` (existing table, kept) — the planned tests grid, expanded "Output & Interpretation" column.
+3. `analysis-deepdive` (new `methodsTwoCol` variant or two stacked card rows) — per-test "What it produces" / "How to read it":
+   - Descriptive Statistics → mean/SD/min/max → "characterizes spread; flags skew or outliers."
+   - Cronbach's α → single coefficient → "≥ 0.70 = composite is internally consistent."
+   - Pearson r → r ∈ [−1, 1] + p → "sign = direction, |r| = strength, p < .05 = unlikely by chance."
+   - Linear Regression → R², F, β, p → "R² = % variance explained, β = expected change in Y per +1 X, p tests if predictor matters."
 
-### 3e. Expand Chapter 4 Discussion slides
-Add depth (cite the data, not just claims) to:
-
-- **`usage-grades` (Relationship Between Usage Metrics and Absolute Grades)** — add a third panel under the two period cards: an "Interpretation" strip explaining *why* quality-of-engagement leads quantity at Preliminary (selection effect: students who engage actively bring prior preparation), and *why* Frequency closes the gap by Midterm (exposure accumulation). Reference Vahid et al. and Limniou inline.
-
-- **`predictors` (Predictors of Academic Performance Change)** — keep the 5 stat tiles, then add a two-column "Reading the regression" block:
-  - Left: what each significant β means in plain language ("an extra hour per week predicts +0.43 grade points of improvement"), with a worked numeric example (4 hrs → 7 hrs ⇒ predicted +1.30 Δ).
-  - Right: what *not* to read into it (R² = 7.33% means 92.67% of variance is unexplained by lab usage alone; correlation ≠ causation; sampling caveat).
-
-- **`divergence` (Interpretation of Divergent Findings — main)** — keep the two-card Intensity/Frequency contrast, add a third row directly under it:
-  - "Why the divergence makes sense" — short paragraph linking Intensity ↔ Constructivist Theory (knowledge built through active engagement, hence high *level*) and Frequency ↔ Experiential Learning (iterative cycle, hence *change*).
-
-- **`divergence-ctx` (Contextual Considerations)** — add two more context cards beyond the existing two:
-  - "Self-report limitation" — Frequency and Intensity are self-reported; potential recall and social-desirability bias.
-  - "Cross-sectional grade pairing" — the Δ uses Prelim/Midterm pairs from possibly different semesters; the finding describes a general intra-term pattern, not a longitudinal trajectory.
+Split across **two slides** (2 tests per slide) to avoid overflow.
 
 ---
 
-## Technical section
+## 3. Tool page (`src/pages/Tool.tsx`)
 
-**Files to edit:**
-- `public/content.json` — split `research-questions`, add `hypotheses` entry, restructure `significance` content if needed.
-- `src/components/sections/ResearchSections.tsx` — add `HypothesesSection`, redesign `SignificanceSection` layout, trim `ResearchQuestionsSection` to drop hypothesis block. Export `ChapterDividerSection` for dashboard reuse (already exported).
-- `src/pages/Index.tsx` — register `hypotheses` template case.
-- `src/pages/Tool.tsx` — wrap `setRegResponse` to also clear `regPredictors`.
-- `src/pages/Dashboard.tsx`:
-  - Add Ch3/Ch4 divider sections (import `ChapterDividerSection`).
-  - Replace subject horizontal bar with vertical bar (short labels + hover full name) in `DashboardHero` and add a per-subject chart inside `Respondents`.
-  - Split `Correlation` into 1 summary + 4 deep-dive sections via a new `PearsonDeepDive` helper.
-  - Split `RegressionSummary` into 1 summary + 3 model deep-dive sections via a new `RegressionDeepDive` helper; keep `RegressionCoefficients` as consolidated table.
-  - Expand `SummaryFindings` from 3 → 6 items, adjust grid.
-  - Extend `UsageGrades`, `Predictors`, `DivergenceMain`, `DivergenceContext` with the additional cards/blocks listed above.
-  - Update `tocItems` array to include new section IDs in correct chapter groups.
+### 3a. Five datasets per method (15 total samples)
+Replace the `SAMPLES` map with a list of 5 Cronbach + 5 Pearson + 5 Regression datasets, each with a distinct theme so users can experiment and see different shapes (strong positive, weak, near-zero, negative, noisy):
 
-**Verification approach:**
-- After edits, type-check.
-- Open preview at the current viewport (1062×618) and snap through every new/changed slide on Home and Dashboard to confirm zero internal scrolling.
-- Verify Tool: change Response (Y) and confirm predictor checkboxes reset to empty.
-- Verify Dashboard subject chart shows all 5 subjects at the hero tile height.
+- **Cronbach (5)**: classroom satisfaction, app usability (SUS-style), workplace stress, study habits, fitness motivation.
+- **Pearson (5)**: study hours × score (strong+), screen time × sleep (negative), height × shoe size (strong+), coffee × productivity (weak), random noise (near-zero).
+- **Regression (5)**: exam (study/sleep/gpa), house price (sqft/beds/age), salary (yrs_exp/edu/cert), plant growth (water/light/fertilizer), gym progress (sessions/sleep/protein).
 
-No new dependencies. No data file changes — `responses.json` already supports all charts.
+Render the sample picker as a `Select` grouped by method (`SelectGroup` + `SelectLabel`) so the row doesn't overflow. Loading a sample auto-switches `method`.
+
+### 3b. Tooltip improvements
+- **Allow overflow outside containers**: `StatTooltip` already uses `<TooltipContent>` (Radix). Wrap its content in a `TooltipPrimitive.Portal` (already implicit in shadcn) and verify; if still clipped, move the `TooltipProvider` to the app root in `App.tsx` and ensure the tool's scroll containers don't have `overflow-hidden`. Add `collisionPadding={16}` and `avoidCollisions` to keep it on-screen.
+- **Richer copy**: expand `GLOSSARY` entries, especially "citation-style summary" (explain what APA-style format is, why we report `r(df) = …, p = …`, and how to paste it into a paper). Also flesh out: `pearsonR`, `pValue`, `confidence`, `tail`, `cronbach`, `regression`, `intercept`, `vif`, `rSquared`, `beta`.
+
+---
+
+## Out of scope
+- No backend, no auth.
+- No new charting library.
+- Not regenerating any analysis results.
+
+## Verification checklist
+- All snap sections fit at 1062×618 with no internal scroll (Home + Dashboard preview).
+- Divider TOC reads top→bottom in column 1 then column 2.
+- "— " spacing fixed everywhere it shows.
+- PDF button opens `/research.pdf` (404 acceptable until user uploads file).
+- Tool: switching sample updates method + clears stale results; tooltips render above cards/sections.

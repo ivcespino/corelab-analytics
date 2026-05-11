@@ -62,7 +62,7 @@ export function validate(ctx: ValidationCtx): SmartError | null {
     if (ctx.pearsonX === ctx.pearsonY) {
       return {
         message: `You selected the same column (${ctx.pearsonX}) for both X and Y.`,
-        hint: "Correlation needs two different variables — change either X or Y to a different column.",
+        hint: "Correlation needs two different variables— change either X or Y to a different column.",
       };
     }
     const xs = dataset.columns[ctx.pearsonX]?.filter(Number.isFinite) ?? [];

@@ -31,7 +31,7 @@ export function DescriptiveTable({ variables, columns }: DescTableProps) {
               <th className="px-5 py-2.5 text-left">Variable</th>
               <th className="px-5 py-2.5 text-right"><HdrTip k="n">N</HdrTip></th>
               <th className="px-5 py-2.5 text-right">Mean</th>
-              <th className="px-5 py-2.5 text-right"><HdrTip k="se" title="SD" body="Standard deviation — typical distance of values from the mean.">SD</HdrTip></th>
+              <th className="px-5 py-2.5 text-right"><HdrTip k="se" title="SD" body="Standard deviation— typical distance of values from the mean.">SD</HdrTip></th>
               <th className="px-5 py-2.5 text-right">Min</th>
               <th className="px-5 py-2.5 text-right">Max</th>
             </tr>
@@ -65,7 +65,7 @@ export function CronbachTable({ result }: { result: CronbachResult }) {
     <div className="glass-card overflow-hidden">
       <div className="border-b border-border/60 px-5 py-3">
         <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          Reliability — Cronbach's α
+          Reliability— Cronbach's α
         </h4>
       </div>
       <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-5">
@@ -96,7 +96,7 @@ export function PearsonTable({ result, x, y }: { result: PearsonResult; x: strin
     <div className="glass-card overflow-hidden">
       <div className="border-b border-border/60 px-5 py-3">
         <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          Correlation — {x} × {y}
+          Correlation— {x} × {y}
         </h4>
       </div>
       <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-3 lg:grid-cols-6">
@@ -124,7 +124,7 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
       <div className="glass-card overflow-hidden">
         <div className="border-b border-border/60 px-5 py-3">
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Regression — Model Summary
+            Regression— Model Summary
           </h4>
         </div>
         <div className="grid grid-cols-2 gap-px bg-border/40 sm:grid-cols-5">
@@ -139,7 +139,7 @@ export function RegressionTable({ result }: { result: RegressionResult }) {
       <div className="glass-card overflow-hidden">
         <div className="border-b border-border/60 px-5 py-3">
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Coefficients — predicting {result.response}
+            Coefficients— predicting {result.response}
           </h4>
         </div>
         <div className="overflow-x-auto">

@@ -18,7 +18,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/60 bg-muted/40 text-foreground">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Link to="/" aria-label="CoreLab Analytics — home" className="inline-block">
+          <Link to="/" aria-label="CoreLab Analytics— home" className="inline-block">
             <Logo className="h-9" />
           </Link>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -61,7 +61,7 @@ export function SiteFooter() {
       <div className="border-t border-border/60">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <span>
-            © {new Date().getFullYear()} CoreLab Analytics — ITMAWD 12A research group · STI College Malolos
+            © {new Date().getFullYear()} CoreLab Analytics— ITMAWD 12A research group · STI College Malolos
           </span>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

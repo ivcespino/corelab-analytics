@@ -18,6 +18,7 @@ import {
   LikertTableSection,
   TableSlideSection,
   SamplingFunnelSection,
+  ReferencesSection,
 } from "@/components/sections/ResearchSections";
 import { FinaleSection } from "@/components/sections/FinaleSection";
 
@@ -96,6 +97,7 @@ const Index = () => {
             case "methodsTwoCol": return <MethodsTwoColSection key={s.id} data={s} variant={variant} />;
             case "table":         return <TableSlideSection key={s.id} data={s} variant={variant} />;
             case "sampling":      return <SamplingFunnelSection key={s.id} data={s} variant={variant} />;
+            case "references":    return <ReferencesSection key={s.id} data={s} variant={variant} />;
             default:              return null;
           }
         })}

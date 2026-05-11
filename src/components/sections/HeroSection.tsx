@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -6,9 +6,10 @@ interface HeroData {
   badge: string;
   heading: string;
   subheading: string;
-  description: string;
+  description?: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
+  pdfCta?: { label: string; href: string };
   descriptor?: { label: string; body: string };
   stats?: { value: string; label: string }[];
 }
@@ -37,9 +38,6 @@ export function HeroSection({ data }: { data: HeroData }) {
           <p className="mt-3 font-display text-xl text-accent sm:text-2xl">
             {data.subheading}
           </p>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-            {data.description}
-          </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to={data.primaryCta.href} className="btn-hero-primary">
@@ -48,15 +46,25 @@ export function HeroSection({ data }: { data: HeroData }) {
             <Link to={data.secondaryCta.href} className="btn-hero-ghost">
               {data.secondaryCta.label}
             </Link>
+            {data.pdfCta && (
+              <a
+                href={data.pdfCta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hero-ghost"
+              >
+                <Download className="h-4 w-4" /> {data.pdfCta.label}
+              </a>
+            )}
           </div>
         </div>
 
         {data.descriptor ? (
-          <div className="fade-up rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur sm:p-8">
+          <div className="fade-up rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               {data.descriptor.label}
             </p>
-            <p className="mt-4 font-display text-xl leading-snug text-white sm:text-2xl">
+            <p className="mt-4 font-display text-lg leading-snug text-white sm:text-xl">
               {data.descriptor.body}
             </p>
           </div>

@@ -2,7 +2,7 @@
 // Cronbach's Alpha, Pearson R, and Linear Regression (simple & multiple)
 
 import * as ss from "simple-statistics";
-// @ts-ignore — jstat ships its own loose types
+// @ts-ignore— jstat ships its own loose types
 import { jStat } from "jstat";
 
 export type NumMatrix = number[][]; // rows x cols

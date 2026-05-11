@@ -2,7 +2,7 @@
   "intro": {
     "eyebrow": "Meet the Research Team",
     "title": "The minds behind CoreLab Analytics",
-    "description": "A research group from ITMAWD 12A at STI College Malolos exploring how computer-laboratory exposure shapes academic performance — and how to render that story in real-time, on the web."
+    "description": "A research group from ITMAWD 12A at STI College Malolos exploring how computer-laboratory exposure shapes academic performance— and how to render that story in real-time, on the web."
   },
   "researchers": [
     { "name": "Espino, Shae",          "initials": "ES", "role": "Project Manager & Lead Developer", "tag": "Research Leader", "email": "shaeshishsg12@gmail.com" },

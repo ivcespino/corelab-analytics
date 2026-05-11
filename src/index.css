@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CoreLab Analytics — design system. All colors HSL. */
+/* CoreLab Analytics— design system. All colors HSL. */
 
 @layer base {
   :root {

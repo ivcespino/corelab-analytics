@@ -16,7 +16,7 @@ export function QuoteHomeSection({ data, variant }: { data: QuoteData; variant: 
         <p className="mt-3 font-display text-2xl leading-snug sm:text-3xl">"{data.quote}"</p>
         {data.attribution && (
           <p className="mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-            — {data.attribution}
+           — {data.attribution}
           </p>
         )}
       </div>

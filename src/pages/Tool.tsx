@@ -20,7 +20,9 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -58,11 +60,18 @@ import { validate, type SmartError } from "@/lib/validate";
 
 type Method = "cronbach" | "pearson" | "regression";
 
-const SAMPLES: Record<string, { label: string; method: Method; csv: string }> = {
-  likert: {
-    label: "Likert scale (Cronbach)",
-    method: "cronbach",
-    csv: `participant,item1,item2,item3,item4
+interface Sample {
+  key: string;
+  label: string;
+  method: Method;
+  csv: string;
+}
+
+const SAMPLE_LIST: Sample[] = [
+  // ───── Cronbach (5) ─────
+  {
+    key: "cron-class", label: "Classroom satisfaction (4 items)", method: "cronbach",
+    csv: `participant,clarity,pacing,materials,overall
 1,4,5,4,5
 2,3,3,4,3
 3,5,5,5,4
@@ -76,9 +85,74 @@ const SAMPLES: Record<string, { label: string; method: Method; csv: string }> = 
 11,5,5,4,5
 12,2,3,3,3`,
   },
-  twoVar: {
-    label: "Two variables (Pearson)",
-    method: "pearson",
+  {
+    key: "cron-sus", label: "App usability — SUS-style (5 items)", method: "cronbach",
+    csv: `user,easy,consistent,learnable,confident,enjoyable
+1,5,4,5,4,5
+2,3,3,4,3,3
+3,4,5,4,4,5
+4,2,2,3,2,2
+5,5,5,5,5,4
+6,4,4,4,5,4
+7,3,3,3,2,3
+8,4,5,4,4,4
+9,2,3,2,3,2
+10,5,4,5,4,5
+11,4,4,3,4,4
+12,3,2,3,3,3`,
+  },
+  {
+    key: "cron-stress", label: "Workplace stress (4 items)", method: "cronbach",
+    csv: `employee,workload,deadlines,support_rev,recovery_rev
+1,5,5,2,2
+2,4,4,3,3
+3,5,4,2,1
+4,3,3,4,4
+5,5,5,1,2
+6,2,2,5,5
+7,4,4,3,2
+8,3,3,4,3
+9,5,5,2,2
+10,2,3,4,5
+11,4,5,3,2
+12,3,2,5,4`,
+  },
+  {
+    key: "cron-study", label: "Study habits (5 items)", method: "cronbach",
+    csv: `student,planning,focus,review,notes,practice
+1,4,5,4,4,5
+2,3,3,3,4,3
+3,5,4,5,5,5
+4,2,2,2,3,2
+5,4,4,4,4,5
+6,3,4,4,3,4
+7,5,5,4,5,5
+8,2,3,2,2,3
+9,4,4,5,4,4
+10,3,2,3,3,3
+11,5,5,5,4,5
+12,3,3,3,4,3`,
+  },
+  {
+    key: "cron-fitness", label: "Fitness motivation (4 items)", method: "cronbach",
+    csv: `member,goal,routine,energy,enjoyment
+1,5,5,4,5
+2,4,3,4,4
+3,5,5,5,5
+4,3,2,3,2
+5,4,4,5,4
+6,5,5,4,5
+7,2,2,3,3
+8,4,4,4,4
+9,3,3,2,3
+10,5,4,5,5
+11,4,5,4,4
+12,2,3,3,2`,
+  },
+
+  // ───── Pearson (5) ─────
+  {
+    key: "pear-study", label: "Study hours × exam score (strong +)", method: "pearson",
     csv: `id,study_hours,exam_score
 1,12,88
 2,5,72
@@ -93,9 +167,74 @@ const SAMPLES: Record<string, { label: string; method: Method; csv: string }> = 
 11,16,96
 12,4,68`,
   },
-  multi: {
-    label: "Multi-predictor (Regression)",
-    method: "regression",
+  {
+    key: "pear-screen", label: "Screen time × sleep (negative)", method: "pearson",
+    csv: `id,screen_hours,sleep_hours
+1,2,8.5
+2,4,7.5
+3,6,7.0
+4,8,6.0
+5,10,5.5
+6,3,8.0
+7,5,7.2
+8,7,6.5
+9,9,5.8
+10,1,9.0
+11,11,5.0
+12,6,6.8`,
+  },
+  {
+    key: "pear-height", label: "Height × shoe size (strong +)", method: "pearson",
+    csv: `id,height_cm,shoe_size
+1,150,5
+2,155,6
+3,160,7
+4,165,8
+5,170,9
+6,175,10
+7,180,11
+8,158,6
+9,168,8
+10,172,9
+11,162,7
+12,178,11`,
+  },
+  {
+    key: "pear-coffee", label: "Coffee × productivity (weak)", method: "pearson",
+    csv: `id,cups_coffee,productivity_score
+1,1,72
+2,2,75
+3,3,78
+4,4,76
+5,5,74
+6,1,68
+7,2,80
+8,3,72
+9,4,82
+10,5,70
+11,2,77
+12,3,79`,
+  },
+  {
+    key: "pear-noise", label: "Random noise (near zero)", method: "pearson",
+    csv: `id,x_noise,y_noise
+1,3.2,7.1
+2,5.8,4.4
+3,2.1,6.7
+4,7.4,3.2
+5,4.6,8.1
+6,6.3,2.9
+7,1.8,5.5
+8,8.1,7.8
+9,3.9,4.0
+10,5.2,6.4
+11,7.7,5.1
+12,2.6,3.7`,
+  },
+
+  // ───── Regression (5) ─────
+  {
+    key: "reg-exam", label: "Exam score (study, sleep, GPA)", method: "regression",
     csv: `id,study_hours,sleep_hours,prior_gpa,exam_score
 1,12,7,3.4,88
 2,5,6,2.8,72
@@ -110,7 +249,76 @@ const SAMPLES: Record<string, { label: string; method: Method; csv: string }> = 
 11,16,8,3.8,96
 12,4,5.5,2.6,68`,
   },
-};
+  {
+    key: "reg-house", label: "House price (sqft, beds, age)", method: "regression",
+    csv: `id,sqft,bedrooms,age_years,price_k
+1,1200,2,30,210
+2,1800,3,15,310
+3,2400,4,5,420
+4,950,2,40,170
+5,2000,3,10,360
+6,2800,4,8,490
+7,1500,3,25,260
+8,1100,2,35,195
+9,2200,4,12,395
+10,1700,3,20,290
+11,2600,4,6,460
+12,1300,2,28,225`,
+  },
+  {
+    key: "reg-salary", label: "Salary (years exp, education, certs)", method: "regression",
+    csv: `id,years_exp,edu_years,certifications,salary_k
+1,2,12,1,42
+2,5,16,2,68
+3,8,16,3,82
+4,12,18,4,105
+5,1,12,0,38
+6,4,14,2,58
+7,7,16,2,76
+8,10,18,3,98
+9,3,14,1,52
+10,6,16,3,74
+11,9,18,2,90
+12,15,20,5,128`,
+  },
+  {
+    key: "reg-plant", label: "Plant growth (water, light, fertilizer)", method: "regression",
+    csv: `id,water_ml,light_hours,fertilizer_g,growth_cm
+1,200,6,2,8
+2,300,8,4,14
+3,150,4,1,5
+4,400,10,5,19
+5,250,7,3,11
+6,350,9,4,16
+7,180,5,2,7
+8,320,8,4,15
+9,220,6,3,10
+10,380,10,5,18
+11,140,4,1,4
+12,280,7,3,12`,
+  },
+  {
+    key: "reg-gym", label: "Gym progress (sessions, sleep, protein)", method: "regression",
+    csv: `id,sessions_week,sleep_hours,protein_g,strength_gain
+1,2,7,80,4
+2,4,8,120,9
+3,5,7,140,11
+4,3,6,90,5
+5,6,8,160,14
+6,1,5,60,2
+7,4,7,110,8
+8,5,8,150,12
+9,3,7,100,7
+10,6,8,170,15
+11,2,6,70,3
+12,4,7,130,10`,
+  },
+];
+
+const SAMPLES: Record<string, Sample> = Object.fromEntries(
+  SAMPLE_LIST.map((s) => [s.key, s]),
+);
+const DEFAULT_SAMPLE = "reg-exam";
 
 interface Results {
   variables: string[];
@@ -123,9 +331,9 @@ interface Results {
 }
 
 export default function Tool() {
-  const [csvText, setCsvText] = useState(SAMPLES.multi.csv);
+  const [csvText, setCsvText] = useState(SAMPLES[DEFAULT_SAMPLE].csv);
   const [dataset, setDataset] = useState<ParsedDataset | null>(() =>
-    parseCsv(SAMPLES.multi.csv),
+    parseCsv(SAMPLES[DEFAULT_SAMPLE].csv),
   );
   const [method, setMethod] = useState<Method>("regression");
 
@@ -292,7 +500,7 @@ export default function Tool() {
         });
         if (result.vif) {
           for (const [name, v] of Object.entries(result.vif))
-            if (v > 5) warnings.push(`High VIF for ${name} (${fmt(v, 2)}) — predictors are correlated.`);
+            if (v > 5) warnings.push(`High VIF for ${name} (${fmt(v, 2)})— predictors are correlated.`);
         }
         const plot: Results["plot"] = {
           data: [
@@ -346,7 +554,7 @@ export default function Tool() {
     const html = `<!doctype html><html><head><meta charset="utf-8"><title>CoreLab Report</title>
 <style>body{font:14px/1.6 -apple-system,Inter,sans-serif;max-width:780px;margin:40px auto;padding:0 20px;color:#0F172A}h1{font-size:28px}h2{margin-top:32px;border-bottom:1px solid #ccc;padding-bottom:6px}.k{color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.1em}blockquote{border-left:3px solid #00B8D4;padding-left:14px;color:#334155;margin:8px 0}</style>
 </head><body>
-<h1>CoreLab Analytics — Statistical Report</h1>
+<h1>CoreLab Analytics— Statistical Report</h1>
 <p class="k">Generated ${new Date().toLocaleString()}</p>
 <h2>Reading the Result</h2>
 <p class="k">What you ran</p><blockquote>${stripMd(i.ran)}</blockquote>
@@ -381,7 +589,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
             <p className="mt-3 text-base text-muted-foreground sm:text-lg">
               Paste a CSV, pick a method, and CoreLab returns the same descriptive
               table, statistics, chart and plain-language reading you'd expect in a
-              methodology section — no spreadsheets required.
+              methodology section— no spreadsheets required.
             </p>
           </div>
 
@@ -399,18 +607,26 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                 </div>
 
                 <div className="mt-4">
-                  <Label className="text-xs text-muted-foreground">Try a sample dataset</Label>
-                  <div className="mt-1.5 flex flex-wrap gap-2">
-                    {Object.entries(SAMPLES).map(([k, s]) => (
-                      <button
-                        key={k}
-                        onClick={() => loadSample(k)}
-                        className="rounded-full border border-border/60 bg-card/50 px-3 py-1 text-xs font-medium transition-colors hover:bg-secondary"
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
+                  <Label className="text-xs text-muted-foreground">Try a sample dataset (5 per method)</Label>
+                  <Select onValueChange={loadSample}>
+                    <SelectTrigger className="mt-1.5">
+                      <SelectValue placeholder="Choose a sample dataset…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {(["cronbach", "pearson", "regression"] as const).map((m) => (
+                        <SelectGroup key={m}>
+                          <SelectLabel className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            {m === "cronbach" ? "Cronbach's α (reliability)" : m === "pearson" ? "Pearson r (correlation)" : "Linear Regression"}
+                          </SelectLabel>
+                          {SAMPLE_LIST.filter((s) => s.method === m).map((s) => (
+                            <SelectItem key={s.key} value={s.key}>
+                              {s.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="mt-5 space-y-3">
@@ -470,9 +686,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cronbach">Cronbach's Alpha — survey reliability</SelectItem>
-                        <SelectItem value="pearson">Pearson R — relationship between two variables</SelectItem>
-                        <SelectItem value="regression">Linear Regression — predict an outcome</SelectItem>
+                        <SelectItem value="cronbach">Cronbach's Alpha— survey reliability</SelectItem>
+                        <SelectItem value="pearson">Pearson R— relationship between two variables</SelectItem>
+                        <SelectItem value="regression">Linear Regression— predict an outcome</SelectItem>
                       </SelectContent>
                     </Select>
                     <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
@@ -601,7 +817,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         {dataset && <VarPreview ds={dataset} name={regResponse} />}
                       </div>
                       <VariableChecklist
-                        label="Predictors (X) — pick 1 for simple, 2+ for multiple"
+                        label="Predictors (X)— pick 1 for simple, 2+ for multiple"
                         labelTooltipKey="predictorX"
                         headers={numericHeaders.filter((h) => h !== regResponse)}
                         selected={regPredictors}
@@ -735,10 +951,12 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
           </div>
         ))}
       </div>
-      <div className="mt-5 rounded-lg border border-border/60 bg-card px-4 py-3 font-mono text-xs">
-        <span className="mr-2 text-muted-foreground">Citation:</span>
-        {i.citation}
-      </div>
+              <div className="mt-5 rounded-lg border border-border/60 bg-card px-4 py-3 font-mono text-xs">
+                <span className="mr-2 text-muted-foreground">
+                  <StatTooltip termKey="citation"><span>Citation</span></StatTooltip>:
+                </span>
+                {i.citation}
+              </div>
     </div>
   );
 }
