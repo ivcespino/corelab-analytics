@@ -541,26 +541,27 @@ interface ReferencesData {
 export function ReferencesSection({ data, variant }: { data: ReferencesData; variant: "odd" | "even" }) {
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
-      {data.lead && <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{data.lead}</p>}
-      <ol className="grid gap-2.5 sm:grid-cols-2">
+      {data.lead && <p className="mb-3 max-w-3xl text-xs leading-relaxed text-muted-foreground sm:text-sm">{data.lead}</p>}
+      <ol className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
         {data.items.map((it, i) => (
-          <li key={i}>
-            <a
-              href={it.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex h-full items-start gap-3 rounded-xl border bg-card p-3.5 shadow-soft transition-colors hover:border-accent hover:bg-accent/5"
-            >
-              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
-                {i + 1}
-              </span>
-              <span className="flex-1 text-[13px] leading-snug">
-                <span className="font-semibold">{it.author}</span>
-                <span className="text-muted-foreground"> ({it.year}).</span>{" "}
-                <span className="text-foreground/85">{it.title}</span>
-                <ArrowRight className="ml-1 inline h-3 w-3 -translate-y-px text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
-              </span>
-            </a>
+          <li
+            key={i}
+            className="flex items-start gap-2.5 border-b border-border/40 py-1.5 text-[12px] leading-snug last:border-0"
+          >
+            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
+              {i + 1}
+            </span>
+            <span className="flex-1">
+              <a
+                href={it.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-foreground underline-offset-2 hover:text-accent hover:underline"
+              >
+                {it.author} ({it.year})
+              </a>
+              <span className="text-foreground/80">. {it.title}</span>
+            </span>
           </li>
         ))}
       </ol>
