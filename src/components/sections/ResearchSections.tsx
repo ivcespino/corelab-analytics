@@ -407,10 +407,33 @@ export function ChapterDividerSection({ data, variant }: { data: ChapterDividerD
 interface SinglePanelData {
   id: string; chapter: string; eyebrow: string; title: string;
   subtitle?: string;
+  subtitleLinks?: { match: string; href: string }[];
   body: string;
   citation?: string;
   gap?: string;
   kind?: "literature" | "theory";
+}
+function renderLinkedText(text: string, links?: { match: string; href: string }[]) {
+  if (!links || links.length === 0) return text;
+  // Build a regex that matches any of the link tokens; preserve order
+  const escaped = links.map((l) => l.match.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`(${escaped.join("|")})`, "g");
+  const parts = text.split(re);
+  return parts.map((part, i) => {
+    const link = links.find((l) => l.match === part);
+    if (!link) return <span key={i}>{part}</span>;
+    return (
+      <a
+        key={i}
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent hover:text-accent"
+      >
+        {part}
+      </a>
+    );
+  });
 }
 export function SinglePanelSection({ data, variant }: { data: SinglePanelData; variant: "odd" | "even" }) {
   const Icon = data.kind === "theory" ? FlaskRound : BookOpen;
