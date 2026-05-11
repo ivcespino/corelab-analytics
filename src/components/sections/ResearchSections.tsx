@@ -368,7 +368,12 @@ export function ChapterDividerSection({ data, variant }: { data: ChapterDividerD
           <h2 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-6xl lg:text-7xl">{data.title}</h2>
           {data.lead && <p className="mt-6 max-w-3xl text-base leading-relaxed text-foreground/80 sm:text-lg">{data.lead}</p>}
           {data.toc && (
-            <ol className="mt-8 grid gap-2 sm:grid-cols-2">
+            <ol
+              className="mt-8 grid grid-flow-row gap-2 sm:grid-flow-col"
+              style={{
+                gridTemplateRows: `repeat(${Math.ceil(data.toc.length / 2)}, minmax(0, 1fr))`,
+              }}
+            >
               {data.toc.map((t, i) => (
                 <li key={i} className="flex items-center gap-3 rounded-xl border bg-card/60 px-4 py-2.5 backdrop-blur">
                   <span className="font-mono text-xs font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
