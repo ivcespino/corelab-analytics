@@ -215,6 +215,9 @@
       "title": "Cognitive Load Theory",
       "kind": "theory",
       "subtitle": "Sweller (1988)",
+      "subtitleLinks": [
+        { "match": "Sweller (1988)", "href": "https://doi.org/10.1207/s15516709cog1202_4" }
+      ],
       "citation": "Theory 1 of 3",
       "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load— the effort spent on logistical friction— and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
     },
@@ -226,6 +229,10 @@
       "title": "Constructivist Learning Theory",
       "kind": "theory",
       "subtitle": "Piaget (1972) & Vygotsky (1978)",
+      "subtitleLinks": [
+        { "match": "Piaget (1972)", "href": "https://scholar.google.com/scholar?q=Piaget+1972+psychology+of+the+child" },
+        { "match": "Vygotsky (1978)", "href": "https://scholar.google.com/scholar?q=Vygotsky+1978+mind+in+society" }
+      ],
       "citation": "Theory 2 of 3",
       "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement— active coding, troubleshooting, and configuration— is the mechanism through which that construction occurs."
     },
@@ -237,6 +244,9 @@
       "title": "Experiential Learning Theory",
       "kind": "theory",
       "subtitle": "Kolb (1984)",
+      "subtitleLinks": [
+        { "match": "Kolb (1984)", "href": "https://scholar.google.com/scholar?q=Kolb+1984+experiential+learning" }
+      ],
       "citation": "Theory 3 of 3",
       "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
     },
