@@ -20,7 +20,9 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -605,18 +607,26 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                 </div>
 
                 <div className="mt-4">
-                  <Label className="text-xs text-muted-foreground">Try a sample dataset</Label>
-                  <div className="mt-1.5 flex flex-wrap gap-2">
-                    {Object.entries(SAMPLES).map(([k, s]) => (
-                      <button
-                        key={k}
-                        onClick={() => loadSample(k)}
-                        className="rounded-full border border-border/60 bg-card/50 px-3 py-1 text-xs font-medium transition-colors hover:bg-secondary"
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
+                  <Label className="text-xs text-muted-foreground">Try a sample dataset (5 per method)</Label>
+                  <Select onValueChange={loadSample}>
+                    <SelectTrigger className="mt-1.5">
+                      <SelectValue placeholder="Choose a sample dataset…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {(["cronbach", "pearson", "regression"] as const).map((m) => (
+                        <SelectGroup key={m}>
+                          <SelectLabel className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            {m === "cronbach" ? "Cronbach's α (reliability)" : m === "pearson" ? "Pearson r (correlation)" : "Linear Regression"}
+                          </SelectLabel>
+                          {SAMPLE_LIST.filter((s) => s.method === m).map((s) => (
+                            <SelectItem key={s.key} value={s.key}>
+                              {s.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="mt-5 space-y-3">
