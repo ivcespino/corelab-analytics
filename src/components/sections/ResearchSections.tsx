@@ -407,10 +407,33 @@ export function ChapterDividerSection({ data, variant }: { data: ChapterDividerD
 interface SinglePanelData {
   id: string; chapter: string; eyebrow: string; title: string;
   subtitle?: string;
+  subtitleLinks?: { match: string; href: string }[];
   body: string;
   citation?: string;
   gap?: string;
   kind?: "literature" | "theory";
+}
+function renderLinkedText(text: string, links?: { match: string; href: string }[]) {
+  if (!links || links.length === 0) return text;
+  // Build a regex that matches any of the link tokens; preserve order
+  const escaped = links.map((l) => l.match.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`(${escaped.join("|")})`, "g");
+  const parts = text.split(re);
+  return parts.map((part, i) => {
+    const link = links.find((l) => l.match === part);
+    if (!link) return <span key={i}>{part}</span>;
+    return (
+      <a
+        key={i}
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent hover:text-accent"
+      >
+        {part}
+      </a>
+    );
+  });
 }
 export function SinglePanelSection({ data, variant }: { data: SinglePanelData; variant: "odd" | "even" }) {
   const Icon = data.kind === "theory" ? FlaskRound : BookOpen;
@@ -424,7 +447,9 @@ export function SinglePanelSection({ data, variant }: { data: SinglePanelData; v
         </div>
         <div className="rounded-2xl border bg-card p-7 shadow-soft sm:p-9">
           {data.subtitle && (
-            <p className="font-display text-xl font-semibold text-accent sm:text-2xl">{data.subtitle}</p>
+            <p className="font-display text-xl font-semibold text-accent sm:text-2xl">
+              {renderLinkedText(data.subtitle, data.subtitleLinks)}
+            </p>
           )}
           {data.citation && (
             <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{data.citation}</p>
@@ -542,26 +567,28 @@ export function ReferencesSection({ data, variant }: { data: ReferencesData; var
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
       {data.lead && <p className="mb-3 max-w-3xl text-xs leading-relaxed text-muted-foreground sm:text-sm">{data.lead}</p>}
-      <ol className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
+      <ol className="gap-x-6 columns-1 md:columns-2 lg:columns-3 [column-fill:balance]">
         {data.items.map((it, i) => (
           <li
             key={i}
-            className="flex items-start gap-2.5 border-b border-border/40 py-1.5 text-[12px] leading-snug last:border-0"
+            className="break-inside-avoid border-b border-border/40 py-1.5 last:border-0"
           >
-            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
-              {i + 1}
-            </span>
-            <span className="flex-1">
-              <a
-                href={it.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-foreground underline-offset-2 hover:text-accent hover:underline"
-              >
-                {it.author} ({it.year})
-              </a>
-              <span className="text-foreground/80">. {it.title}</span>
-            </span>
+            <a
+              href={it.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-2.5 rounded-md px-1 py-0.5 text-[12px] leading-snug transition-colors hover:bg-accent/5"
+            >
+              <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
+                {i + 1}
+              </span>
+              <span className="flex-1">
+                <span className="font-semibold text-foreground underline-offset-2 group-hover:text-accent group-hover:underline">
+                  {it.author} ({it.year})
+                </span>
+                <span className="text-foreground/80">. {it.title}</span>
+              </span>
+            </a>
           </li>
         ))}
       </ol>
