@@ -951,10 +951,12 @@ function ReadingTheResult({ i }: { i: Interpretation }) {
           </div>
         ))}
       </div>
-      <div className="mt-5 rounded-lg border border-border/60 bg-card px-4 py-3 font-mono text-xs">
-        <span className="mr-2 text-muted-foreground">Citation:</span>
-        {i.citation}
-      </div>
+              <div className="mt-5 rounded-lg border border-border/60 bg-card px-4 py-3 font-mono text-xs">
+                <span className="mr-2 text-muted-foreground">
+                  <StatTooltip termKey="citation"><span>Citation</span></StatTooltip>:
+                </span>
+                {i.citation}
+              </div>
     </div>
   );
 }
