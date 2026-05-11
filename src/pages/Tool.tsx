@@ -329,9 +329,9 @@ interface Results {
 }
 
 export default function Tool() {
-  const [csvText, setCsvText] = useState(SAMPLES.multi.csv);
+  const [csvText, setCsvText] = useState(SAMPLES[DEFAULT_SAMPLE].csv);
   const [dataset, setDataset] = useState<ParsedDataset | null>(() =>
-    parseCsv(SAMPLES.multi.csv),
+    parseCsv(SAMPLES[DEFAULT_SAMPLE].csv),
   );
   const [method, setMethod] = useState<Method>("regression");
 
