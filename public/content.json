@@ -27,7 +27,8 @@
         { "label": "Hypotheses" },
         { "label": "Significance of the Study" },
         { "label": "Review of Related Literature" },
-        { "label": "Theoretical Framework" }
+        { "label": "Theoretical Framework" },
+        { "label": "References" }
       ]
     },
     {
@@ -239,9 +240,27 @@
       "citation": "Theory 3 of 3",
       "body": "Learning proceeds through a four-stage cycle: concrete experience → reflective observation → abstract conceptualization → active experimentation. The laboratory provides the site for concrete experience. Frequency determines how often the cycle is entered. Intensity determines how fully it is engaged. Repeated consistently across a term, this cycle produces the measurable improvement captured by the Performance Change Score."
     },
-
     {
-      "id": "ch2-divider",
+      "id": "references",
+      "template": "references",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "References",
+      "title": "References",
+      "lead": "Works cited across the Review of Related Literature and the Theoretical Framework. Click any entry to open the source.",
+      "items": [
+        { "author": "Limniou, M.", "year": "2021", "title": "The effect of digital device usage on student academic performance.", "href": "https://scholar.google.com/scholar?q=Limniou+2021+digital+device+usage+academic+performance" },
+        { "author": "Canoy, J. et al.", "year": "2023", "title": "Supervised laboratory sessions and student outcomes in technical programs.", "href": "https://scholar.google.com/scholar?q=Canoy+2023+supervised+laboratory+sessions" },
+        { "author": "Mohamed, A.", "year": "2025", "title": "ICT availability and academic performance among technology students.", "href": "https://scholar.google.com/scholar?q=Mohamed+2025+ICT+availability+academic+performance" },
+        { "author": "Siega, R.", "year": "2025", "title": "Computer technology use and academic outcomes: a correlational study.", "href": "https://scholar.google.com/scholar?q=Siega+2025+computer+technology+academic+outcomes" },
+        { "author": "Escubido, M. et al.", "year": "2025", "title": "ICT integration in instruction and student performance.", "href": "https://scholar.google.com/scholar?q=Escubido+2025+ICT+integration+instruction" },
+        { "author": "Vahid, F. et al.", "year": "2023", "title": "Sustained coding engagement and grade outcomes.", "href": "https://scholar.google.com/scholar?q=Vahid+2023+coding+engagement+grades" },
+        { "author": "Cadiz-Gabejan, A. & Takenaka, M.", "year": "2021", "title": "Computer literacy as a moderator of laboratory benefit.", "href": "https://scholar.google.com/scholar?q=Cadiz-Gabejan+Takenaka+2021+computer+literacy" },
+        { "author": "Sweller, J.", "year": "1988", "title": "Cognitive load during problem solving: effects on learning.", "href": "https://doi.org/10.1207/s15516709cog1202_4" },
+        { "author": "Piaget, J.", "year": "1972", "title": "The psychology of the child.", "href": "https://scholar.google.com/scholar?q=Piaget+1972+psychology+of+the+child" },
+        { "author": "Vygotsky, L. S.", "year": "1978", "title": "Mind in society: the development of higher psychological processes.", "href": "https://scholar.google.com/scholar?q=Vygotsky+1978+mind+in+society" },
+        { "author": "Kolb, D. A.", "year": "1984", "title": "Experiential learning: experience as the source of learning and development.", "href": "https://scholar.google.com/scholar?q=Kolb+1984+experiential+learning" }
+      ]
+    },
       "template": "chapterDivider",
       "chapter": "Chapter 2",
       "eyebrow": "Methods",
