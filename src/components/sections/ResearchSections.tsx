@@ -349,9 +349,14 @@ export function MethodsTwoColSection({ data, variant }: { data: MethodsTwoColDat
 interface ChapterDividerData {
   id: string; chapter: string; eyebrow: string; title: string;
   number: string; lead?: string;
-  toc?: { label: string; href?: string }[];
+  toc?: { label: string; href?: string; id?: string }[];
+}
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 export function ChapterDividerSection({ data, variant }: { data: ChapterDividerData; variant: "odd" | "even" }) {
+  const jump = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
     <section
       id={data.id}
@@ -374,12 +379,22 @@ export function ChapterDividerSection({ data, variant }: { data: ChapterDividerD
                 gridTemplateRows: `repeat(${Math.ceil(data.toc.length / 2)}, minmax(0, 1fr))`,
               }}
             >
-              {data.toc.map((t, i) => (
-                <li key={i} className="flex items-center gap-3 rounded-xl border bg-card/60 px-4 py-2.5 backdrop-blur">
-                  <span className="font-mono text-xs font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-sm font-medium">{t.label}</span>
-                </li>
-              ))}
+              {data.toc.map((t, i) => {
+                const targetId = t.id ?? slugify(t.label);
+                return (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => jump(targetId)}
+                      className="group flex w-full items-center gap-3 rounded-xl border bg-card/60 px-4 py-2.5 text-left backdrop-blur transition-all hover:border-accent hover:bg-accent/5"
+                    >
+                      <span className="font-mono text-xs font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="flex-1 text-sm font-medium group-hover:text-accent">{t.label}</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           )}
         </div>

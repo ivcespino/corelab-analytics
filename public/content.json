@@ -1,6 +1,6 @@
 {
   "hero": {
-    "badge": "Practical Research • A.Y. 2025–2026",
+    "badge": "Research • A.Y. 2025–2026",
     "heading": "CoreLab Analytics",
     "subheading": "Web-Based Research and Visualization Tool",
     "primaryCta": { "label": "Open the Tool", "href": "/tool" },
@@ -21,14 +21,14 @@
       "number": "1",
       "lead": "The problem, the variables, the questions, and the conceptual ground the study is built on.",
       "toc": [
-        { "label": "Background of the Study" },
-        { "label": "The Variables" },
-        { "label": "The Research Questions" },
-        { "label": "Hypotheses" },
-        { "label": "Significance of the Study" },
-        { "label": "Review of Related Literature" },
-        { "label": "Theoretical Framework" },
-        { "label": "References" }
+        { "label": "Background of the Study", "id": "background-context" },
+        { "label": "The Variables", "id": "variables" },
+        { "label": "The Research Questions", "id": "research-questions" },
+        { "label": "Hypotheses", "id": "hypotheses" },
+        { "label": "Significance of the Study", "id": "significance" },
+        { "label": "Review of Related Literature", "id": "rrl-synthesis" },
+        { "label": "Theoretical Framework", "id": "framework-synthesis" },
+        { "label": "References", "id": "references" }
       ]
     },
     {
@@ -270,11 +270,11 @@
       "number": "2",
       "lead": "How the study was scoped, designed, sampled, collected, and analyzed.",
       "toc": [
-        { "label": "Scope and Delimitation" },
-        { "label": "Research Design" },
-        { "label": "Participants and Sampling" },
-        { "label": "Data Collection Plan" },
-        { "label": "Data Analysis Plan" }
+        { "label": "Scope and Delimitation", "id": "scope" },
+        { "label": "Research Design", "id": "research-design" },
+        { "label": "Participants and Sampling", "id": "participants" },
+        { "label": "Data Collection Plan", "id": "collection-instrument" },
+        { "label": "Data Analysis Plan", "id": "analysis-plan" }
       ]
     },
     {

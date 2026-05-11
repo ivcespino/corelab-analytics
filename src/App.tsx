@@ -11,6 +11,7 @@ import Tool from "./pages/Tool.tsx";
 import Team from "./pages/Team.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import { StubPage } from "./pages/StubPage.tsx";
+import { OrientationNotice } from "./components/OrientationNotice";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <HashScrollWatcher />
+        <OrientationNotice />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tool" element={<Tool />} />
