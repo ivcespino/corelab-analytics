@@ -440,6 +440,50 @@
         ["Linear Regression (Models A, B, C)", "Frequency, Intensity → Performance Change", "Test predictive power of usage on change", "Reject H₀₁ if combined p < 0.05"]
       ],
       "note": "Models: A = Frequency only · B = Intensity only · C = Both predictors combined."
+    },
+    {
+      "id": "analysis-deepdive-1",
+      "template": "methodsTwoCol",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Analysis Plan",
+      "title": "How to Read the Output · Part 1",
+      "lead": "Each test produces a specific kind of number. These are the two foundational checks before any inference.",
+      "leftLabel": "Descriptive Statistics — what it produces",
+      "leftItems": [
+        "Mean (central tendency), SD (spread), min/max (range) for every numeric variable.",
+        "Reading: a small SD means responses cluster tightly around the mean; a large SD signals high variability.",
+        "Comparing means across periods (Prelim vs Midterm) gives the first hint of a performance shift before any inferential test.",
+        "Output is reported as a descriptive table — the same table format the Tool generates."
+      ],
+      "rightLabel": "Cronbach's α — what it produces",
+      "rightItems": [
+        "A single coefficient between 0 and 1 estimating internal consistency of a multi-item scale.",
+        "Reading: α ≥ 0.90 = excellent · 0.80–0.89 = good · 0.70–0.79 = acceptable · < 0.70 = questionable.",
+        "If α < 0.70, the five Intensity items are not behaving as one scale and the composite cannot be trusted in regression.",
+        "In this study α = 0.70 — the composite is retained for use as the Intensity predictor."
+      ]
+    },
+    {
+      "id": "analysis-deepdive-2",
+      "template": "methodsTwoCol",
+      "chapter": "Chapter 2 · Methods",
+      "eyebrow": "Data Analysis Plan",
+      "title": "How to Read the Output · Part 2",
+      "lead": "These two inferential tests answer the research questions and decide the hypothesis.",
+      "leftLabel": "Pearson r — what it produces",
+      "leftItems": [
+        "Output: r ∈ [−1, +1] and a p-value, computed for each of the four Frequency/Intensity × Prelim/Midterm pairings.",
+        "Reading the sign: positive r = variables move together; negative r = they move in opposite directions.",
+        "Reading the magnitude: |r| ≈ .10 weak · .30 moderate · .50+ strong (Cohen's conventions).",
+        "Reading the p-value: p < .05 means the relationship is unlikely to be due to chance — reject the null for that pairing."
+      ],
+      "rightLabel": "Linear Regression — what it produces",
+      "rightItems": [
+        "Output: R² (variance explained), F (overall model fit), β coefficients (per-predictor effect), and a p-value for each.",
+        "R² interpretation: R² = 0.25 means usage explains 25% of variation in performance change — the rest is unexplained.",
+        "β interpretation: a β of +1.4 for Frequency means each additional weekly lab hour predicts a +1.4 grade-point change, holding Intensity constant.",
+        "Decision: reject H₀₁ if the combined model's p < 0.05 — meaning Frequency and/or Intensity meaningfully predict change."
+      ]
     }
   ],
   "finale": {
