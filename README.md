@@ -199,16 +199,6 @@ bun lint
 - Research advisers' contributions
 - Collaboration and data access contact form
 
-## Data Format
-
-Response data should be structured as CSV with the following columns:
-
-```
-subject,student_id,lab_frequency,intensity_score,preliminary_grade,midterm_grade
-```
-
-The tool automatically calculates `performance_change = midterm_grade − preliminary_grade`.
-
 ## API & Data Files
 
 All data is sourced from JSON files in the `/public` directory:
