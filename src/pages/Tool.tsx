@@ -292,7 +292,7 @@ export default function Tool() {
         });
         if (result.vif) {
           for (const [name, v] of Object.entries(result.vif))
-            if (v > 5) warnings.push(`High VIF for ${name} (${fmt(v, 2)}) — predictors are correlated.`);
+            if (v > 5) warnings.push(`High VIF for ${name} (${fmt(v, 2)})— predictors are correlated.`);
         }
         const plot: Results["plot"] = {
           data: [
@@ -346,7 +346,7 @@ export default function Tool() {
     const html = `<!doctype html><html><head><meta charset="utf-8"><title>CoreLab Report</title>
 <style>body{font:14px/1.6 -apple-system,Inter,sans-serif;max-width:780px;margin:40px auto;padding:0 20px;color:#0F172A}h1{font-size:28px}h2{margin-top:32px;border-bottom:1px solid #ccc;padding-bottom:6px}.k{color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.1em}blockquote{border-left:3px solid #00B8D4;padding-left:14px;color:#334155;margin:8px 0}</style>
 </head><body>
-<h1>CoreLab Analytics — Statistical Report</h1>
+<h1>CoreLab Analytics— Statistical Report</h1>
 <p class="k">Generated ${new Date().toLocaleString()}</p>
 <h2>Reading the Result</h2>
 <p class="k">What you ran</p><blockquote>${stripMd(i.ran)}</blockquote>
@@ -381,7 +381,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
             <p className="mt-3 text-base text-muted-foreground sm:text-lg">
               Paste a CSV, pick a method, and CoreLab returns the same descriptive
               table, statistics, chart and plain-language reading you'd expect in a
-              methodology section — no spreadsheets required.
+              methodology section— no spreadsheets required.
             </p>
           </div>
 
@@ -470,9 +470,9 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cronbach">Cronbach's Alpha — survey reliability</SelectItem>
-                        <SelectItem value="pearson">Pearson R — relationship between two variables</SelectItem>
-                        <SelectItem value="regression">Linear Regression — predict an outcome</SelectItem>
+                        <SelectItem value="cronbach">Cronbach's Alpha— survey reliability</SelectItem>
+                        <SelectItem value="pearson">Pearson R— relationship between two variables</SelectItem>
+                        <SelectItem value="regression">Linear Regression— predict an outcome</SelectItem>
                       </SelectContent>
                     </Select>
                     <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
@@ -601,7 +601,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         {dataset && <VarPreview ds={dataset} name={regResponse} />}
                       </div>
                       <VariableChecklist
-                        label="Predictors (X) — pick 1 for simple, 2+ for multiple"
+                        label="Predictors (X)— pick 1 for simple, 2+ for multiple"
                         labelTooltipKey="predictorX"
                         headers={numericHeaders.filter((h) => h !== regResponse)}
                         selected={regPredictors}

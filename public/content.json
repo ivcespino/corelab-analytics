@@ -3,12 +3,12 @@
     "badge": "Practical Research • A.Y. 2025–2026",
     "heading": "CoreLab Analytics",
     "subheading": "Web-Based Research and Visualization Tool",
-    "description": "An interactive platform that converts raw research data into immediate visual insights — replacing static papers with a dynamic dashboard.",
+    "description": "An interactive platform that converts raw research data into immediate visual insights— replacing static papers with a dynamic dashboard.",
     "primaryCta": { "label": "Take the Survey", "href": "/tool" },
     "secondaryCta": { "label": "View Dashboard", "href": "/dashboard" },
     "descriptor": {
       "label": "CoreLab Analytics is",
-      "body": "A quantitative correlational study on how computer laboratory usage predicts academic performance change among BSIT students — paired with a data visualization tool built to translate the findings into accessible evidence."
+      "body": "A quantitative correlational study on how computer laboratory usage predicts academic performance change among BSIT students— paired with a data visualization tool built to translate the findings into accessible evidence."
     }
   },
   "sections": [
@@ -39,11 +39,11 @@
       "beats": [
         {
           "label": "Context",
-          "body": "IT education is fundamentally practical. Lecture material alone is insufficient — students in BSIT programs require the computer laboratory to run code, configure networks, and develop applied technical skills. Local and international studies confirm that ICT integration and guided laboratory access are tied to better student outcomes."
+          "body": "IT education is fundamentally practical. Lecture material alone is insufficient— students in BSIT programs require the computer laboratory to run code, configure networks, and develop applied technical skills. Local and international studies confirm that ICT integration and guided laboratory access are tied to better student outcomes."
         },
         {
           "label": "The Gap",
-          "body": "Existing research focuses on general, end-of-term results. What is critically underexamined is performance shift within a single academic term — specifically, whether laboratory engagement during the Preliminary period corresponds to measurable academic improvement by the Midterm period. This study addresses that gap at STI College Malolos."
+          "body": "Existing research focuses on general, end-of-term results. What is critically underexamined is performance shift within a single academic term— specifically, whether laboratory engagement during the Preliminary period corresponds to measurable academic improvement by the Midterm period. This study addresses that gap at STI College Malolos."
         }
       ]
     },
@@ -74,7 +74,7 @@
           "tag": "Dependent Variable",
           "title": "Performance Change Score",
           "kind": "dv",
-          "definition": "The measurable shift in academic performance between grading periods — computed as Midterm Grade minus Preliminary Grade.",
+          "definition": "The measurable shift in academic performance between grading periods— computed as Midterm Grade minus Preliminary Grade.",
           "measurement": "Numerical grade difference per respondent. Positive = improvement.",
           "stats": { "mean": "+1.30", "sd": "3.06", "min": "−13", "max": "+13" }
         }
@@ -103,7 +103,7 @@
       "chapter": "Chapter 1 · Introduction",
       "eyebrow": "The Research Questions",
       "title": "The Research Questions",
-      "central": "Does computer laboratory usage — measured through Frequency (weekly laboratory hours) and Intensity (composite behavioral engagement score) — correspond to changes in academic performance between the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos?",
+      "central": "Does computer laboratory usage— measured through Frequency (weekly laboratory hours) and Intensity (composite behavioral engagement score)— correspond to changes in academic performance between the Preliminary and Midterm grading periods in selected core BSIT subjects at STI College Malolos?",
       "subs": [
         "What is the relationship between laboratory usage and Preliminary academic performance?",
         "What is the relationship between laboratory usage and Midterm academic performance?",
@@ -116,7 +116,7 @@
       "chapter": "Chapter 1 · Introduction",
       "eyebrow": "Hypotheses",
       "title": "Hypotheses",
-      "lead": "Two competing statements frame the inferential test. Significance is judged at α = 0.05 — if the combined regression's p-value falls below this threshold, the null is rejected.",
+      "lead": "Two competing statements frame the inferential test. Significance is judged at α = 0.05— if the combined regression's p-value falls below this threshold, the null is rejected.",
       "hypotheses": [
         { "label": "H₁ (Alternative)", "type": "alt", "text": "Higher laboratory usage is associated with a positive change in academic performance between the Preliminary and Midterm grading periods." },
         { "label": "H₀₁ (Null)", "type": "null", "text": "Laboratory usage is not associated with a significant change in academic performance between the Preliminary and Midterm grading periods." }
@@ -158,7 +158,7 @@
       "title": "Synthesis of the Literature",
       "kind": "literature",
       "subtitle": "Three converging themes from the reviewed studies",
-      "body": "Three converging themes emerge from the reviewed literature: structured technology use improves student focus and engagement; equitable access to ICT resources determines whether students can convert instruction into applicable skills; and sustained laboratory practice builds technical competency over time. Together, these studies confirm that laboratory-based learning supports academic outcomes — but none directly examines how Frequency and Intensity of usage correlate with intra-term performance change. This study addresses that gap."
+      "body": "Three converging themes emerge from the reviewed literature: structured technology use improves student focus and engagement; equitable access to ICT resources determines whether students can convert instruction into applicable skills; and sustained laboratory practice builds technical competency over time. Together, these studies confirm that laboratory-based learning supports academic outcomes— but none directly examines how Frequency and Intensity of usage correlate with intra-term performance change. This study addresses that gap."
     },
     {
       "id": "rrl-theme-1",
@@ -204,7 +204,7 @@
       "title": "Theoretical Framework Overview",
       "kind": "theory",
       "subtitle": "Three theories converge to predict the study's outcomes",
-      "body": "Three theories collectively explain how laboratory usage may influence academic performance. Cognitive Load Theory accounts for how structured access reduces mental inefficiency. Constructivist Learning Theory explains how active engagement builds knowledge. Experiential Learning Theory connects repeated practice to measurable skill development. Together, they predict that consistent and intentional laboratory usage — high in both Frequency and Intensity — creates the conditions for a positive Performance Change Score."
+      "body": "Three theories collectively explain how laboratory usage may influence academic performance. Cognitive Load Theory accounts for how structured access reduces mental inefficiency. Constructivist Learning Theory explains how active engagement builds knowledge. Experiential Learning Theory connects repeated practice to measurable skill development. Together, they predict that consistent and intentional laboratory usage— high in both Frequency and Intensity— creates the conditions for a positive Performance Change Score."
     },
     {
       "id": "framework-cognitive",
@@ -215,7 +215,7 @@
       "kind": "theory",
       "subtitle": "Sweller (1988)",
       "citation": "Theory 1 of 3",
-      "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load — the effort spent on logistical friction — and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
+      "body": "Students have limited mental capacity at any given time. Laboratory environments that are well-managed and consistently accessible reduce extraneous cognitive load— the effort spent on logistical friction— and redirect that capacity toward germane load, where actual learning occurs. High Frequency creates a stable, low-friction environment. High Intensity ensures that mental effort within that environment is directed at technical skill-building rather than passive presence."
     },
     {
       "id": "framework-constructivist",
@@ -226,7 +226,7 @@
       "kind": "theory",
       "subtitle": "Piaget (1972) & Vygotsky (1978)",
       "citation": "Theory 2 of 3",
-      "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement — active coding, troubleshooting, and configuration — is the mechanism through which that construction occurs."
+      "body": "Knowledge is constructed through active experience and social interaction. Piaget's concept of schema formation through trial and correction, and Vygotsky's Zone of Proximal Development, both find direct expression in the computer laboratory. Increased laboratory hours expand the opportunity for knowledge construction. High behavioral engagement— active coding, troubleshooting, and configuration— is the mechanism through which that construction occurs."
     },
     {
       "id": "framework-experiential",
@@ -262,7 +262,7 @@
       "chapter": "Chapter 2 · Methods",
       "eyebrow": "Scope and Delimitation",
       "title": "Scope and Delimitation",
-      "lead": "What the study covers — and the boundaries that keep the findings interpretable.",
+      "lead": "What the study covers— and the boundaries that keep the findings interpretable.",
       "leftLabel": "In Scope",
       "leftItems": [
         "BSIT students at STI College Malolos with paired Preliminary + Midterm grades",
@@ -284,12 +284,12 @@
       "chapter": "Chapter 2 · Methods",
       "eyebrow": "Research Design",
       "title": "Quantitative Correlational Design",
-      "lead": "The study examined naturally occurring data — no variables were manipulated. Correlation answered the relationship questions; regression tested whether usage metrics predict performance change.",
+      "lead": "The study examined naturally occurring data— no variables were manipulated. Correlation answered the relationship questions; regression tested whether usage metrics predict performance change.",
       "blocks": [
-        { "heading": "Why Correlational", "body": "The aim was to determine the nature, degree, and direction of the statistical relationship between laboratory usage and academic performance — not to establish cause." },
+        { "heading": "Why Correlational", "body": "The aim was to determine the nature, degree, and direction of the statistical relationship between laboratory usage and academic performance— not to establish cause." },
         { "heading": "Pearson r", "body": "Used to test the strength and direction of association between Frequency / Intensity and grades at each grading period." },
         { "heading": "Linear Regression", "body": "Used to test whether the usage metrics significantly predict the Performance Change Score between Preliminary and Midterm." },
-        { "heading": "Limitation", "body": "Correlational design cannot establish causation — only that the variables move together within the sample." }
+        { "heading": "Limitation", "body": "Correlational design cannot establish causation— only that the variables move together within the sample." }
       ]
     },
     {
@@ -317,7 +317,7 @@
       "lead": "Population of BSIT students was filtered, then sized using Slovin's formula at a 90% confidence level and 10% margin of error.",
       "steps": [
         { "label": "Initial population", "value": "501", "note": "Total BSIT enrollees at STI College Malolos" },
-        { "label": "Excluded — 4th-year students", "value": "−95", "note": "Out of scope (different curricular load)" },
+        { "label": "Excluded— 4th-year students", "value": "−95", "note": "Out of scope (different curricular load)" },
         { "label": "Revised population (N)", "value": "406", "note": "Used in Slovin's formula" },
         { "label": "Slovin minimum sample (90% CI, 10% MoE)", "value": "81", "note": "Computed minimum n" },
         { "label": "Final valid responses retained", "value": "86", "note": "Purposive sampling, complete data only" }
@@ -353,7 +353,7 @@
       "blocks": [
         { "heading": "Instrument Design", "body": "Structured survey covering: subject enrolled, weekly laboratory hours (Frequency), five Likert items (Intensity), and paired Preliminary + Midterm grades. Items were reviewed for clarity prior to release." },
         { "heading": "Approval", "body": "Institutional approval secured before any distribution. Survey items vetted by faculty advisers." },
-        { "heading": "Distribution Channels", "body": "Class group chats, direct text messages, and printed QR codes — chosen to reach BSIT students efficiently while keeping responses organized in a single online sheet." },
+        { "heading": "Distribution Channels", "body": "Class group chats, direct text messages, and printed QR codes— chosen to reach BSIT students efficiently while keeping responses organized in a single online sheet." },
         { "heading": "Window", "body": "Open for one collection cycle until the Slovin minimum was met; closed at 86 valid, complete responses." }
       ]
     },
@@ -398,8 +398,8 @@
       "lead": "Analysis ran in Google Sheets with the XL Miner Analysis ToolPak. Significance threshold α = 0.05 throughout.",
       "blocks": [
         { "heading": "Descriptive Statistics", "body": "Mean, SD, min, max for weekly lab hours, Composite Behavioral Score, Preliminary Grade, Midterm Grade, and Performance Change Score." },
-        { "heading": "Reliability — Cronbach's α", "body": "Computed across the 5 Likert items of the Intensity metric to confirm internal consistency before using the composite score in inferential analysis." },
-        { "heading": "Pearson r — 4 Pairings", "body": "Frequency × Prelim, Intensity × Prelim, Frequency × Midterm, Intensity × Midterm — separating the two usage dimensions across both grading periods." },
+        { "heading": "Reliability— Cronbach's α", "body": "Computed across the 5 Likert items of the Intensity metric to confirm internal consistency before using the composite score in inferential analysis." },
+        { "heading": "Pearson r— 4 Pairings", "body": "Frequency × Prelim, Intensity × Prelim, Frequency × Midterm, Intensity × Midterm— separating the two usage dimensions across both grading periods." },
         { "heading": "Linear Regression", "body": "Simple regression for each metric, plus multiple regression with both predictors, to test whether Frequency and / or Intensity significantly predict the Performance Change Score." }
       ]
     },
@@ -429,6 +429,6 @@
       { "label": "View Dashboard", "href": "/dashboard", "icon": "monitoring" },
       { "label": "Meet the Team", "href": "/team", "icon": "groups" }
     ],
-    "footer": "© 2025 CoreLab Analytics — ITMAWD 12A research group · STI College Malolos"
+    "footer": "© 2025 CoreLab Analytics— ITMAWD 12A research group · STI College Malolos"
   }
 }

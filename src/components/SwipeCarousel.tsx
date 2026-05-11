@@ -48,7 +48,7 @@ export function SwipeCarousel({ panels, ariaLabel = "Carousel" }: Props) {
         ))}
       </div>
 
-      {/* Arrows — hidden on first/last edge */}
+      {/* Arrows— hidden on first/last edge */}
       {active > 0 && (
         <button
           onClick={() => goTo(active - 1)}

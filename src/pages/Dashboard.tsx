@@ -33,16 +33,16 @@ export default function Dashboard() {
     { id: "respondents",        label: "Profile of the Respondents", chapter: "Chapter 3 · Results" },
     { id: "descriptive",        label: "Descriptive Statistics", chapter: "Chapter 3 · Results" },
     { id: "reliability",        label: "Reliability Analysis", chapter: "Chapter 3 · Results" },
-    { id: "correlation",        label: "Correlation — Summary", chapter: "Chapter 3 · Results" },
+    { id: "correlation",        label: "Correlation— Summary", chapter: "Chapter 3 · Results" },
     { id: "correlation-pr1",    label: "PR-1 · Frequency × Prelim", chapter: "Chapter 3 · Results" },
     { id: "correlation-pr2",    label: "PR-2 · Intensity × Prelim", chapter: "Chapter 3 · Results" },
     { id: "correlation-pr3",    label: "PR-3 · Frequency × Midterm", chapter: "Chapter 3 · Results" },
     { id: "correlation-pr4",    label: "PR-4 · Intensity × Midterm", chapter: "Chapter 3 · Results" },
-    { id: "regression",         label: "Regression — Model Summary", chapter: "Chapter 3 · Results" },
+    { id: "regression",         label: "Regression— Model Summary", chapter: "Chapter 3 · Results" },
     { id: "regression-model-a", label: "Model A · Frequency only", chapter: "Chapter 3 · Results" },
     { id: "regression-model-b", label: "Model B · Intensity only", chapter: "Chapter 3 · Results" },
     { id: "regression-model-c", label: "Model C · Combined", chapter: "Chapter 3 · Results" },
-    { id: "regression-coef",    label: "Regression — Coefficients", chapter: "Chapter 3 · Results" },
+    { id: "regression-coef",    label: "Regression— Coefficients", chapter: "Chapter 3 · Results" },
     { id: "summary",            label: "Summary of Findings", chapter: "Chapter 3 · Results" },
     { id: "ch4-divider",        label: "Chapter 4 · Discussion", chapter: "Chapter 4 · Discussion" },
     { id: "usage-grades",       label: "Usage Metrics & Grades", chapter: "Chapter 4 · Discussion" },
@@ -95,7 +95,7 @@ export default function Dashboard() {
           data={{
             id: "ch3-divider", chapter: "Chapter 3", eyebrow: "Results", title: "Results",
             number: "3",
-            lead: "What the data revealed — profile, descriptive statistics, reliability, correlation, and regression — culminating in the summary of findings.",
+            lead: "What the data revealed— profile, descriptive statistics, reliability, correlation, and regression— culminating in the summary of findings.",
             toc: [
               { label: "Profile of the Respondents" },
               { label: "Descriptive Statistics" },
@@ -117,7 +117,7 @@ export default function Dashboard() {
           xLabel="Weekly Lab Hours" yLabel="Preliminary Grade"
           r={pearson(responses.map(r => r.hours), responses.map(r => r.prelim))}
           p={0.1610} sig={false}
-          read="Hours alone don't predict early-term grades. Students who log many hours but engage passively don't outperform those who log fewer, more focused hours. Frequency does not yet matter — quality does."
+          read="Hours alone don't predict early-term grades. Students who log many hours but engage passively don't outperform those who log fewer, more focused hours. Frequency does not yet matter— quality does."
         />
         <PearsonDeepDive
           id="correlation-pr2" code="PR-2" variant="odd"
@@ -144,7 +144,7 @@ export default function Dashboard() {
           xLabel="Composite Behavioral Score" yLabel="Midterm Grade"
           r={pearson(responses.map(r => r.intensity), responses.map(r => r.midterm))}
           p={0.00009} sig={true}
-          read="Intensity is the strongest correlation in the entire study (r = 0.41). Active engagement keeps its lead even as Frequency catches up — depth of work consistently maps to higher grades."
+          read="Intensity is the strongest correlation in the entire study (r = 0.41). Active engagement keeps its lead even as Frequency catches up— depth of work consistently maps to higher grades."
         />
 
         <RegressionSummary responses={responses} variant="even" />
@@ -156,7 +156,7 @@ export default function Dashboard() {
           R2={0.0728} F={6.5940} p={0.0120}
           beta={0.4499} betaP={0.0120}
           formula="Δ = −0.987 + (0.4499 × Hours)"
-          read="A simple regression on Frequency alone is significant. Each extra hour per week predicts roughly +0.45 grade points of improvement between Preliminary and Midterm. Time-on-task — even without controlling for engagement quality — predicts measurable progress."
+          read="A simple regression on Frequency alone is significant. Each extra hour per week predicts roughly +0.45 grade points of improvement between Preliminary and Midterm. Time-on-task— even without controlling for engagement quality— predicts measurable progress."
         />
         <RegressionDeepDive
           id="regression-model-b" model="B" variant="even"
@@ -166,7 +166,7 @@ export default function Dashboard() {
           R2={0.0153} F={1.3009} p={0.2573}
           beta={0.1315} betaP={0.2573}
           formula="Δ = −0.844 + (0.1315 × Intensity)"
-          read="When Intensity is the only predictor, the model is not significant (p = 0.26). High-engagement students often start high and stay high (ceiling effect) — so Intensity barely predicts change between periods, even though it strongly predicts absolute grade level."
+          read="When Intensity is the only predictor, the model is not significant (p = 0.26). High-engagement students often start high and stay high (ceiling effect)— so Intensity barely predicts change between periods, even though it strongly predicts absolute grade level."
         />
         <RegressionDeepDive
           id="regression-model-c" model="C" variant="odd"
@@ -177,7 +177,7 @@ export default function Dashboard() {
           R2={0.0733} F={3.2847} p={0.0424}
           beta={0.4339} betaP={0.0251}
           formula="Δ = −0.9915 + (0.4339 × Hours) + (0.0271 × Intensity)"
-          read="The combined model is significant (p = 0.0424) and confirms the divergence: Frequency stays significant (p = 0.0251) while Intensity loses significance (p = 0.82) once Frequency is controlled. The chart compares predicted vs observed Δ — a perfect model would have all points on the dashed diagonal."
+          read="The combined model is significant (p = 0.0424) and confirms the divergence: Frequency stays significant (p = 0.0251) while Intensity loses significance (p = 0.82) once Frequency is controlled. The chart compares predicted vs observed Δ— a perfect model would have all points on the dashed diagonal."
           observedVsPredicted
         />
         <RegressionCoefficients variant="even" />
@@ -188,7 +188,7 @@ export default function Dashboard() {
           data={{
             id: "ch4-divider", chapter: "Chapter 4", eyebrow: "Discussion", title: "Discussion",
             number: "4",
-            lead: "Reading the numbers — what the divergent results mean, how they fit theory and prior research, and what should change because of them.",
+            lead: "Reading the numbers— what the divergent results mean, how they fit theory and prior research, and what should change because of them.",
             toc: [
               { label: "Usage Metrics & Grades" },
               { label: "Predictors of Performance Change" },
@@ -217,7 +217,7 @@ export default function Dashboard() {
               { label: "Back to Home", href: "/", icon: "home" },
               { label: "Meet the Team", href: "/team", icon: "groups" },
             ],
-            footer: "© 2025 CoreLab Analytics — ITMAWD 12A research group · STI College Malolos",
+            footer: "© 2025 CoreLab Analytics— ITMAWD 12A research group · STI College Malolos",
           }}
           onBackToTop={() => jumpTo("dashboard-hero")}
         />
@@ -396,7 +396,7 @@ function DashboardHero({ responses, jumpTo }: { responses: Response[]; jumpTo: (
           Findings, visualized
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-white/80">
-          Each visualization corresponds to a section of the results — tap a chart to jump straight to the analysis.
+          Each visualization corresponds to a section of the results— tap a chart to jump straight to the analysis.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {tiles.map((t) => (
@@ -472,7 +472,7 @@ function Respondents({ responses, variant }: { responses: Response[]; variant: "
         </div>
       </div>
       <p className="mt-3 text-xs italic text-muted-foreground">
-        Responses reflect historical academic records across multiple semesters — not a single concurrent term.
+        Responses reflect historical academic records across multiple semesters— not a single concurrent term.
       </p>
     </SectionWrap>
   );
@@ -567,7 +567,7 @@ function Reliability({ responses, variant }: { responses: Response[]; variant: "
   const compositeSd = useMemo(() => sd(responses.map((r) => r.intensity)).toFixed(2), [responses]);
 
   return (
-    <SectionWrap id="reliability" chapter="Chapter 3 · Results" eyebrow="Reliability" title="Reliability — Composite Behavioral Score (Intensity)" variant={variant}>
+    <SectionWrap id="reliability" chapter="Chapter 3 · Results" eyebrow="Reliability" title="Reliability— Composite Behavioral Score (Intensity)" variant={variant}>
       <div className="overflow-x-auto rounded-xl border bg-card">
         <table className={tableBase}>
           <thead><tr><th className={th}>Item</th><th className={`${th} text-right`}>SD</th></tr></thead>
@@ -588,7 +588,7 @@ function Reliability({ responses, variant }: { responses: Response[]; variant: "
       </div>
       <div className="mt-3 rounded-xl border-l-4 border-l-accent bg-accent/5 p-3">
         <p className="text-sm leading-relaxed">
-          <strong>α = 0.70</strong> — Acceptable internal consistency. The five items reliably measure a common construct: the intensity of active technical engagement during laboratory sessions.
+          <strong>α = 0.70</strong>— Acceptable internal consistency. The five items reliably measure a common construct: the intensity of active technical engagement during laboratory sessions.
         </p>
       </div>
     </SectionWrap>
@@ -613,7 +613,7 @@ function CorrelationSummary({ responses, variant }: { responses: Response[]; var
   const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <SectionWrap id="correlation" chapter="Chapter 3 · Results" eyebrow="Correlation Analysis" title="Correlation Analysis — Summary (Pearson r)" variant={variant}>
+    <SectionWrap id="correlation" chapter="Chapter 3 · Results" eyebrow="Correlation Analysis" title="Correlation Analysis— Summary (Pearson r)" variant={variant}>
       <p className="mb-3 max-w-3xl text-sm text-muted-foreground">
         Four pairings test the association between each usage metric and each grading period. Each row links to its own deep-dive slide with the scatter plot and a plain-English read.
       </p>
@@ -710,7 +710,7 @@ function PearsonDeepDive({
           <div className="rounded-xl border bg-card p-4">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">What the chart shows</p>
             <p className="mt-2 text-sm leading-relaxed">
-              The scatter plots each respondent's <em>{xLabel}</em> against their <em>{yLabel}</em>. The trend line slopes {r >= 0 ? "upward" : "downward"} — a {strength} {r >= 0 ? "positive" : "negative"} association ({sig ? "statistically significant" : "not statistically significant"}).
+              The scatter plots each respondent's <em>{xLabel}</em> against their <em>{yLabel}</em>. The trend line slopes {r >= 0 ? "upward" : "downward"}— a {strength} {r >= 0 ? "positive" : "negative"} association ({sig ? "statistically significant" : "not statistically significant"}).
             </p>
           </div>
           <div className="rounded-xl border-l-4 border-l-accent bg-accent/5 p-4">
@@ -732,7 +732,7 @@ function Stat({ k, v, hl }: { k: string; v: string; hl?: boolean }) {
   );
 }
 
-/* ─────────────── D-6a Regression — Model Summary ─────────────── */
+/* ─────────────── D-6a Regression— Model Summary ─────────────── */
 function RegressionSummary({ responses, variant }: { responses: Response[]; variant: "odd" | "even" }) {
   const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   const rows = [
@@ -742,7 +742,7 @@ function RegressionSummary({ responses, variant }: { responses: Response[]; vari
   ];
 
   return (
-    <SectionWrap id="regression" chapter="Chapter 3 · Results" eyebrow="Regression Analysis" title="Regression — Model Summary" variant={variant}>
+    <SectionWrap id="regression" chapter="Chapter 3 · Results" eyebrow="Regression Analysis" title="Regression— Model Summary" variant={variant}>
       <p className="mb-3 max-w-3xl text-sm text-muted-foreground">
         Three regression models test whether laboratory usage predicts the Performance Change Score. Each row links to its own deep-dive slide with the model's chart and statistics.
       </p>
@@ -855,7 +855,7 @@ function RegressionDeepDive({
 /* ─────────────── D-6c Regression Coefficients ─────────────── */
 function RegressionCoefficients({ variant }: { variant: "odd" | "even" }) {
   return (
-    <SectionWrap id="regression-coef" chapter="Chapter 3 · Results" eyebrow="Regression · Coefficients" title="Regression — Consolidated Coefficients" variant={variant}>
+    <SectionWrap id="regression-coef" chapter="Chapter 3 · Results" eyebrow="Regression · Coefficients" title="Regression— Consolidated Coefficients" variant={variant}>
       <div className="overflow-x-auto rounded-xl border bg-card">
         <table className={tableBase}>
           <thead><tr>
@@ -897,10 +897,10 @@ function RegressionCoefficients({ variant }: { variant: "odd" | "even" }) {
 function SummaryFindings({ variant }: { variant: "odd" | "even" }) {
   const items = [
     { k: "01", text: "Intensity (Composite Behavioral Score) is the strongest correlate of absolute academic performance at both grading periods (r = 0.36 at Preliminary, r = 0.41 at Midterm)." },
-    { k: "02", text: "Frequency (Weekly Lab Hours) is not significantly correlated with Preliminary grades (p = 0.161) but becomes significant by Midterm (p = 0.004) — an exposure-effect pattern." },
+    { k: "02", text: "Frequency (Weekly Lab Hours) is not significantly correlated with Preliminary grades (p = 0.161) but becomes significant by Midterm (p = 0.004)— an exposure-effect pattern." },
     { k: "03", text: "Cronbach's α = 0.70 confirms acceptable internal consistency of the five-item Intensity composite, supporting its use in inferential analysis." },
     { k: "04", text: "Frequency is the sole significant predictor of Performance Change in the combined regression model (β = 0.4339, p = 0.0251)." },
-    { k: "05", text: "Intensity loses its predictive power for change once Frequency is controlled (β = 0.0271, p = 0.8238) — a ceiling effect on already-engaged students." },
+    { k: "05", text: "Intensity loses its predictive power for change once Frequency is controlled (β = 0.0271, p = 0.8238)— a ceiling effect on already-engaged students." },
     { k: "06", text: "The combined model is significant (R² = 0.0733, F = 3.28, p = 0.0424). H₀₁ is rejected: laboratory usage is associated with measurable academic progress." },
   ];
   return (
@@ -947,13 +947,13 @@ function UsageGrades({ variant }: { variant: "odd" | "even" }) {
             { k: "Frequency", v: "r = 0.30, p = 0.004 (Sig)", sig: true },
             { k: "Intensity", v: "r = 0.41, p < 0.001 (Sig)", sig: true },
           ]}
-          interp="By Midterm, consistent attendance is measurable — but engagement depth still leads." />
+          interp="By Midterm, consistent attendance is measurable— but engagement depth still leads." />
       </div>
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         <div className="rounded-xl border-l-4 border-l-accent bg-accent/5 p-3">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Why Intensity leads at Preliminary</p>
           <p className="mt-1 text-[13px] leading-relaxed">
-            A selection effect: students who actively code and debug usually arrive with stronger prior preparation. Their early grades reflect existing skill, not new learning. This echoes <em>Vahid et al. (2023)</em> — consistent technical engagement maps to higher achievement.
+            A selection effect: students who actively code and debug usually arrive with stronger prior preparation. Their early grades reflect existing skill, not new learning. This echoes <em>Vahid et al. (2023)</em>— consistent technical engagement maps to higher achievement.
           </p>
         </div>
         <div className="rounded-xl border-l-4 border-l-accent bg-accent/5 p-3">
@@ -1001,7 +1001,7 @@ function Predictors({ variant }: { variant: "odd" | "even" }) {
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">What it doesn't mean</p>
           <ul className="mt-2 space-y-1 text-[13px] leading-relaxed">
             <li>• R² = 7.33% ⇒ <strong>92.67% of variance</strong> in Δ is unexplained by lab usage alone (study habits, prior knowledge, instruction quality, etc.).</li>
-            <li>• Correlational design — adding hours does not cause higher grades; both move together.</li>
+            <li>• Correlational design— adding hours does not cause higher grades; both move together.</li>
             <li>• Sampling spans Years 1–3 across multiple semesters; the effect is a general pattern, not a single cohort's trajectory.</li>
           </ul>
         </div>
@@ -1010,7 +1010,7 @@ function Predictors({ variant }: { variant: "odd" | "even" }) {
   );
 }
 
-/* ─────────────── D-10a Divergence — main ─────────────── */
+/* ─────────────── D-10a Divergence— main ─────────────── */
 function DivergenceMain({ variant }: { variant: "odd" | "even" }) {
   const Pair = ({ title, role, body }: { title: string; role: string; body: string }) => (
     <div className="rounded-2xl border bg-card p-5 shadow-soft">
@@ -1026,9 +1026,9 @@ function DivergenceMain({ variant }: { variant: "odd" | "even" }) {
       </p>
       <div className="grid gap-3 md:grid-cols-2">
         <Pair title="Intensity" role="Strongest correlate of absolute grade level"
-          body="Tracks students who already perform well — likely existing skill or engagement habits rather than growth. High-prior-ability students sit near the grade ceiling, leaving Intensity little room to predict change." />
+          body="Tracks students who already perform well— likely existing skill or engagement habits rather than growth. High-prior-ability students sit near the grade ceiling, leaving Intensity little room to predict change." />
         <Pair title="Frequency" role="Sole significant predictor of performance change"
-          body="Consistent attendance creates repeated contact with course material across all skill levels. The accumulation of hours provides the environment where learning cycles can occur — improvement becomes measurable regardless of prior ability or engagement style." />
+          body="Consistent attendance creates repeated contact with course material across all skill levels. The accumulation of hours provides the environment where learning cycles can occur— improvement becomes measurable regardless of prior ability or engagement style." />
       </div>
       <div className="mt-3 rounded-xl border-l-4 border-l-accent bg-accent/5 p-3">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Why the divergence makes sense</p>
@@ -1041,7 +1041,7 @@ function DivergenceMain({ variant }: { variant: "odd" | "even" }) {
   );
 }
 
-/* ─────────────── D-10b Divergence — context ─────────────── */
+/* ─────────────── D-10b Divergence— context ─────────────── */
 function DivergenceContext({ variant }: { variant: "odd" | "even" }) {
   const cards = [
     {
@@ -1050,7 +1050,7 @@ function DivergenceContext({ variant }: { variant: "odd" | "even" }) {
     },
     {
       t: "Data Preparation Note",
-      b: "One outlier in Frequency (20 reported weekly hours) was Winsorized to 10 hours — the nearest non-outlier value — prior to regression to prevent distortion of the predictive model."
+      b: "One outlier in Frequency (20 reported weekly hours) was Winsorized to 10 hours— the nearest non-outlier value— prior to regression to prevent distortion of the predictive model."
     },
     {
       t: "Self-Report Limitation",
@@ -1081,9 +1081,9 @@ function SynthesisTheory({ variant }: { variant: "odd" | "even" }) {
     <SectionWrap id="synthesis" chapter="Chapter 4 · Discussion" eyebrow="Synthesis with Theoretical Framework" title="Synthesis with Theoretical Framework" variant={variant}>
       <div className="grid gap-3 md:grid-cols-3">
         {[
-          { name: "Experiential Learning", who: "Kolb (1984)", body: "Accounts for Frequency as the predictor of change — repeated laboratory attendance provides the iterative experience cycle through which skills are built." },
-          { name: "Cognitive Load Theory", who: "Sweller (1988)", body: "Explains why consistent access matters — regular attendance reduces logistical friction and reallocates cognitive effort toward learning." },
-          { name: "Constructivist Learning", who: "Piaget · Vygotsky", body: "Explains why Intensity correlates with absolute grade standing — active technical engagement is the mechanism of knowledge construction." },
+          { name: "Experiential Learning", who: "Kolb (1984)", body: "Accounts for Frequency as the predictor of change— repeated laboratory attendance provides the iterative experience cycle through which skills are built." },
+          { name: "Cognitive Load Theory", who: "Sweller (1988)", body: "Explains why consistent access matters— regular attendance reduces logistical friction and reallocates cognitive effort toward learning." },
+          { name: "Constructivist Learning", who: "Piaget · Vygotsky", body: "Explains why Intensity correlates with absolute grade standing— active technical engagement is the mechanism of knowledge construction." },
         ].map((t) => (
           <div key={t.name} className="rounded-2xl border bg-card p-5 shadow-soft">
             <p className="font-display text-base font-bold">{t.name}</p>
@@ -1117,7 +1117,7 @@ function ConvergenceLit({ variant }: { variant: "odd" | "even" }) {
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Intensity → Grade Standing</p>
           <p className="mt-2 text-sm font-semibold">Canoy et al. (2023) · Cadiz-Gabejan & Takenaka (2021)</p>
           <p className="mt-1 text-[13px] leading-relaxed">
-            Found that structured, active engagement and existing computer literacy support stronger academic standing — echoing our finding that Intensity correlates most strongly with absolute grades.
+            Found that structured, active engagement and existing computer literacy support stronger academic standing— echoing our finding that Intensity correlates most strongly with absolute grades.
           </p>
         </div>
       </div>
@@ -1173,7 +1173,7 @@ function RecommendationsByAudience({ variant }: { variant: "odd" | "even" }) {
   const recs = [
     { who: "Institution (STI College Malolos)", what: "Ensure consistent scheduling and availability of computer laboratory sessions, particularly for foundational subjects. Review laboratory allocation systems to minimize access barriers across the academic term." },
     { who: "Instructors", what: "Design laboratory activities that build progressively across the term. Prioritize consistent attendance expectations alongside the quality of engagement during sessions." },
-    { who: "Students", what: "Maintain consistent laboratory attendance. Pair regular attendance with active technical engagement — both dimensions contribute to overall learning outcomes." },
+    { who: "Students", what: "Maintain consistent laboratory attendance. Pair regular attendance with active technical engagement— both dimensions contribute to overall learning outcomes." },
     { who: "Future Researchers", what: "Examine additional predictors of performance change such as prior knowledge, study habits, and instructional quality. Extend scope to 4th-year students. Test whether the Frequency–Intensity divergence pattern holds in other academic disciplines." },
   ];
   return (

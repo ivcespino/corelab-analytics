@@ -59,7 +59,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   intercept: {
     term: "Intercept",
     short: "Predicted value of Y when all predictors equal zero.",
-    detail: "Excluding the intercept forces the regression line through the origin — only do this with a substantive reason.",
+    detail: "Excluding the intercept forces the regression line through the origin— only do this with a substantive reason.",
   },
   pValue: {
     term: "p-value",
@@ -100,7 +100,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   vif: {
     term: "VIF (Variance Inflation Factor)",
     short: "Detects multicollinearity between predictors.",
-    detail: "VIF > 5 (some say > 10) suggests a predictor is highly correlated with the others — coefficients become unstable.",
+    detail: "VIF > 5 (some say > 10) suggests a predictor is highly correlated with the others— coefficients become unstable.",
   },
   se: {
     term: "SE (Standard Error)",
@@ -124,7 +124,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   residual: {
     term: "Residual",
-    short: "Observed Y minus predicted Ŷ — the model's error for that row.",
+    short: "Observed Y minus predicted Ŷ— the model's error for that row.",
   },
   significance: {
     term: "Statistical significance",
