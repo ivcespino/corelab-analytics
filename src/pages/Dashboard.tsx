@@ -919,26 +919,32 @@ function RegressionCoefficients({ variant }: { variant: "odd" | "even" }) {
 /* ─────────────── D-7 Summary (9 findings) ─────────────── */
 function SummaryFindings({ variant }: { variant: "odd" | "even" }) {
   const items = [
-    { k: "01", text: "Intensity (Composite Behavioral Score) is the strongest correlate of absolute academic performance at both grading periods (r = 0.36 at Preliminary, r = 0.41 at Midterm)." },
-    { k: "02", text: "Frequency (Weekly Lab Hours) is not significantly correlated with Preliminary grades (p = 0.161) but becomes significant by Midterm (p = 0.004)— an exposure-effect pattern." },
-    { k: "03", text: "PR-1 (Frequency × Preliminary) is not significant: early-term standing depends on engagement quality, not raw exposure." },
-    { k: "04", text: "PR-2 through PR-4 are all statistically significant, confirming that both usage dimensions correlate with absolute grades by Midterm." },
-    { k: "05", text: "Cronbach's α = 0.70 confirms acceptable internal consistency of the five-item Intensity composite, supporting its use in inferential analysis." },
-    { k: "06", text: "Model A (Frequency only) significantly predicts Performance Change (β = 0.4499, p = 0.012)— each weekly lab hour ≈ +0.45 grade points of improvement." },
-    { k: "07", text: "Model B (Intensity only) is not significant for predicting change (R² = 0.0153, p = 0.2573)— Intensity predicts level, not movement." },
-    { k: "08", text: "Model C (Combined) is significant (R² = 0.0733, F = 3.28, p = 0.0424); Frequency remains significant (p = 0.0251) while Intensity loses significance (p = 0.8238) once Frequency is controlled— evidence of a ceiling effect on already-engaged students." },
-    { k: "09", text: "H₀₁ is rejected: laboratory usage is associated with measurable academic progress between the Preliminary and Midterm grading periods." },
+    { k: "01", tag: "Sample",         text: "86 valid BSIT respondents at STI College Malolos with complete paired Preliminary and Midterm grades for selected core IT subjects." },
+    { k: "02", tag: "Usage profile",  text: "Mean weekly laboratory hours = 4.31; mean Composite Behavioral Score = 16.23." },
+    { k: "03", tag: "Grade movement", text: "Preliminary 87.32 → Midterm 88.64 (Performance Change Score = +1.30)— a slight average gain." },
+    { k: "04", tag: "Reliability",    text: "Cronbach's α = 0.70— acceptable internal consistency for the Composite Behavioral Score." },
+    { k: "05", tag: "Pearson r",      text: "Intensity (Composite Score) is significantly related to both Preliminary and Midterm grades." },
+    { k: "06", tag: "Pearson r",      text: "Frequency (Weekly Hours) is not significant at Preliminary, but becomes significant at Midterm." },
+    { k: "07", tag: "Regression",     text: "In the multiple model, Frequency is the only statistically significant individual predictor of Performance Change Score." },
+    { k: "08", tag: "Model fit",      text: "The multiple regression model is statistically significant (p = 0.0424)— the Null Hypothesis is rejected." },
+    { k: "09", tag: "Variance",       text: "R² = 0.0733— laboratory usage explains 7.33% of the variance in performance change; most variation comes from factors outside the model." },
   ];
   return (
     <SectionWrap id="summary" chapter="Chapter 3 · Results" eyebrow="Summary of Findings" title="Summary of Findings" variant={variant}>
       <ol className="grid gap-2.5 md:grid-cols-2 lg:grid-cols-3">
         {items.map((it) => (
           <li key={it.k} className="rounded-xl border bg-card p-3.5 shadow-soft">
-            <span className="font-display text-2xl font-bold text-muted-foreground/30">{it.k}</span>
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="font-display text-2xl font-bold text-muted-foreground/30">{it.k}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-accent">{it.tag}</span>
+            </div>
             <p className="mt-1 text-[12px] leading-snug">{it.text}</p>
           </li>
         ))}
       </ol>
+      <p className="mt-3 text-[12px] italic leading-relaxed text-muted-foreground">
+        Overall: Intensity tracks absolute grades, while Frequency drives the change between them— laboratory usage is associated with academic performance among the BSIT respondents.
+      </p>
     </SectionWrap>
   );
 }
