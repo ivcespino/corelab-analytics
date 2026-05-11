@@ -447,7 +447,9 @@ export function SinglePanelSection({ data, variant }: { data: SinglePanelData; v
         </div>
         <div className="rounded-2xl border bg-card p-7 shadow-soft sm:p-9">
           {data.subtitle && (
-            <p className="font-display text-xl font-semibold text-accent sm:text-2xl">{data.subtitle}</p>
+            <p className="font-display text-xl font-semibold text-accent sm:text-2xl">
+              {renderLinkedText(data.subtitle, data.subtitleLinks)}
+            </p>
           )}
           {data.citation && (
             <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{data.citation}</p>
