@@ -590,7 +590,7 @@ ${results.warnings.length ? `<p class="k">Warnings</p><ul>${results.warnings.map
                         <Label>
                           <StatTooltip termKey="responseY"><span>Response (Y)</span></StatTooltip>
                         </Label>
-                        <Select value={regResponse} onValueChange={setRegResponse}>
+                        <Select value={regResponse} onValueChange={(v) => { setRegResponse(v); setRegPredictors([]); }}>
                           <SelectTrigger className="mt-1.5 sm:max-w-xs"><SelectValue /></SelectTrigger>
                           <SelectContent>
                             {numericHeaders.map((h) => (

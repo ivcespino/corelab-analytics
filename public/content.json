@@ -24,6 +24,7 @@
         { "label": "Background of the Study" },
         { "label": "The Variables" },
         { "label": "The Research Questions" },
+        { "label": "Hypotheses" },
         { "label": "Significance of the Study" },
         { "label": "Review of Related Literature" },
         { "label": "Theoretical Framework" }
@@ -107,7 +108,15 @@
         "What is the relationship between laboratory usage and Preliminary academic performance?",
         "What is the relationship between laboratory usage and Midterm academic performance?",
         "Is increased laboratory usage associated with positive performance change between the Preliminary and Midterm grading periods?"
-      ],
+      ]
+    },
+    {
+      "id": "hypotheses",
+      "template": "hypotheses",
+      "chapter": "Chapter 1 · Introduction",
+      "eyebrow": "Hypotheses",
+      "title": "Hypotheses",
+      "lead": "Two competing statements frame the inferential test. Significance is judged at α = 0.05 — if the combined regression's p-value falls below this threshold, the null is rejected.",
       "hypotheses": [
         { "label": "H₁ (Alternative)", "type": "alt", "text": "Higher laboratory usage is associated with a positive change in academic performance between the Preliminary and Midterm grading periods." },
         { "label": "H₀₁ (Null)", "type": "null", "text": "Laboratory usage is not associated with a significant change in academic performance between the Preliminary and Midterm grading periods." }

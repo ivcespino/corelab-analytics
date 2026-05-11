@@ -81,12 +81,11 @@ export function VariablesSection({ data, variant }: { data: VariablesData; varia
   );
 }
 
-/* ─────────────── H-4 Research Questions + Hypotheses ─────────────── */
+/* ─────────────── H-4 Research Questions ─────────────── */
 interface RQData {
   id: string; chapter: string; eyebrow: string; title: string;
   central: string;
   subs: string[];
-  hypotheses: { label: string; type: "alt" | "null"; text: string }[];
 }
 export function ResearchQuestionsSection({ data, variant }: { data: RQData; variant: "odd" | "even" }) {
   return (
@@ -105,17 +104,47 @@ export function ResearchQuestionsSection({ data, variant }: { data: RQData; vari
           </li>
         ))}
       </ol>
-      <div className="mt-8 grid gap-4 border-t border-border pt-6 md:grid-cols-2">
+    </SectionShell>
+  );
+}
+
+/* ─────────────── H-4b Hypotheses ─────────────── */
+interface HypothesesData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead?: string;
+  hypotheses: { label: string; type: "alt" | "null"; text: string }[];
+}
+export function HypothesesSection({ data, variant }: { data: HypothesesData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      {data.lead && (
+        <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>
+      )}
+      <div className="mt-6 grid gap-5 md:grid-cols-2">
         {data.hypotheses.map((h) => {
           const isAlt = h.type === "alt";
           return (
-            <div key={h.label} className={`rounded-2xl border-2 p-5 ${isAlt ? "border-accent bg-accent/5" : "border-border bg-card"}`}>
-              <p className={`font-display text-xl font-bold ${isAlt ? "text-accent" : "text-muted-foreground"}`}>{h.label}</p>
-              <p className="mt-2 text-sm leading-relaxed">{h.text}</p>
+            <div
+              key={h.label}
+              className={`relative overflow-hidden rounded-2xl border-2 p-7 shadow-soft sm:p-9 ${
+                isAlt ? "border-accent bg-accent/5" : "border-border bg-card"
+              }`}
+            >
+              <span className={`absolute right-5 top-3 font-display text-7xl font-bold leading-none ${isAlt ? "text-accent/15" : "text-muted-foreground/15"}`}>
+                {isAlt ? "H₁" : "H₀"}
+              </span>
+              <p className={`text-xs font-bold uppercase tracking-[0.2em] ${isAlt ? "text-accent" : "text-muted-foreground"}`}>
+                {isAlt ? "Alternative" : "Null"}
+              </p>
+              <p className={`mt-2 font-display text-2xl font-bold ${isAlt ? "text-accent" : ""}`}>{h.label}</p>
+              <p className="mt-4 text-base leading-relaxed text-foreground/90">{h.text}</p>
             </div>
           );
         })}
       </div>
+      <p className="mt-5 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        Decision rule · Reject H₀ if combined regression p &lt; 0.05
+      </p>
     </SectionShell>
   );
 }
@@ -133,33 +162,39 @@ export function SignificanceSection({ data, variant }: { data: SignificanceData;
       scrollToHash(href);
       return;
     }
-    // route + hash
     const [path, hash] = href.split("#");
     navigate(hash ? `${path}#${hash}` : path);
   };
 
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
-      <div className="rounded-2xl border-2 border-accent/40 bg-gradient-to-br from-accent/10 to-primary/5 p-6 shadow-soft sm:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">General Objective</p>
-        <p className="mt-3 font-display text-lg leading-snug sm:text-xl">{data.generalObjective}</p>
+      <div className="grid gap-5 lg:grid-cols-[5fr_7fr]">
+        <div className="rounded-2xl border-2 border-accent/40 bg-gradient-to-br from-accent/10 to-primary/5 p-5 shadow-soft sm:p-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent">General Objective</p>
+          <p className="mt-3 font-display text-base leading-snug sm:text-lg">{data.generalObjective}</p>
+        </div>
+        <div className="rounded-2xl border bg-card shadow-soft">
+          <p className="border-b border-border px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            Specific Objectives
+          </p>
+          <ol>
+            {data.objectives.map((o, i) => (
+              <li key={i}>
+                <button
+                  onClick={() => handleClick(o.href)}
+                  className="group flex w-full items-center gap-3 border-b border-border/50 px-5 py-3 text-left text-sm leading-snug transition-colors last:border-0 hover:bg-accent/5"
+                >
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
+                    {i + 1}
+                  </span>
+                  <span className="flex-1">{o.text}</span>
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent" />
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
-      <ol className="mt-6 space-y-2">
-        {data.objectives.map((o, i) => (
-          <li key={i}>
-            <button
-              onClick={() => handleClick(o.href)}
-              className="group flex w-full items-start gap-4 rounded-xl border bg-card p-4 text-left transition-all hover:border-accent hover:shadow-soft"
-            >
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
-                {i + 1}
-              </span>
-              <span className="flex-1 text-sm leading-relaxed">{o.text}</span>
-              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent" />
-            </button>
-          </li>
-        ))}
-      </ol>
     </SectionShell>
   );
 }

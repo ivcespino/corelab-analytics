@@ -6,6 +6,7 @@ import {
   BackgroundTwoBeatSection,
   VariablesSection,
   ResearchQuestionsSection,
+  HypothesesSection,
   SignificanceSection,
   BeneficiariesSection,
   LiteratureSection,
@@ -85,6 +86,7 @@ const Index = () => {
             case "variables":     return <VariablesSection key={s.id} data={s} variant={variant} />;
             case "likert":        return <LikertTableSection key={s.id} data={s} variant={variant} />;
             case "rq":            return <ResearchQuestionsSection key={s.id} data={s} variant={variant} />;
+            case "hypotheses":    return <HypothesesSection key={s.id} data={s} variant={variant} />;
             case "significance":  return <SignificanceSection key={s.id} data={s} variant={variant} />;
             case "beneficiaries": return <BeneficiariesSection key={s.id} data={s} variant={variant} />;
             case "panel":         return <SinglePanelSection key={s.id} data={s} variant={variant} />;
