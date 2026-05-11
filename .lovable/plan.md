@@ -1,82 +1,65 @@
-## Scope
+## Quick answer on the team PNGs
 
-Continue the previously approved-direction work + one new copy tweak. No backend changes.
+For these portraits, **`public/team/`** is the right call (not `src/assets`).
 
----
+- They're data-driven from `public/team.json` (`"image": "/team/Espino.png"`), referenced by URL string at runtime — not imported as ES modules. `src/assets` only earns its keep when files are statically `import`ed so Vite can hash and tree-shake them.
+- Putting them in `public/team/` means the existing JSON paths work unchanged, and you (or a teammate) can swap a portrait by dropping a new PNG with the same filename — no code edit, no rebuild reasoning needed.
+- Bundle size: identical either way for this case (7 portraits, served on demand). The `src/assets` advantages (hashing, optimization, type-safety) don't apply when the path is a runtime string.
 
-## 1. Copy: "Practical Research" → "Research"
-
-- `public/content.json` hero badge: `"Practical Research • A.Y. 2025–2026"` → `"Research • A.Y. 2025–2026"`.
-- `public/team.json` adviser title: leave as **"Practical Research Adviser"** (it's the adviser's actual role title on the Team page, not Home). Confirm with user if they want this renamed too.
-- Sweep `src/` + `public/*.json` for any other "Practical Research" strings — currently only the two above.
+So: create `public/team/` and drop the six uploaded PNGs there as `Espino.png`, `Bolacja.png`, `Lopez.png`, `Diaz.png`, `Reyes.png`, `Velasco.png`. (Azada is still missing — initials fallback will cover it.) I'll do the copy in build mode.
 
 ---
 
-## 2. Global: orientation / small-screen notice
+## 1. Home — References slide: column-major order
 
-- New `src/components/OrientationNotice.tsx`, mounted once in `src/App.tsx`.
-- Shows a centered modal/toast when `window.innerWidth < 900` **or** portrait with width < 1100, on routes that use snap (`/` and `/dashboard`).
-- Copy: "CoreLab Analytics works best on a landscape tablet or desktop — the experience uses full-page slides." + Dismiss button.
-- Dismissal stored in `sessionStorage` so it doesn't nag on every nav; re-evaluates on `resize` / `orientationchange`.
-- Styled with existing tokens (navy/cyan, Space Grotesk heading, Inter body).
+`ReferencesSection` (`src/components/sections/ResearchSections.tsx`, ~L545) currently uses CSS Grid with `grid-cols-3`, which fills **row by row** (1-2-3 across the top). You want **column by column** (1-2-3-4 down the first column, then 5-6-7-8 down the second).
 
----
+Fix: switch the `<ol>` to CSS multi-column layout — `columns-1 md:columns-2 lg:columns-3` with `[column-fill:balance]`. Each `<li>` stays a block with `break-inside-avoid` so entries never split mid-row. Numbering stays correct because it's pulled from the array index, not CSS counters. Three-column layout preserved; reading order becomes top-to-bottom, left-to-right.
 
-## 3. Chapter divider TOC → clickable anchors
+## 2. Home — Make the whole reference row the link
 
-- `ChapterDividerSection` in `src/components/sections/ResearchSections.tsx`: each TOC entry becomes a `<button>` that calls `document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })`.
-- TOC entries in `content.json` get an optional `id` field (e.g. `{ "label": "Background", "id": "background-context" }`); falls back to slugified label.
-- Same treatment for Dashboard chapter dividers in `src/pages/Dashboard.tsx`.
-- Adds hover affordance (cyan underline + chevron).
+Currently only "Author (Year)" is the anchor; the title text is plain. Change each `<li>` so the entire card is one `<a>` (or wrap with `<a className="block …">`), keeping the visible "Author (Year)" emphasis but making the title, number badge, and hover region all part of the same clickable link. Hover state moves to the whole row (cyan accent + subtle bg).
 
----
+## 3. Home — Author/theorist names link out from the predecessor slide
 
-## 4. Home: compact References slide
+The "predecessor slide" is the Theoretical Framework block in `public/content.json` (~L206–L240) where each theory carries a `subtitle` like `"Sweller (1988)"`, `"Piaget (1972) & Vygotsky (1978)"`, `"Kolb (1984)"`. Right now those names are plain text.
 
-- `ReferencesSection`: switch to a tight 3-col grid (`lg:grid-cols-3`, `md:grid-cols-2`, single col on mobile), `text-[12px]`, `leading-snug`, hairline dividers, numbered list, no trailing arrow icon — fits in one snap page.
-- The **author + (year)** is the link (opens DOI / Scholar in new tab); title text becomes plain foreground.
+Plan:
+- Find the component that renders `kind: "theory"` items and locate where `subtitle` is printed.
+- Wrap each author-year token inside the subtitle in an `<a target="_blank">` pointing to the matching `href` already defined in the References list (Sweller → DOI, Piaget/Vygotsky/Kolb → Scholar links).
+- Implementation detail: add an optional `links: [{ match: "Sweller (1988)", href: "…" }, …]` field to those theory entries in `content.json`, then split the subtitle on those tokens at render. Cleaner than regex-detecting names from the references array.
+- Style: same hover treatment as the References links (accent underline). With this in place, the References list items also being whole-row links (item 2) closes the loop.
 
----
+## 4. Dashboard — Summary of Findings rewritten to match the paper
 
-## 5. Dashboard
+Replace the current 9-item array in `SummaryFindings` (`src/pages/Dashboard.tsx` L920–L944) with a faithful, condensed version of the Revision-10 wording. Keeping 9 cards, 3-col grid, but restructured so each card maps to one paragraph of the source text:
 
-### 5a. Fix the grey scatter points
-In `PearsonDeepDive` and `RegressionDeepDive` (`src/pages/Dashboard.tsx`), markers are colored grey when not significant. Change to:
-- All markers cyan (`hsl(188 100% 42%)`).
-- Encode significance via the **trend line**: solid navy when significant, dashed muted-foreground when not.
-- Add a "Not significant — α = 0.05" badge above the chart when applicable, plus a small legend caption.
+```
+01  Sample            86 valid BSIT respondents at STI College Malolos with complete paired Prelim–Midterm grades.
+02  Usage profile     Mean 4.31 weekly lab hours; mean Composite Behavioral Score 16.23.
+03  Grade movement    Prelim 87.32 → Midterm 88.64 (Performance Change +1.30): a slight average gain.
+04  Reliability       Cronbach's α = 0.70 — acceptable internal consistency for the Composite Behavioral Score.
+05  Pearson r         Intensity (Composite) is significantly related to both Prelim and Midterm grades.
+06  Pearson r         Frequency (Weekly Hours) is not significant at Prelim, but becomes significant at Midterm.
+07  Regression        In the multiple model, Frequency is the only statistically significant individual predictor of Performance Change.
+08  Model fit         Multiple regression significant overall (p = 0.0424) — H₀ rejected.
+09  Variance          R² = 0.0733 — lab usage explains 7.33% of the variance in performance change; most variation comes from factors outside the model.
+```
 
-### 5b. Summary of Findings → 9 items
-Update `SummaryFindings` in `src/pages/Dashboard.tsx` to list the 9 findings from the paper:
-1. Frequency of use predicts exposure-driven gains.
-2. Intensity is the strongest single predictor.
-3. Cronbach's α confirms scale reliability.
-4. Model A (frequency-only) significant.
-5. Model B (intensity-only) significant.
-6. Combined model shows ceiling effect / multicollinearity.
-7. Pearson r between usage and grade change is positive but moderate.
-8. H₀₁ rejected for the primary RQ.
-9. Divergent finding noted: heavy users without intentional study habits show no gain.
+A short closing line (one muted paragraph below the grid) captures the overall takeaway: *"Intensity tracks absolute grades; Frequency drives the change between them."*
 
-(Will pull exact wording from current paper text in `content.json` / `dashboard.json` while editing — placeholder list above for plan visibility only.)
+No chart/regression numbers elsewhere in the dashboard are touched — just this one component's `items` array and a small caption added beneath the grid.
 
 ---
 
-## 6. Team: portrait placeholders
+## Files I'll touch in build mode
 
-- Update `public/team.json` so each member has `"image": "/team/<Lastname>.png"` (Espino, Bolacja, etc.).
-- User drops PNGs into `public/team/`. Missing files degrade to existing initials via `onError`.
-- `PersonCard` / `LeadCard` in `src/pages/Team.tsx` render `<img>` with `bg-white`, `object-contain`, rounded corners, and `onError` fallback to the initials block.
-
----
-
-## Verification
-- 1062×618 preview: no internal scroll on References, Participants, Analysis Plan slides.
-- TOC entries on every chapter divider scroll-jump to the right slide on Home + Dashboard.
-- Resize browser to portrait < 900px → notice appears once per session.
-- Dashboard scatter: no grey markers; trend line dashes when not significant; badge visible.
-- Team page: missing PNGs fall back to initials without console errors.
+- `public/team/*.png` — new folder, six PNGs copied from uploads.
+- `public/content.json` — add `links` arrays to the three theory entries (Sweller, Piaget/Vygotsky, Kolb).
+- `src/components/sections/ResearchSections.tsx` — `ReferencesSection`: column-major layout + whole-row link. Theory subtitle render: tokenized author links.
+- `src/pages/Dashboard.tsx` — `SummaryFindings`: new 9-item content + closing caption.
 
 ## Out of scope
-- No new datasets, no chart library changes, no backend.
-- Adviser title on Team page (kept as "Practical Research Adviser" unless user says otherwise).
+
+- No changes to dashboard charts, regression numbers, or other Home sections.
+- Azada portrait: not provided; initials fallback stays.
