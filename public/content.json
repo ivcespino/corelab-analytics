@@ -3,12 +3,12 @@
     "badge": "Practical Research • A.Y. 2025–2026",
     "heading": "CoreLab Analytics",
     "subheading": "Web-Based Research and Visualization Tool",
-    "description": "An interactive platform that converts raw research data into immediate visual insights— replacing static papers with a dynamic dashboard.",
-    "primaryCta": { "label": "Take the Survey", "href": "/tool" },
+    "primaryCta": { "label": "Open the Tool", "href": "/tool" },
     "secondaryCta": { "label": "View Dashboard", "href": "/dashboard" },
+    "pdfCta": { "label": "Download Full PDF", "href": "/research.pdf" },
     "descriptor": {
       "label": "CoreLab Analytics is",
-      "body": "A quantitative correlational study on how computer laboratory usage predicts academic performance change among BSIT students— paired with a data visualization tool built to translate the findings into accessible evidence."
+      "body": "An interactive platform that converts raw research data into immediate visual insights— replacing static papers with a dynamic dashboard. The companion study is a quantitative correlational investigation of how computer laboratory usage predicts academic performance change among BSIT students at STI College Malolos."
     }
   },
   "sections": [
