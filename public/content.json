@@ -355,6 +355,7 @@
       "eyebrow": "Participants and Sampling",
       "title": "Inclusion Criteria",
       "lead": "A respondent's data was retained only when all five conditions were satisfied. Otherwise the response was dropped from analysis.",
+      "dense": true,
       "headers": ["#", "Criterion", "Why It Matters"],
       "rows": [
         ["1", "Enrolled BSIT student at STI College Malolos", "Defines the target population of the study"],
