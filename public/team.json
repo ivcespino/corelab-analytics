@@ -5,13 +5,13 @@
     "description": "A research group from ITMAWD 12A at STI College Malolos exploring how computer-laboratory exposure shapes academic performance— and how to render that story in real-time, on the web."
   },
   "researchers": [
-    { "name": "Espino, Shae",          "initials": "ES", "role": "Project Manager & Lead Developer", "tag": "Research Leader", "email": "shaeshishsg12@gmail.com" },
-    { "name": "Bolacja, Mark Justine", "initials": "MB", "role": "Assistant Researcher",            "tag": null,              "email": "markbolacja@gmail.com" },
-    { "name": "Lopez, Raver Lee",      "initials": "LR", "role": "Assistant Researcher",            "tag": null,              "email": "raverlopez19@gmail.com" },
-    { "name": "Azada, Sean",           "initials": "AS", "role": "Researcher",                      "tag": null,              "email": "azadasean2006@gmail.com" },
-    { "name": "Diaz, Aaron Jhay",      "initials": "DA", "role": "Researcher",                      "tag": null,              "email": "sma.aaronjhaydiaz@gmail.com" },
-    { "name": "Reyes, John Mark",      "initials": "RJ", "role": "Researcher",                      "tag": null,              "email": "jmreyes751@gmail.com" },
-    { "name": "Velasco, Ma. Irish Pearl","initials": "VE","role": "Researcher",                     "tag": null,              "email": "velascoirish123@gmail.com" }
+    { "name": "Espino, Shae",          "initials": "ES", "image": "/team/Espino.png",   "role": "Project Manager & Lead Developer", "tag": "Research Leader", "email": "shaeshishsg12@gmail.com" },
+    { "name": "Bolacja, Mark Justine", "initials": "MB", "image": "/team/Bolacja.png",  "role": "Assistant Researcher",            "tag": null,              "email": "markbolacja@gmail.com" },
+    { "name": "Lopez, Raver Lee",      "initials": "LR", "image": "/team/Lopez.png",    "role": "Assistant Researcher",            "tag": null,              "email": "raverlopez19@gmail.com" },
+    { "name": "Azada, Sean",           "initials": "AS", "image": "/team/Azada.png",    "role": "Researcher",                      "tag": null,              "email": "azadasean2006@gmail.com" },
+    { "name": "Diaz, Aaron Jhay",      "initials": "DA", "image": "/team/Diaz.png",     "role": "Researcher",                      "tag": null,              "email": "sma.aaronjhaydiaz@gmail.com" },
+    { "name": "Reyes, John Mark",      "initials": "RJ", "image": "/team/Reyes.png",    "role": "Researcher",                      "tag": null,              "email": "jmreyes751@gmail.com" },
+    { "name": "Velasco, Ma. Irish Pearl","initials": "VE","image": "/team/Velasco.png", "role": "Researcher",                      "tag": null,              "email": "velascoirish123@gmail.com" }
   ],
   "advisers": [
     {

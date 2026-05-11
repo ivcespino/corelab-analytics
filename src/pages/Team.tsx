@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 interface Researcher {
   name: string;
   initials: string;
+  image?: string;
   role: string;
   tag: string | null;
   email: string;
@@ -138,16 +139,37 @@ function avatarColor(initials: string) {
   return `hsl(${h} 60% 45%)`;
 }
 
+function Portrait({ src, initials, size }: { src?: string; initials: string; size: "sm" | "lg" }) {
+  const [failed, setFailed] = useState(!src);
+  const dim = size === "lg" ? "h-20 w-20 rounded-2xl text-2xl shadow-strong" : "h-12 w-12 rounded-full text-sm";
+  if (failed) {
+    return (
+      <span
+        className={`grid shrink-0 place-items-center font-display font-bold text-white ${dim}`}
+        style={{ background: avatarColor(initials) }}
+      >
+        {initials}
+      </span>
+    );
+  }
+  return (
+    <span className={`grid shrink-0 place-items-center overflow-hidden bg-white ${dim}`}>
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className="h-full w-full object-contain"
+      />
+    </span>
+  );
+}
+
 function PersonCard({ r }: { r: Researcher }) {
   return (
     <article className="group relative overflow-hidden rounded-2xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-soft">
       <div className="flex items-start gap-4">
-        <span
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
-          style={{ background: avatarColor(r.initials) }}
-        >
-          {r.initials}
-        </span>
+        <Portrait src={r.image} initials={r.initials} size="sm" />
         <div className="min-w-0 flex-1">
           <h3 className="font-display text-lg font-bold leading-tight">{r.name}</h3>
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">{r.role}</p>
@@ -171,12 +193,7 @@ function LeadCard({ r }: { r: Researcher }) {
         <Crown className="h-3 w-3" /> {r.tag}
       </span>
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-        <span
-          className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl font-display text-2xl font-bold text-white shadow-strong"
-          style={{ background: avatarColor(r.initials) }}
-        >
-          {r.initials}
-        </span>
+        <Portrait src={r.image} initials={r.initials} size="lg" />
         <div className="min-w-0">
           <h3 className="font-display text-2xl font-bold sm:text-3xl">{r.name}</h3>
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-accent">{r.role}</p>
