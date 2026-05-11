@@ -478,17 +478,20 @@ interface TableSlideData {
   headers: string[];
   rows: (string | { v: string; em?: boolean })[][];
   note?: string;
+  dense?: boolean;
 }
 export function TableSlideSection({ data, variant }: { data: TableSlideData; variant: "odd" | "even" }) {
+  const cellPad = data.dense ? "px-3 py-1.5" : "px-4 py-3";
+  const cellText = data.dense ? "text-[13px]" : "text-sm";
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
-      {data.lead && <p className="mb-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>}
+      {data.lead && <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{data.lead}</p>}
       <div className="overflow-x-auto rounded-2xl border bg-card shadow-soft">
-        <table className="w-full border-collapse text-sm">
+        <table className={`w-full border-collapse ${cellText}`}>
           <thead>
             <tr className="bg-muted/50">
               {data.headers.map((h, i) => (
-                <th key={i} className="border-b border-border px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{h}</th>
+                <th key={i} className={`border-b border-border ${cellPad} text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground`}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -499,7 +502,7 @@ export function TableSlideSection({ data, variant }: { data: TableSlideData; var
                   const v = typeof cell === "string" ? cell : cell.v;
                   const em = typeof cell === "object" && cell.em;
                   return (
-                    <td key={ci} className={`border-b border-border/40 px-4 py-3 align-top ${em ? "font-semibold text-accent" : ""}`}>
+                    <td key={ci} className={`border-b border-border/40 ${cellPad} align-top ${em ? "font-semibold text-accent" : ""}`}>
                       {v}
                     </td>
                   );
@@ -514,6 +517,42 @@ export function TableSlideSection({ data, variant }: { data: TableSlideData; var
   );
 }
 
+/* ─────────────── References Section ─────────────── */
+interface ReferencesData {
+  id: string; chapter: string; eyebrow: string; title: string;
+  lead?: string;
+  items: { author: string; year: string; title: string; href: string }[];
+}
+export function ReferencesSection({ data, variant }: { data: ReferencesData; variant: "odd" | "even" }) {
+  return (
+    <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
+      {data.lead && <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{data.lead}</p>}
+      <ol className="grid gap-2.5 sm:grid-cols-2">
+        {data.items.map((it, i) => (
+          <li key={i}>
+            <a
+              href={it.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex h-full items-start gap-3 rounded-xl border bg-card p-3.5 shadow-soft transition-colors hover:border-accent hover:bg-accent/5"
+            >
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground dark:bg-accent dark:text-accent-foreground">
+                {i + 1}
+              </span>
+              <span className="flex-1 text-[13px] leading-snug">
+                <span className="font-semibold">{it.author}</span>
+                <span className="text-muted-foreground"> ({it.year}).</span>{" "}
+                <span className="text-foreground/85">{it.title}</span>
+                <ArrowRight className="ml-1 inline h-3 w-3 -translate-y-px text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </SectionShell>
+  );
+}
+
 /* ─────────────── Sampling Funnel (Slovin) ─────────────── */
 interface SamplingData {
   id: string; chapter: string; eyebrow: string; title: string;
@@ -524,31 +563,31 @@ interface SamplingData {
 export function SamplingFunnelSection({ data, variant }: { data: SamplingData; variant: "odd" | "even" }) {
   return (
     <SectionShell id={data.id} chapter={data.chapter} eyebrow={data.eyebrow} title={data.title} variant={variant}>
-      {data.lead && <p className="mb-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">{data.lead}</p>}
-      <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
-        <ol className="space-y-3">
+      {data.lead && <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{data.lead}</p>}
+      <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+        <ol className="space-y-2">
           {data.steps.map((s, i) => (
             <li key={i} className="flex items-stretch gap-3">
-              <div className="grid w-12 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground font-display text-lg font-bold dark:bg-accent dark:text-accent-foreground">
+              <div className="grid w-10 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground font-display text-base font-bold dark:bg-accent dark:text-accent-foreground">
                 {i + 1}
               </div>
-              <div className="flex-1 rounded-xl border bg-card p-4 shadow-soft">
+              <div className="flex-1 rounded-lg border bg-card p-3 shadow-soft">
                 <div className="flex items-baseline justify-between gap-3">
-                  <p className="font-display text-base font-semibold">{s.label}</p>
-                  <p className="font-mono text-lg font-bold text-accent">{s.value}</p>
+                  <p className="font-display text-sm font-semibold">{s.label}</p>
+                  <p className="font-mono text-base font-bold text-accent">{s.value}</p>
                 </div>
-                {s.note && <p className="mt-1 text-xs text-muted-foreground">{s.note}</p>}
+                {s.note && <p className="mt-0.5 text-[11px] text-muted-foreground">{s.note}</p>}
               </div>
             </li>
           ))}
         </ol>
         {data.formula && (
-          <div className="rounded-2xl border-2 border-accent/40 bg-accent/5 p-6 shadow-soft">
+          <div className="rounded-2xl border-2 border-accent/40 bg-accent/5 p-5 shadow-soft">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent">Slovin's Formula</p>
-            <p className="mt-4 break-words text-center font-mono text-2xl font-bold text-primary dark:text-accent">
+            <p className="mt-3 break-words text-center font-mono text-xl font-bold text-primary dark:text-accent">
               {data.formula.expr}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{data.formula.caption}</p>
+            <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">{data.formula.caption}</p>
           </div>
         )}
       </div>
