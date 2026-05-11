@@ -261,6 +261,8 @@
         { "author": "Kolb, D. A.", "year": "1984", "title": "Experiential learning: experience as the source of learning and development.", "href": "https://scholar.google.com/scholar?q=Kolb+1984+experiential+learning" }
       ]
     },
+    {
+      "id": "ch2-divider",
       "template": "chapterDivider",
       "chapter": "Chapter 2",
       "eyebrow": "Methods",
