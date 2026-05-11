@@ -6,6 +6,7 @@ import {
   BackgroundTwoBeatSection,
   VariablesSection,
   ResearchQuestionsSection,
+  HypothesesSection,
   SignificanceSection,
   BeneficiariesSection,
   LiteratureSection,
