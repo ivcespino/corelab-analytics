@@ -169,10 +169,6 @@
       "title": "Structured Technology Use and Academic Performance",
       "kind": "literature",
       "subtitle": "Limniou (2021); Canoy et al. (2023)",
-      "subtitleLinks": [
-        { "match": "Limniou (2021)", "href": "https://doi.org/10.3390/educsci11030121" }
-        { "match": "Canoy et al. (2023)", "href": "https://www.scribd.com/document/906490929/THE-IMPACT-OF-COMPUTER-LABORATORY-USAGE-FREQUENCY-ON-TH1-2" }
-      ],
       "citation": "Theme 1",
       "body": "Guided, purposeful use of technology in the laboratory improves student focus and performance outcomes. Limniou (2021) found that students using devices under structured academic intent outperformed those with unrestricted access. Canoy et al. (2023) demonstrated beneficial effects of supervised lab sessions while identifying practical barriers: inadequate equipment, scheduling conflicts, and insufficient instructor preparation. The consistent finding: structure is as important as access.",
       "gap": "Limited evidence exists on how structured lab use affects short-term, intra-term academic performance specifically in BSIT programs."
@@ -185,11 +181,6 @@
       "title": "Access to ICT Resources and Learning Outcomes",
       "kind": "literature",
       "subtitle": "Mohamed (2025); Siega (2025); Escubido et al. (2025)",
-      "subtitleLinks": [
-        { "match": "Mohamed (2025)", "href": "https://doi.org/10.13140/RG.2.2.29362.11200" }
-        { "match": "Siega (2025)", "href": "https://doi.org/10.9734/ajess/2025/v51i62032" }
-        { "match": "Escubido et al. (2025)", "href": "https://doi.org/10.1145/3587103.3594172" }
-      ],
       "citation": "Theme 2",
       "body": "Access to ICT resources is a prerequisite for skill development. Mohamed (2025) found that availability significantly impacts performance and recommended extending ICT access beyond laboratories. Siega (2025) confirmed a positive relationship between computer technology use and academic outcomes. Escubido et al. (2025) found that effective ICT integration in instruction improves performance, while persistent resource limitations continue to constrain student progress.",
       "gap": "These studies measure access as a binary condition. None examines duration and behavioral depth of usage as a predictor of performance change across grading periods."
@@ -202,10 +193,6 @@
       "title": "Digital Skills Development Through Laboratory Practice",
       "kind": "literature",
       "subtitle": "Vahid et al. (2023); Cadiz-Gabejan & Takenaka (2021)",
-      "subtitleLinks": [
-        { "match": "Vahid et al. (2023)", "href": "https://doi.org/10.1145/3587103.3594172" }
-        { "match": "Cadiz-Gabejan & Takenaka (2021)", "href": "https://doi.org/10.32996/jweep.2021.3.6.4" }
-      ],
       "citation": "Theme 3",
       "body": "Repeated hands-on laboratory engagement is the mechanism through which BSIT students develop technical competency. Vahid et al. (2023) found that students who consistently engaged in coding activities achieved higher grades, with consistent engagement being the operative variable. Cadiz-Gabejan and Takenaka (2021) found that initial computer literacy amplifies the benefit students derive from lab work.",
       "gap": "Neither study quantifies behavioral intensity or separates it from time-based frequency as a distinct predictor."
