@@ -169,6 +169,10 @@
       "title": "Structured Technology Use and Academic Performance",
       "kind": "literature",
       "subtitle": "Limniou (2021); Canoy et al. (2023)",
+      "subtitleLinks": [
+        { "match": "Limniou (2021)", "href": "https://doi.org/10.3390/educsci11030121" }
+        { "match": "Canoy et al. (2023)", "href": "https://www.scribd.com/document/906490929/THE-IMPACT-OF-COMPUTER-LABORATORY-USAGE-FREQUENCY-ON-TH1-2" }
+      ],
       "citation": "Theme 1",
       "body": "Guided, purposeful use of technology in the laboratory improves student focus and performance outcomes. Limniou (2021) found that students using devices under structured academic intent outperformed those with unrestricted access. Canoy et al. (2023) demonstrated beneficial effects of supervised lab sessions while identifying practical barriers: inadequate equipment, scheduling conflicts, and insufficient instructor preparation. The consistent finding: structure is as important as access.",
       "gap": "Limited evidence exists on how structured lab use affects short-term, intra-term academic performance specifically in BSIT programs."
@@ -181,6 +185,11 @@
       "title": "Access to ICT Resources and Learning Outcomes",
       "kind": "literature",
       "subtitle": "Mohamed (2025); Siega (2025); Escubido et al. (2025)",
+      "subtitleLinks": [
+        { "match": "Mohamed (2025)", "href": "https://doi.org/10.13140/RG.2.2.29362.11200" }
+        { "match": "Siega (2025)", "href": "https://doi.org/10.9734/ajess/2025/v51i62032" }
+        { "match": "Escubido et al. (2025)", "href": "https://doi.org/10.1145/3587103.3594172" }
+      ],
       "citation": "Theme 2",
       "body": "Access to ICT resources is a prerequisite for skill development. Mohamed (2025) found that availability significantly impacts performance and recommended extending ICT access beyond laboratories. Siega (2025) confirmed a positive relationship between computer technology use and academic outcomes. Escubido et al. (2025) found that effective ICT integration in instruction improves performance, while persistent resource limitations continue to constrain student progress.",
       "gap": "These studies measure access as a binary condition. None examines duration and behavioral depth of usage as a predictor of performance change across grading periods."
@@ -193,6 +202,10 @@
       "title": "Digital Skills Development Through Laboratory Practice",
       "kind": "literature",
       "subtitle": "Vahid et al. (2023); Cadiz-Gabejan & Takenaka (2021)",
+      "subtitleLinks": [
+        { "match": "Vahid et al. (2023)", "href": "https://doi.org/10.1145/3587103.3594172" }
+        { "match": "Cadiz-Gabejan & Takenaka (2021)", "href": "https://doi.org/10.32996/jweep.2021.3.6.4" }
+      ],
       "citation": "Theme 3",
       "body": "Repeated hands-on laboratory engagement is the mechanism through which BSIT students develop technical competency. Vahid et al. (2023) found that students who consistently engaged in coding activities achieved higher grades, with consistent engagement being the operative variable. Cadiz-Gabejan and Takenaka (2021) found that initial computer literacy amplifies the benefit students derive from lab work.",
       "gap": "Neither study quantifies behavioral intensity or separates it from time-based frequency as a distinct predictor."
@@ -258,14 +271,14 @@
       "title": "References",
       "lead": "Works cited across the Review of Related Literature and the Theoretical Framework. Click any entry to open the source.",
       "items": [
-        { "author": "Limniou, M.", "year": "2021", "title": "The effect of digital device usage on student academic performance.", "href": "https://scholar.google.com/scholar?q=Limniou+2021+digital+device+usage+academic+performance" },
-        { "author": "Canoy, J. et al.", "year": "2023", "title": "Supervised laboratory sessions and student outcomes in technical programs.", "href": "https://scholar.google.com/scholar?q=Canoy+2023+supervised+laboratory+sessions" },
-        { "author": "Mohamed, A.", "year": "2025", "title": "ICT availability and academic performance among technology students.", "href": "https://scholar.google.com/scholar?q=Mohamed+2025+ICT+availability+academic+performance" },
-        { "author": "Siega, R.", "year": "2025", "title": "Computer technology use and academic outcomes: a correlational study.", "href": "https://scholar.google.com/scholar?q=Siega+2025+computer+technology+academic+outcomes" },
-        { "author": "Escubido, M. et al.", "year": "2025", "title": "ICT integration in instruction and student performance.", "href": "https://scholar.google.com/scholar?q=Escubido+2025+ICT+integration+instruction" },
-        { "author": "Vahid, F. et al.", "year": "2023", "title": "Sustained coding engagement and grade outcomes.", "href": "https://scholar.google.com/scholar?q=Vahid+2023+coding+engagement+grades" },
-        { "author": "Cadiz-Gabejan, A. & Takenaka, M.", "year": "2021", "title": "Computer literacy as a moderator of laboratory benefit.", "href": "https://scholar.google.com/scholar?q=Cadiz-Gabejan+Takenaka+2021+computer+literacy" },
-        { "author": "Sweller, J.", "year": "1988", "title": "Cognitive load during problem solving: effects on learning.", "href": "https://doi.org/10.1207/s15516709cog1202_4" },
+        { "author": "Limniou, M.", "year": "2021", "title": "he effect of digital device usage on student academic performance: a case study.", "href": "https://doi.org/10.3390/educsci11030121" },
+        { "author": "Canoy, J. et al.", "year": "2023", "title": "The impact of computer laboratory usage frequency on the programming skills of senior high school ICT students at Leyte National High School. ", "href": "https://www.scribd.com/document/906490929/THE-IMPACT-OF-COMPUTER-LABORATORY-USAGE-FREQUENCY-ON-TH1-2" },
+        { "author": "Mohamed, A. A., & Ali, M. A.", "year": "2025", "title": "Impact of ICT utilization on academic performance: A case study of University of Hargeisa students in Somaliland.", "href": "https://www.ijiet.org/vol15/IJIET-V15N1-2222.pdf" },
+        { "author": "Siega, R.", "year": "2025", "title": "Analyzing the relationship between computer technology usage and CPE students' academic performance at Makati Science Technological Institute of the Philippines.", "href": "https://doi.org/10.13140/RG.2.2.29362.11200" },
+        { "author": "Escubido, M. et al.", "year": "2025", "title": "Correlation between ICT integration in teaching, learning and perceived student performance among college students in Bansalan, Philippines.", "href": "https://doi.org/10.9734/ajess/2025/v51i62032" },
+        { "author": "Vahid, F. et al.", "year": "2023", "title": " Impact of student time spent on performance in a CS1 class, including prior experience effect.", "href": "https://doi.org/10.1145/3587103.3594172" },
+        { "author": "Cadiz-Gabejan, A. & Takenaka, M.", "year": "2021", "title": "Students’ computer literacy and academic performance.", "href": "https://doi.org/10.32996/jweep.2021.3.6.4" },
+        { "author": "Sweller, J.", "year": "1988", "title": "Cognitive load during problem solving: Effects on learning.", "href": "https://doi.org/10.1207/s15516709cog1202_4" },
         { "author": "Piaget, J.", "year": "1972", "title": "The psychology of the child.", "href": "https://scholar.google.com/scholar?q=Piaget+1972+psychology+of+the+child" },
         { "author": "Vygotsky, L. S.", "year": "1978", "title": "Mind in society: the development of higher psychological processes.", "href": "https://scholar.google.com/scholar?q=Vygotsky+1978+mind+in+society" },
         { "author": "Kolb, D. A.", "year": "1984", "title": "Experiential learning: experience as the source of learning and development.", "href": "https://scholar.google.com/scholar?q=Kolb+1984+experiential+learning" }
