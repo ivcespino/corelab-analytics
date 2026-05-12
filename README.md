@@ -8,7 +8,7 @@ This project serves as the digital integration for the research study: *"The Rel
 
 CoreLab Analytics bridges the gap between raw statistical data and actionable educational insights. It allows researchers and administrators to visualize how laboratory usage frequency (hours/week) and intensity (hands-on engagement) correlate with student grade shifts between Preliminary and Midterm periods across five core BSIT subjects.
 
-Designed for the A.Y. 2025–2026 research cohort at STI College Malolos, this platform transforms a longitudinal performance study into an interactive web experience, enabling real-time data exploration and automated statistical analysis.
+Designed for the A.Y. 2025–2026 research cohort at STI College Malolos, this platform transforms a longitudinal performance study into an interactive web experience, enabling data exploration and automated statistical analysis.
 
 ### Key Features
 
