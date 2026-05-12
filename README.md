@@ -95,7 +95,6 @@ corelab-analytics-main/
 ### Study Design
 - **Participants** — 86 BSIT students at STI College Malolos
 - **Subjects** — Five core BSIT courses: Computer Programming 1 & 2, Event-Driven Programming, Systems Administration & Maintenance, and Introduction to Computing
-- **Timeline** — A.Y. 2025–2026 academic period (Preliminary to Midterm)
 - **Approach** — Quantitative correlational analysis
 
 ### Key Variables
