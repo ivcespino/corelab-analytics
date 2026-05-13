@@ -135,7 +135,7 @@
         { "text": "Determine the relationship between laboratory usage and Preliminary academic performance.", "href": "/dashboard#correlation" },
         { "text": "Determine the relationship between laboratory usage and Midterm academic performance.", "href": "/dashboard#correlation" },
         { "text": "Assess whether increased laboratory usage corresponds to positive performance change, using the computed Performance Change Score.", "href": "/dashboard#regression" },
-        { "text": "Develop a web-based tool for survey distribution, data visualization, and dissemination of findings.", "href": "/dashboard#dashboard-hero" }
+        { "text": "Develop a web-based tool for data visualization and dissemination of findings.", "href": "/dashboard#dashboard-hero" }
       ]
     },
     {
@@ -294,19 +294,19 @@
       "eyebrow": "Scope and Delimitation",
       "title": "Scope and Delimitation",
       "lead": "What the study covers— and the boundaries that keep the findings interpretable.",
-      "leftLabel": "In Scope",
+      "leftLabel": "Scope",
       "leftItems": [
-        "BSIT students at STI College Malolos with paired Preliminary + Midterm grades",
-        "Selected core IT subjects requiring computer laboratory use",
-        "Laboratory usage measured as Frequency (weekly hours) and Intensity (composite behavioral score)",
-        "Performance Change Score computed as Midterm − Preliminary"
+        "BSIT students (Year 1 to Year 3) at STI College Malolos.   Dependent variable: Performance Change Score (Midterm grade – Preliminary grade).",
+        "Paired Preliminary and Midterm grades in selected core IT subjects.",
+        "Laboratory usage measured by two variables: Frequency (weekly hours) and Intensity (composite engagement score).",
+        "Dependent variable: Performance Change Score (Midterm grade – Preliminary grade)."
       ],
-      "rightLabel": "Out of Scope",
+      "rightLabel": "Limitations",
       "rightItems": [
-        "4th-year BSIT students (excluded; revised population = 406)",
-        "General education and elective subjects",
-        "Objective attendance logs / registrar grade records (study uses self-report)",
-        "External factors: tutoring, home internet, study habits, attendance in non-lab classes"
+        "4th-year BSIT students.",
+        "General education and elective subjects.",
+        "Data reliance on self-report (usage logs and grades).",
+        "External factors (e.g., tutoring, home internet access)."
       ]
     },
     {
